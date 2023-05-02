@@ -4,7 +4,7 @@ const config = {
       host: "localhost",
       user: "root",
       password: "",
-      database: "prorums",
+      database: "busy",
     },
     listPerPage: 10,
   };

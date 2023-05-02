@@ -3,7 +3,7 @@
     <div class="filter">
         
             <h1>busy</h1>
-            <button class="mdc-button foo-button">
+            <button class="mdc-button foo-button" onclick="scroll(register)">
                 <div class="mdc-button__ripple"></div>
                 <span class="mdc-button__label">Button</span>
               </button>
@@ -11,11 +11,9 @@
     
 </section>
 
-<div class="mark">
-    <svg width="512" height="385" viewBox="0 0 512 385" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M102.356 202.223C139.356 131.223 87.3555 -24.2766 185.356 3.22339C283.356 30.7234 304.356 88.7239 329.356 137.723C354.355 186.723 590.355 236.724 484.855 320.224C379.355 403.724 132.855 395.724 35.8554 352.724C-61.1446 309.724 65.3557 273.223 102.356 202.223Z" fill="#3F02E8"/>
-    </svg>
-</div>
+<section class="register" class="vh-100">
+    <app-register #register ></app-register>
+</section>
 
 
 <app-btn-goto [label]="'hola'"></app-btn-goto>

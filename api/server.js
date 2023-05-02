@@ -18,9 +18,13 @@ app.get("/", (req, res) => {
 });
 /* routes */
 // auth
-app.post("/auth/login", authRouter);
 app.post("/auth/register", authRouter);
+app.post("/auth/login", authRouter);
 app.post("/auth/renew", authRouter);
+
+// users
+
+
 // reactions
 app.get("/reactions", reactionRouter);
 app.get("/reaction/:id", reactionRouter);
@@ -39,5 +43,5 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(port, () => {
-  console.log(`Servidor API Prorums abierto en -> http://localhost:${port}`);
+  console.log(`Servidor API Busy abierto en -> http://localhost:${port}`);
 });

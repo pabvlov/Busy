@@ -33,29 +33,26 @@ router.post('/auth/login', async function(req, res, next) {
 
 router.post('/auth/register', async function(req, res, next) {
 try {
-    const { mail, name, nickname, password } = req.body;
-    const rows = await auth.validateLogin(mail, password)
+    const { rut, dv, mail, nombres, apellidos, password } = req.body;
+    const rows = await auth.validateLogin(rut, password)
       let count = 0;
       for(var row in rows) count++;
       if(count === 1) {
         
         return res.status(200).json({
             ok: false,
-            resp: 'Ya existe un usuario con ese correo'
-        })
-      } else if(await auth.validateApodo(nickname)) {
-        return res.status(200).json({
-            ok: false,
-            resp: 'Ya existe el apodo '+ nickname
+            resp: 'El RUT que usted especificó ya está registrado'
         })
       } else {
-        await auth.createUser(mail, name, nickname, password);
+        await auth.createUser(rut, dv, mail, nombres, apellidos, password).then(() => {
+          
         return res.status(202).json({
             ok: true
         })
       }
+    )}
 } catch (err) {
-    console.error(`Error while getting that auth service `, err.message);
+    console.error(`Error while getting that auth service: `, err.message);
     next(err);
 }
 });

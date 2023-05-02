@@ -3,10 +3,10 @@
   }
   .sidebar {
     flex: 0 0 4.5rem;
-    position: fixed;
+    position: inherit;
     background: lightblue;
   }
   .page-wrapper {
     flex: 1 1 auto;
-    background: orange;
+    background: white;
   }
