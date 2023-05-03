@@ -1,0 +1,12 @@
+ .full-page {
+    display: flex;
+  }
+  .sidebar {
+    flex: 0 0 4.5rem;
+    position: inherit;
+    background: lightblue;
+  }
+  .page-wrapper {
+    flex: 1 1 auto;
+    background: white;
+  }

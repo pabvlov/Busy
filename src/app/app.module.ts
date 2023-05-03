@@ -2,15 +2,35 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
+import { LandingComponent } from './landing/landing.component';
+import { SharedModule } from './shared/shared.module';
+import { BtnGotoComponent } from './shared/btn-goto/btn-goto.component';
+import { SidebarComponent } from './shared/sidebar/sidebar.component';
+import { RegisterComponent } from './shared/register/register.component';
+import { HttpClientModule } from '@angular/common/http';
+import { LoginComponent } from './shared/login/login.component';
+import { ApplicationModule } from './application/application.module';
+import { ApplicationComponent } from './application/application.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    LandingComponent,
+    BtnGotoComponent,
+    SidebarComponent,
+    RegisterComponent,
+    LoginComponent,
+    ApplicationComponent,
+    AppComponent // must be last
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    ApplicationModule
   ],
   providers: [],
   bootstrap: [AppComponent]

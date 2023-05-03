@@ -1,0 +1,47 @@
+
+.welcome {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    background: url(../../assets/img/mrlapaditeaxe.webp) no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.mark {
+    left: 32px !important;
+    margin: 15% auto auto -20%;
+    
+    @media screen and (min-width: 600px) {
+        left: 0 !important;
+        margin: auto auto auto 32px;
+    }
+}
+
+svg {
+    width: 60%;
+    @media screen and (min-width: 600px) {
+        width: 100%;
+        height: auto;
+    }
+        
+}
+
+.filter {
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    text-align: center;
+}
+
+h1 {
+    font-size: 4rem;
+    
+    color: white;
+}
+
+
+
+.vh-100 {
+    height: 100vh;
+}
