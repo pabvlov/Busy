@@ -1,8 +1,8 @@
 const jwt = require('jsonwebtoken')
 require('dotenv').config()
 
-const generarJWT = ( uid, name, foto ) => {
-    const payload = { uid, name, foto };
+const generarJWT = ( rut, nombres, apellidos, foto, mail ) => {
+    const payload = { rut, nombres, apellidos, foto, mail };
 
     return new Promise((resolve, reject) => {
         jwt.sign(payload, process.env.SECRET_JWT_SEED, {
@@ -17,8 +17,8 @@ const generarJWT = ( uid, name, foto ) => {
 }
 
 const validarJWT = ( token ) => {
-    const { uid, name, foto } = jwt.verify(token, process.env.SECRET_JWT_SEED)
-    return { uid, name, foto }
+    const { rut, nombres, apellidos, foto, mail } = jwt.verify(token, process.env.SECRET_JWT_SEED)
+    return { rut, nombres, apellidos, foto, mail }
 }
 module.exports = {
     generarJWT,

@@ -7,12 +7,19 @@
                 <div class="mdc-button__ripple"></div>
                 <span class="mdc-button__label">Button</span>
               </button>
+
+            <h3 *ngFor="let user of users">{{ user | json }}</h3>
+              
     </div>
     
 </section>
 
 <section class="register" class="vh-100">
     <app-register #register ></app-register>
+</section>
+
+<section class="login" class="vh-100">
+    <app-login #login></app-login>
 </section>
 
 

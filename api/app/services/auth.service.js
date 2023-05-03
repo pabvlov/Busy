@@ -6,13 +6,16 @@ const { log } = require('console');
 
 async function validateLogin(rut, password){
   const userSalt = await db.query(`SELECT salt FROM usuario where rut = '${ rut }'`);
+  
   if (userSalt.length === 0) {
-    return false;
+    return { ok: true, message: 'El usuario no existe en nuestra base de datos' }
   } else {
     const sha256Hasher = crypto.createHmac("sha256", userSalt[0].salt)
     const hash = sha256Hasher.update(password, "utf8").digest("base64")
-    const login = await db.query(`SELECT rut, dv, mail, nombres, apellidos FROM usuario where rut = '${ rut }' and password = '${ hash }'`);
-    return login;
+    const login = await db.query(`SELECT rut, dv, mail, nombres, apellidos, foto FROM usuario where rut = '${ rut }' and password = '${ hash }'`);
+    if (login.length === 0 ) {
+      return { ok: false, message: 'La contraseña es incorrecta' }
+    } else return { ok: true, content: login };
   }
 }
 

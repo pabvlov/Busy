@@ -5,6 +5,7 @@ app.use(cors())
 const port = 3000;
 const authRouter = require("./app/routes/auth.routes");
 const reactionRouter = require("./app/routes/reaction.routes");
+const userRouter = require("./app/routes/user.routes");
 app.use(express.json());
 app.use(
   express.urlencoded({
@@ -23,8 +24,8 @@ app.post("/auth/login", authRouter);
 app.post("/auth/renew", authRouter);
 
 // users
-
-
+app.get("/users", userRouter);
+app.get("/user/:rut/:dv", userRouter);
 // reactions
 app.get("/reactions", reactionRouter);
 app.get("/reaction/:id", reactionRouter);

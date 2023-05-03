@@ -9,6 +9,10 @@ import { SharedModule } from './shared/shared.module';
 import { BtnGotoComponent } from './shared/btn-goto/btn-goto.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { RegisterComponent } from './shared/register/register.component';
+import { HttpClientModule } from '@angular/common/http';
+import { LoginComponent } from './shared/login/login.component';
+import { ApplicationModule } from './application/application.module';
+import { ApplicationComponent } from './application/application.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +20,8 @@ import { RegisterComponent } from './shared/register/register.component';
     BtnGotoComponent,
     SidebarComponent,
     RegisterComponent,
+    LoginComponent,
+    ApplicationComponent,
     AppComponent // must be last
   ],
   imports: [
@@ -23,6 +29,8 @@ import { RegisterComponent } from './shared/register/register.component';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule,
+    ApplicationModule
   ],
   providers: [],
   bootstrap: [AppComponent]
