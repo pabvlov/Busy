@@ -84,6 +84,7 @@ router.post('/auth/renew', async function(req, res, next) {
           ok: true,
           content: {
             rut, 
+            token,
             nombres,
             apellidos,
             foto,
@@ -93,7 +94,7 @@ router.post('/auth/renew', async function(req, res, next) {
       } catch (error) {
         return res.status(200).json({
           ok: false,
-          message: 'Token no valido'
+          message: 'Token no valido: ' + error
         })
       }
     } catch (err) {

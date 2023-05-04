@@ -58,13 +58,15 @@ export class UserService {
             } // le asignamos al usuario la response
           }
         } ),
-        map( resp => resp.ok )
+        map( resp => resp )
       )
   }
 
   renewSession() {
     const url = `http://localhost:3000/auth/renew`
-    return this.httpClient.post<Session>(url, { token: localStorage.getItem('token')! } )
+    console.log(localStorage.getItem('token'));
+    
+    return this.httpClient.post<Session>(url, { token: localStorage.getItem('token') } )
       .pipe(
         tap( resp => {
           if( resp.ok ) {
@@ -78,8 +80,7 @@ export class UserService {
               foto: resp.content.foto!
             } // le asignamos al usuario la response
           }
-        } ),
-        map( resp => resp.ok )
+        } ) 
       )
   }
 

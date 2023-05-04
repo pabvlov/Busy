@@ -17,7 +17,8 @@ const generarJWT = ( rut, nombres, apellidos, foto, mail ) => {
 }
 
 const validarJWT = ( token ) => {
-    const { rut, nombres, apellidos, foto, mail } = jwt.verify(token, process.env.SECRET_JWT_SEED)
+    console.log(token);
+    return { rut, nombres, apellidos, foto, mail } = jwt.verify(token, process.env.SECRET_JWT_SEED)
     return { rut, nombres, apellidos, foto, mail }
 }
 module.exports = {
