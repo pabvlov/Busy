@@ -9,7 +9,9 @@ import { map, tap } from 'rxjs';
 })
 export class UserService {
 
-  private _usuario: User = {
+  public loggedIn: boolean = false; // variable para saber si el usuario está logueado
+
+  public _usuario: User = {
     rut: '',
     nombres: '',
     apellidos: '',
@@ -56,6 +58,8 @@ export class UserService {
               mail: resp.content.mail!,
               foto: resp.content.foto!
             } // le asignamos al usuario la response
+
+            this.loggedIn = true; // seteamos la variable loggedIn a true
           }
         } ),
         map( resp => resp )
@@ -63,9 +67,7 @@ export class UserService {
   }
 
   renewSession() {
-    const url = `http://localhost:3000/auth/renew`
-    console.log(localStorage.getItem('token'));
-    
+    const url = `http://localhost:3000/auth/renew`    
     return this.httpClient.post<Session>(url, { token: localStorage.getItem('token') } )
       .pipe(
         tap( resp => {
@@ -78,10 +80,20 @@ export class UserService {
               apellidos: resp.content.apellidos!,
               mail: resp.content.mail!,
               foto: resp.content.foto!
-            } // le asignamos al usuario la response
+            } 
           }
         } ) 
       )
   }
 
+  _session() {
+    const url = `http://localhost:3000/auth/renew`  
+    let session = false
+    return this.httpClient.post<Session>(url, { token: localStorage.getItem('token') } )
+      .pipe(
+        tap( resp => {
+        } ),
+        map( resp => resp.ok ) 
+      )
+  }
 }

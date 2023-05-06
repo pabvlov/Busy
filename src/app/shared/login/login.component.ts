@@ -47,8 +47,7 @@ export class LoginComponent {
     this.userService.getSession(this.personForm.value.rut!, this.passwordForm.value.password!)
             .subscribe(resp => {
               if( resp ) {
-                this.router.navigateByUrl('/app', {skipLocationChange: true});
-                window.location.reload();
+                this.router.navigateByUrl('/app');
               }
             })
   }

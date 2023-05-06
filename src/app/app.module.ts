@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
@@ -13,6 +13,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './shared/login/login.component';
 import { ApplicationModule } from './application/application.module';
 import { ApplicationComponent } from './application/application.component';
+import { AuthGuardGuard } from './guard/auth-guard.guard';
+import { AntiAuthGuard } from './guard/anti-auth.guard';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -21,7 +24,6 @@ import { ApplicationComponent } from './application/application.component';
     SidebarComponent,
     RegisterComponent,
     LoginComponent,
-    ApplicationComponent,
     AppComponent // must be last
   ],
   imports: [
@@ -30,9 +32,11 @@ import { ApplicationComponent } from './application/application.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    ApplicationModule
+    ApplicationModule,
+    BrowserAnimationsModule,
+    MatFormFieldModule,
   ],
-  providers: [],
+  providers: [AuthGuardGuard, AntiAuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

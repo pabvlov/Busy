@@ -46,7 +46,7 @@
 
  <nav class="navbar fixed-top">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Offcanvas navbar</a>
+    <a class="navbar-brand" href="#"><h5 class="navbar-brand">busy</h5></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
       <i class="fa-solid fa-list"></i>
     </button>
@@ -60,23 +60,26 @@
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="#"><i class="fa-solid fa-house"></i> Inicio</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#"><i class="fa-solid fa-right-to-bracket"></i> Ingresar</a>
+          <li class="nav-item" *ngIf="!isLogged">
+            <a class="nav-link" routerLink="login"><i class="fa-solid fa-right-to-bracket"></i> Ingresar</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#"><i class="fa-solid fa-user-plus"></i> Registrarse</a>
+          <li class="nav-item" *ngIf="!isLogged">
+            <a class="nav-link" routerLink="register"><i class="fa-solid fa-user-plus"></i> Registrarse</a>
+          </li>
+          <li class="nav-item" *ngIf="isLogged">
+            <a class="nav-link" routerLink="app"><i class="fa-solid fa-user-plus"></i> App</a>
+          </li>
+          <li class="nav-item" *ngIf="isLogged">
+            <a class="nav-link" routerLink="app/offer"><i class="fa-solid fa-user-plus"></i> Registrar Trabajo</a>
           </li>
           <li class="nav-item dropdown" *ngIf="isLogged">
+            
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Dropdown
+              {{ lilName }}
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" (click)="logout()">Logout</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li>
-                <hr class="dropdown-divider">
-              </li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
+              <li><a class="dropdown-item" (click)="logout()">Salir</a></li>
+              <li><a class="dropdown-item" href="#">Mi Perfil</a></li>
             </ul>
           </li>
         </ul>

@@ -1,6 +1,8 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { User } from '../interfaces/user';
+import { AuthGuardGuard, Permissions } from '../guard/auth-guard.guard';
+import { Router } from '@angular/router';
 
 
 
@@ -9,7 +11,7 @@ import { User } from '../interfaces/user';
   templateUrl: './landing.component.html',
   styleUrls: ['./landing.component.scss']
 })
-export class LandingComponent implements AfterViewInit {
+export class LandingComponent implements AfterViewInit, OnInit {
 
   users: User[] = []
 
@@ -17,10 +19,22 @@ export class LandingComponent implements AfterViewInit {
     element.scrollIntoView({ behavior: 'smooth' });
   }
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private auth: AuthGuardGuard, private route: Router, private permission: Permissions) { }
+
+  get _user() {
+    return this.userService._usuario;
+  }
 
   ngAfterViewInit(): void {
     this.getUsers();
+  }
+
+  ngOnInit(): void {
+    this.userService._session().subscribe(resp => {
+      if (resp) {
+        this.route.navigate(['/app']);
+      }
+    })
   }
 
   getUsers() {

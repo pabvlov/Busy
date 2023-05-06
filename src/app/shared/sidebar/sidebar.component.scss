@@ -19,6 +19,11 @@
     color: white;
 }
 
-.offcanvas-title {
+.offcanvas-title, .navbar-brand {
+    color: #3f02e8 !important;
+    font-family: 'Secular One';
+}
+
+.fa-solid { 
     color: #3f02e8;
 }
