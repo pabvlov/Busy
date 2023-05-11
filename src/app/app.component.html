@@ -3,8 +3,9 @@
         <app-sidebar></app-sidebar>
     </section>
     <section class="page-wrapper">
-        <app-landing *ngIf="!isLogged"></app-landing>
-        <app-application *ngIf="isLogged"></app-application>
+        <router-outlet></router-outlet>
+        <!-- <app-landing *ngIf="!isLogged"></app-landing>
+        <app-application *ngIf="isLogged"></app-application> -->
     </section>
 </div>
 

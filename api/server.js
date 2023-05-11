@@ -1,12 +1,16 @@
 const express = require("express");
 const cors = require('cors');
+
 const app = express();
 app.use(cors())
 const port = 3000;
 const authRouter = require("./app/routes/auth.routes");
 const reactionRouter = require("./app/routes/reaction.routes");
 const userRouter = require("./app/routes/user.routes");
+const workRouter = require("./app/routes/work.routes");
 app.use(express.json());
+app.use(express.static('app/images'));
+app.use(express.static('app/images/profiles'));
 app.use(
   express.urlencoded({
     extended: true,
@@ -22,10 +26,17 @@ app.get("/", (req, res) => {
 app.post("/auth/register", authRouter);
 app.post("/auth/login", authRouter);
 app.post("/auth/renew", authRouter);
+app.post("/auth/regenerate", authRouter);
 
 // users
 app.get("/users", userRouter);
 app.get("/user/:rut/:dv", userRouter);
+app.post("/user/upload", userRouter);
+
+// work
+app.post("/work/uploadImage", workRouter);
+app.post("/work/add", workRouter);
+
 // reactions
 app.get("/reactions", reactionRouter);
 app.get("/reaction/:id", reactionRouter);
@@ -42,6 +53,8 @@ app.use((err, req, res, next) => {
   res.status(statusCode).json({ message: err.message });
   return;
 });
+
+
 
 app.listen(port, () => {
   console.log(`Servidor API Busy abierto en -> http://localhost:${port}`);

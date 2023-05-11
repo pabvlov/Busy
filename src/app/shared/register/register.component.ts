@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { delay } from 'rxjs';
 import { UserService } from 'src/app/services/user.service';
 
@@ -17,7 +18,7 @@ export class RegisterComponent implements OnInit {
   passInfo: string = '';
 
   /* constructor and init methods */
-  constructor(private fb: FormBuilder, private userService: UserService) { }
+  constructor(private fb: FormBuilder, private userService: UserService, private router: Router) { }
 
   ngOnInit(): void {
     this.personForm.valueChanges.subscribe(value => {
@@ -68,9 +69,7 @@ export class RegisterComponent implements OnInit {
             this.userService.getSession(rut!, password!)
             .subscribe(resp => {
               if( resp ) {
-                console.log(resp);
-                
-                /* this.router.navigateByUrl('/app', {skipLocationChange: true}); */
+                this.router.navigate(['/app/profile']);
               }
             })
           }

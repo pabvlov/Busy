@@ -15,9 +15,16 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     if (localStorage.getItem('token')) {
       this.userService.renewSession().subscribe(resp => {
-        this.isLogged = true;
+        if(!resp.ok) {
+          this.isLogged = false;
+        } else {
+          this.isLogged = true;
+        }
       });
-      
     }
   }
+
+  
+
+  
 }

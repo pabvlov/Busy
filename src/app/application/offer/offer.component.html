@@ -1,0 +1,54 @@
+<div class="container">
+    <form class="offer" [formGroup]="offerForm">
+      <h2>Registrar Trabajo</h2>
+      <br>
+        <mat-form-field>
+          <mat-label>Título</mat-label>
+          <input matInput placeholder="Cortar pasto en ..." formControlName="title">
+        </mat-form-field>
+      
+        <mat-form-field>
+          <mat-label>Cuéntanos, ¿de qué trata el trabajo?</mat-label>
+          <textarea matInput placeholder="El trabajo trata de..." formControlName="description"></textarea>
+        </mat-form-field>
+
+        <div class="input-group mb-3">
+          <input type="file" class="form-control" id="inputGroupFile02" (change)="handleEvent($event)" #fileUpload multiple accept="image/*">
+          <label class="input-group-text" for="inputGroupFile02">Upload</label>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-4 col-sm-12">
+            <mat-form-field>
+              <mat-label>Cantidad Personas</mat-label>
+              <input matInput type="number" min="1" formControlName="peopleNeeded">
+            </mat-form-field>
+          </div>
+  
+          <div class="col-lg-8 col-sm-12 right">
+            <mat-form-field>
+              <mat-label>Precio</mat-label>
+              <input matInput type="number" min="5000" formControlName="price">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <mat-form-field appearance="fill">
+          <mat-label>¿Para qué fecha lo quiere?</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="endDate">
+          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        
+        <mat-form-field appearance="fill">
+          <mat-label>¿Cuál será la fecha de selección de personal?</mat-label>
+          <input matInput [matDatepicker]="picker2" formControlName="selectionDate">
+          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+
+        <button class="btn color-busy mt-5" (click)="uploadWork()">Registrar</button>
+    </form>
+</div>

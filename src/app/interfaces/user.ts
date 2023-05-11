@@ -1,7 +1,19 @@
 export interface User {
-    rut: string;
-    nombres: string;
-    apellidos: string;
-    mail: string;
-    foto: string;
+    rut:              number;
+    dv:               number;
+    mail:             string;
+    nombres:          string;
+    apellidos:        string;
+    foto:             string;
+    direccion:        null;
+    esAdmin:          number;
+    fecha_nacimiento: null;
+    fecha_registro:   Date;
+    ultima_visita:    Date;
+    aprobado:         Aprobado;
+}
+
+export interface Aprobado {
+    type: string;
+    data: number[];
 }
