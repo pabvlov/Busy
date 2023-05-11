@@ -27,6 +27,7 @@ export class UserService {
     fecha_nacimiento: null,
     fecha_registro: new Date(),
     ultima_visita: new Date(),
+    ubicacion: undefined,
     aprobado: {
       type: '',
       data: []
@@ -109,6 +110,11 @@ export class UserService {
       )
   }
 
+  getUserDataFromToken() {
+    const url = `http://localhost:3000/auth/renew`    
+    return this.httpClient.post<Session>(url, { token: localStorage.getItem('token') } )
+  }
+
   regenerateSession() {
     const url = `http://localhost:3000/auth/regenerate`    
     return this.httpClient.post<Session>(url, { token: localStorage.getItem('token') } )
@@ -136,6 +142,7 @@ export class UserService {
                 data: aprobado!.data
               }
             } 
+            
           } else console.log(resp);
         } ) 
       )
@@ -147,6 +154,7 @@ export class UserService {
     return this.httpClient.post<Session>(url, { token: localStorage.getItem('token') } )
       .pipe(
         tap( resp => {
+
         } ),
         map( resp => resp.ok ) 
       )
@@ -167,5 +175,23 @@ export class UserService {
     body.append('file', file);
     this._usuario.foto = file.name;
     return this.httpClient.post('http://localhost:3000/user/upload', body);
+  }
+
+  getPosition(): Promise<any> {
+    return new Promise((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(resp => {
+                resolve({lng: resp.coords.longitude, lat: resp.coords.latitude});
+            },
+            err => {
+                reject(err);
+          });
+    });
+  }
+
+  updateUser(user: any) {
+    console.log(user.value);
+    const rut = user.value.rut.split('-')[0];
+    const dv = user.value.rut.split('-')[1];
+    return this.httpClient.put(`http://localhost:3000/user/edit`, user.value);
   }
 }

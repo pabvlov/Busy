@@ -17,9 +17,18 @@ async function getImage(rut) {
     return await db.query(`SELECT foto FROM usuario WHERE rut = "${ rut }"`)
 }
 
+async function updateUser(user) {
+    
+    const rut = user.rut.split('-')[0]
+    const dv = user.rut.split('-')[1]
+    return await db.query(`UPDATE usuario SET mail = "${ user.mail }", nombres = "${ user.nombres }", apellidos = "${ user.apellidos }", direccion = "${ user.direccion }", fecha_nacimiento = "${ user.fecha_nacimiento }" WHERE rut = "${ rut }"`)
+}
+
+
 module.exports = {
     getUsers,
     getUserByRut,
     uploadImage,
-    getImage
+    getImage,
+    updateUser
 }

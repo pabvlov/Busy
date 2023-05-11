@@ -1,14 +1,15 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnChanges } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
 import { ApiResponse } from '../../interfaces/api-response';
+import { Session } from 'src/app/interfaces/session';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
-export class ProfileComponent implements AfterViewInit, OnInit {
+export class ProfileComponent implements OnInit, AfterViewInit {
 
   constructor( private userService: UserService, private fb: FormBuilder ) {}
 
@@ -32,18 +33,56 @@ export class ProfileComponent implements AfterViewInit, OnInit {
     return this.userService._usuario.mail;
   }
 
+  get direccion() {
+    const { direccion } = this.userService._usuario;
+    if(direccion === 'undefined' || direccion === null || direccion === '') {
+      this.userService.getPosition().then(pos => {
+          return pos.lat + ',' + pos.lng;
+        })
+      }
+      return direccion;
+  }
+    
+
+  get fecha_nacimiento() {
+    return this.userService._usuario.fecha_nacimiento;
+  }
+
+  get ultima_visita() {
+    return this.userService._usuario.ultima_visita;
+  }
+
+  get fecha_registro() {
+    return this.userService._usuario.fecha_registro;
+  }
+
+  usuario() {
+    this.userService.getUserDataFromToken().subscribe( (res: Session) => {
+      return res.content.user;
+    })
+  }
+
   userData = this.fb.group({
-    rut: [this.rut, {disabled: true}],
+    rut: [this.rut],
     nombres: [this.userService._usuario.nombres],
     apellidos: [this.userService._usuario.apellidos],
     mail: [this.userService._usuario.mail],
-    ubicacion: ['Las Rosas 110, Quilpue']
+    direccion: [this.direccion],
+    fecha_nacimiento: [this.userService._usuario.fecha_nacimiento],
+    
   });
 
+
   ubicacion: String = ''
+  mapskey = "https://www.google.com/maps/embed/v1/place?key=AIzaSyDa4NeSZREAb_IGxYJ6Z_5FDuCM2VWHyMQ&q="
 
   setUbicacion(ubicacion: String) {
-    this.ubicacion = ubicacion;
+    if(ubicacion === 'undefined' || ubicacion === null || ubicacion === '') {
+      this.userService.getPosition().then(pos => {
+          this.ubicacion = `${this.latitude},${this.longitude}`;
+        })
+      }
+      this.ubicacion = ubicacion;
   }
 
   getUbicacion() {
@@ -55,10 +94,19 @@ export class ProfileComponent implements AfterViewInit, OnInit {
   }
 
   ngOnInit(): void {
-    this.userData.valueChanges.subscribe( data => {
-      this.setUbicacion(data.ubicacion!);
+    this.userService.getUserDataFromToken().subscribe( (res: Session) => {
+      const { rut, dv, nombres, apellidos, mail, direccion, fecha_nacimiento, ultima_visita, fecha_registro } = res.content.user;
+      this.userData.setValue({
+        rut: rut + '-' + dv,
+        nombres: nombres,
+        apellidos: apellidos,
+        mail: mail,
+        direccion: direccion,
+        fecha_nacimiento: fecha_nacimiento,
+      })
     })
-    this.setUbicacion(this.userData.value.ubicacion!);
+      
+    this.setUbicacion(this.userData.value.direccion!);
   }
 
   picture: any = new Event('');
@@ -66,6 +114,7 @@ export class ProfileComponent implements AfterViewInit, OnInit {
   handlePicture(event: Event) {
     this.picture = event;
     this.handleProfile();
+    this.getLocation();
   }
 
   handleProfile(){
@@ -81,6 +130,40 @@ export class ProfileComponent implements AfterViewInit, OnInit {
   }
 
   ngAfterViewInit(): void {
-    console.log(this.userService._usuario);
+    this.setUbicacion(this.userData.value.direccion!);
+    this.userData.setValue({
+      rut: this.rut,
+      nombres: this.nombres,
+      apellidos: this.apellidos,
+      mail: this.mail,
+      direccion: this.direccion,
+      fecha_nacimiento: this.fecha_nacimiento
+    });
+    
+    this.getLocation();
   }
+
+  latitude: string = "";
+  longitude: string = "";
+
+  getLocation() {
+    this.userService.getPosition().then(pos => {
+      if(this.userService._usuario.direccion === null){
+        this.latitude = pos.lat;
+        this.longitude = pos.lng;
+        this.ubicacion = `${this.latitude},${this.longitude}`;
+      }
+    });
+  }
+
+  editUser() {
+    
+    this.userService.updateUser(this.userData).subscribe((resp: any) => {
+      if(resp.ok) {
+        this.userService.regenerateSession().subscribe();
+      }
+    });
+  }
+
+
 }

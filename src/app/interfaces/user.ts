@@ -11,6 +11,12 @@ export interface User {
     fecha_registro:   Date;
     ultima_visita:    Date;
     aprobado:         Aprobado;
+    ubicacion?:       Ubicacion;
+}
+
+export interface Ubicacion {
+    lng: number;
+    lat: number;
 }
 
 export interface Aprobado {

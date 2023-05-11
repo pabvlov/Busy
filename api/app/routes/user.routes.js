@@ -63,5 +63,24 @@ router.post('/user/upload', upload.single("file"), (req, res) => {
   }
 });
 
+router.put('/user/edit', async function(req, res, next) {
+  try {
+    const data = req.body
+    await user.updateUser(data)
+    return res.status(201).json(
+      {
+        ok: true,
+        message: 'Usuario actualizado correctamente'
+      }
+    )
+  } catch (err) {
+    return res.status(200).json({
+      ok: false,
+      message: 'Error obteniendo el usuario: ' + err
+    })
+    next(err);
+  }
+});
+
 
 module.exports = router;
