@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const auth = require('../services/auth.service.js');
+const user = require('../services/user.service.js');
 const { generarJWT, validarJWT } = require('../utils/jwt');
 
 router.post('/auth/login', async function(req, res, next) {
@@ -16,18 +17,16 @@ router.post('/auth/login', async function(req, res, next) {
             message: 'Hubo un error',
           })
         }
-        const token = await generarJWT( rows.content[0].rut, rows.content[0].nombres, rows.content[0].apellidos, rows.content[0].foto, rows.content[0].mail )
+        // destructuring
+        const { rut, dv, nombres, apellidos, foto, mail, direccion, fecha_nacimiento, fecha_registro, ultima_visita, aprobado, esAdmin } = rows.content[0];
+        // regenerar jwt con datos nuevos
+        const token = await generarJWT( rut, dv, nombres, apellidos, foto, mail, direccion, fecha_nacimiento, fecha_registro, ultima_visita, aprobado, esAdmin )
         return res.status(202).json({
             ok: true,
             content: {
-              rut: rows.content[0].rut,
-              token: token,
-              nombre: rows.content[0].nombres,
-              apellidos: rows.content[0].apellidos,
-              foto: rows.content[0].foto,
-              mail: rows.content[0].mail
-            }
-            
+              user: rows.content[0],
+              token
+            },
         })
       } else {
         return res.status(401).json({
@@ -79,16 +78,25 @@ router.post('/auth/renew', async function(req, res, next) {
       })
 
       try {
-        const { rut, nombres, apellidos, foto, mail } = validarJWT(token)
+        const { rut, dv, nombres, apellidos, foto, mail, direccion, fecha_nacimiento, fecha_registro, ultima_visita, aprobado, esAdmin } = validarJWT(token)
         return res.status(201).json({
           ok: true,
           content: {
-            rut, 
-            token,
-            nombres,
-            apellidos,
-            foto,
-            mail
+            user: {
+              rut, 
+              dv, 
+              nombres, 
+              apellidos, 
+              foto, 
+              mail, 
+              direccion, 
+              fecha_nacimiento, 
+              fecha_registro, 
+              ultima_visita, 
+              aprobado, 
+              esAdmin
+            },
+            token
           }
         })
       } catch (error) {
@@ -101,6 +109,53 @@ router.post('/auth/renew', async function(req, res, next) {
       console.error(`Error while getting that auth service `, err.message);
       next(err);
     }
+});
+
+router.post('/auth/regenerate', async function(req, res, next) {
+  try {
+    const { token } = req.body
+    if(!token) return res.status(200).json({
+      ok: false,
+      message: 'Error en el token'
+    })
+    try {
+      const { rut } = validarJWT(token)
+      const rows = await user.getUserByRut(rut)
+      if(rows.length > 0) {
+        if (!rows[0]) {
+          return res.status(401).json({
+            ok: false,
+            message: 'Hubo un error',
+          })
+        } else {
+          const { rut, dv, nombres, apellidos, foto, mail, direccion, fecha_nacimiento, fecha_registro, ultima_visita, aprobado, esAdmin } = rows[0];
+          // regenerar jwt con datos nuevos
+          const token = await generarJWT( rut, dv, nombres, apellidos, foto, mail, direccion, fecha_nacimiento, fecha_registro, ultima_visita, aprobado, esAdmin )
+          return res.status(202).json({
+              ok: true,
+              content: {
+                user: rows[0],
+                token
+              }
+          })
+        }
+      } else {
+        return res.status(400).json({
+          ok: false,
+          message: "No existe un usuario con ese rut"
+        })
+      }
+    } catch (error) {
+      console.log(error);
+      return res.status(200).json({
+        ok: false,
+        message: 'Token no valido: ' + error
+      })
+    }
+  } catch (err) {
+    console.error(`Error while getting that auth service `, err.message);
+    next(err);
+  }
 });
 
 module.exports = router;

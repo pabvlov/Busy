@@ -16,6 +16,7 @@ import { ApplicationComponent } from './application/application.component';
 import { AuthGuardGuard } from './guard/auth-guard.guard';
 import { AntiAuthGuard } from './guard/anti-auth.guard';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SafePipe } from './pipes/safe.pipe';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     SidebarComponent,
     RegisterComponent,
     LoginComponent,
-    AppComponent // must be last
+    AppComponent, // must be last
   ],
   imports: [
     BrowserModule,

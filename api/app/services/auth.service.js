@@ -1,8 +1,6 @@
 const crypto = require('crypto');
 const db = require('./db');
 const helper = require('../../config/helper.js');
-const config = require('../../config/db.config');
-const { log } = require('console');
 
 async function validateLogin(rut, password){
   const userSalt = await db.query(`SELECT salt FROM usuario where rut = '${ rut }'`);
@@ -12,7 +10,7 @@ async function validateLogin(rut, password){
   } else {
     const sha256Hasher = crypto.createHmac("sha256", userSalt[0].salt)
     const hash = sha256Hasher.update(password, "utf8").digest("base64")
-    const login = await db.query(`SELECT rut, dv, mail, nombres, apellidos, foto FROM usuario where rut = '${ rut }' and password = '${ hash }'`);
+    const login = await db.query(`SELECT rut, dv, nombres, apellidos, foto, mail, direccion, fecha_nacimiento, fecha_registro, ultima_visita, aprobado, esAdmin FROM usuario where rut = '${ rut }' and password = '${ hash }'`);
     if (login.length === 0 ) {
       return { ok: false, message: 'La contraseña es incorrecta' }
     } else return { ok: true, content: login };

@@ -1,0 +1,41 @@
+.profile {
+    padding-top: 4rem;
+    background-color: rgb(206, 206, 206);
+    text-align: center;
+}
+
+.photo {
+    padding-bottom: 1rem;
+}
+
+#formulario {
+    display: flex;
+    flex-direction: column;
+    max-width: 600px;
+    margin: auto;
+}
+
+.image-upload>input {
+    display: none;
+}
+
+.edit {
+    border: 1px solid #3f02e8;
+    padding: 5px 7px;
+    border-radius: 50%;
+    color: #3f02e8;
+    position: absolute;
+    transition: .2s ease-in-out;
+}
+
+.edit:hover {
+    background-color: #3f02e8;
+    color: white;
+    transition: .2s ease-in-out;
+}
+
+.picture {
+    max-width: 100%;
+    max-height: 400px;
+    border-radius: 50%;
+}

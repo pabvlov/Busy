@@ -1,11 +1,11 @@
+import { User } from "./user"
+
 export interface Session {
     ok: boolean,
-    content: {
-        rut: string,
-        token?: string,
-        nombres?: string,
-        apellidos?: string,
-        mail?: string,
-        foto?: string
-    }
+    content: Content
+}
+
+export interface Content {
+    user:  User;
+    token: string;
 }

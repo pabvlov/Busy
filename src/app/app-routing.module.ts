@@ -7,6 +7,7 @@ import { AuthGuardGuard } from './guard/auth-guard.guard';
 import { ApplicationComponent } from './application/application.component';
 import { AntiAuthGuard } from './guard/anti-auth.guard';
 import { OfferComponent } from './application/offer/offer.component';
+import { ProfileComponent } from './application/profile/profile.component';
 
 const routes: Routes = [
   { path: '',  component: LandingComponent },
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'register',  component: RegisterComponent },
   { path: 'app', component: ApplicationComponent },
   { path: 'app/offer', component: OfferComponent },
+  { path: 'app/profile', component: ProfileComponent },
   { path: '**', redirectTo: 'app' }
 ];
 
