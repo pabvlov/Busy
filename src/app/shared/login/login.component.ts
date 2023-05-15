@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
+import { RutService } from 'rut-chileno';
 
 @Component({
   selector: 'app-login',
@@ -16,11 +17,11 @@ export class LoginComponent {
   fullname: string = '';
 
   /* constructor and init methods */
-  constructor(private fb: FormBuilder, private userService: UserService, private router: Router) { }
+  constructor(private fb: FormBuilder, private userService: UserService, private router: Router, private rutService: RutService) { }
 
   /* forms */
   personForm = this.fb.group({
-    rut: ['', Validators.required],
+    rut: ['', [Validators.required, this.rutService.validaRutForm]],
   });
 
   passwordForm = this.fb.group({
@@ -32,19 +33,27 @@ export class LoginComponent {
 
   next() {
     this.info = 'cargando...';
-    this.userService.getUserByRut(this.personForm.value.rut!).subscribe((data: any) => {
-      if (data.length > 0) {
-        this.info = 'Usuario encontrado';
-        this.fullname = `${data[0].nombres} ${data[0].apellidos}`;
-        this.step++;
-      } else {
-        this.info = 'Usuario no encontrado';
-      }
-    });
+
+    if (!this.rutService.validaRUT(this.personForm.value.rut!)) {
+      let rut: string = <string>this.rutService.getRutChile(3, this.personForm.value.rut!)!; // saca el rut en format 11111111-1
+      this.userService.getUserByRut(rut).subscribe((data: any) => {
+        if (data.length > 0) {
+          this.info = 'Usuario encontrado';
+          this.fullname = `${data[0].nombres} ${data[0].apellidos}`;
+          this.step++;
+        } else {
+          
+          this.info = 'Usuario no encontrado';
+        }
+      });
+    } else {
+      this.info = 'El rut que ingresaste no cumple con el formato correcto';
+    }
+    
   }
 
   login() {
-    this.userService.getSession(this.personForm.value.rut!, this.passwordForm.value.password!)
+    this.userService.getSession(<string>this.rutService.getRutChile(3, this.personForm.value.rut!)!, this.passwordForm.value.password!)
             .subscribe(resp => {
               if( resp ) {
                 this.router.navigate(['/app'], { skipLocationChange: false })

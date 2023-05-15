@@ -10,6 +10,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ProfileComponent } from './profile/profile.component';
 import { SafePipe } from '../pipes/safe.pipe';
+import { MatChipListbox, MatChipsModule } from '@angular/material/chips';
+import { BrowserModule } from '@angular/platform-browser';
 
 
 @NgModule({
@@ -21,12 +23,14 @@ import { SafePipe } from '../pipes/safe.pipe';
   ],
   imports: [
     CommonModule,
+    MatChipsModule,
     ApplicationRoutingModule,
     MatFormFieldModule,
-    MatInputModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserModule,
+    MatInputModule,
   ]
 })
 export class ApplicationModule { }

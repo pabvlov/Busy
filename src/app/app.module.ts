@@ -16,7 +16,8 @@ import { ApplicationComponent } from './application/application.component';
 import { AuthGuardGuard } from './guard/auth-guard.guard';
 import { AntiAuthGuard } from './guard/anti-auth.guard';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { SafePipe } from './pipes/safe.pipe';
+import { RutModule } from 'rut-chileno';
+import { MatChipsModule } from '@angular/material/chips';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,9 @@ import { SafePipe } from './pipes/safe.pipe';
     HttpClientModule,
     ApplicationModule,
     BrowserAnimationsModule,
+    RutModule,
+
+    MatChipsModule,
     MatFormFieldModule,
   ],
   providers: [AuthGuardGuard, AntiAuthGuard],
