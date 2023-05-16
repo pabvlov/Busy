@@ -26,6 +26,7 @@ export class SidebarComponent implements OnChanges {
 
   logout() { // removemos token jwt del localstorage, por lo tanto desloguea al usuario y lo manda al inicio
     localStorage.removeItem('token')
+    this.router.navigate(['/'], { skipLocationChange: false });
     window.location.reload();
   }
 
