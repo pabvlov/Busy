@@ -41,13 +41,30 @@ router.post('/work/add', upload.single("file"), (req, res) => {
     try {
         console.log(JSON.parse(req.body.work));
         console.log(req.file);
+        const { title, description, price, peopleNeeded, endDate, selectionDate, rut_empleador } = JSON.parse(req.body.work);
+        const object = {
+            title,
+            description,
+            price,
+            peopleNeeded,
+            endDate,
+            selectionDate,
+            image: req.file.filename,
+            rut_empleador: rut_empleador
+        }
+        
         if (req.file) {
-            res.json(
-                {
+            if(work.uploadWork(object)){
+                res.status(200).json({
                     ok: true,
-                    message: "Image uploaded: " + req.file.filename,
-                }
-            );
+                    message: "Trabajo subido con éxito",
+                 })   
+            } else {
+                res.status(400).json({
+                    ok: false,
+                    message: "Error while uploading work",
+                })   
+            }
         } else {
             res.status(400).json({
                 ok: false,

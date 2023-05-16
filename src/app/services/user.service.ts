@@ -148,6 +148,11 @@ export class UserService {
       )
   }
 
+  getUpdatedUserData() {
+    const url = `http://localhost:3000/auth/regenerate`    
+    return this.httpClient.post<Session>(url, { token: localStorage.getItem('token') } )
+  }
+
   _session() {
     const url = `http://localhost:3000/auth/renew`  
     let session = false

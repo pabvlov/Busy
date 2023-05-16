@@ -5,4 +5,5 @@ export interface Work {
     peopleNeeded: number;
     endDate: Date;
     selectionDate: Date;
+    rut_empleador: number;
 }
