@@ -2,3 +2,30 @@
     background-color: rgb(206, 206, 206);
     height: 100vh;
 }
+
+.workImage {
+    max-width: 400px;
+    height: 80%;
+    object-fit: cover;
+    margin: auto;
+    border-radius: 20px;
+}
+
+.workImage::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    box-shadow: inset 0 0 8px rgba(0,0,0,.6);
+    -moz-box-shadow: inset 0 0 8px rgba(0,0,0,.6);
+    -webkit-box-shadow: inset 0 0 8px rgba(0,0,0,.6);
+   } 
+
+.center {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+}

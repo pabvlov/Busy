@@ -12,7 +12,7 @@ const storageEngineProfile = multer.diskStorage({
 
 const upload = multer({
 storage: storageEngineProfile,
-limits: { fileSize: 10000000 },
+limits: { fileSize: 100000000 },
 });
 
 router.get('/users', async function(req, res, next) {
