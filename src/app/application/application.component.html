@@ -1,6 +1,6 @@
 <div class="split-page">
     <section id="application" class="flex-1">
-        <div class="right">
+        <div class="center">
             <div class="flex-container">
                 <div class="buttons-left">
                     <button class="btn btn-block transparent" (click)="prev()">
@@ -20,14 +20,25 @@
                     </button>
                 </div>
                 <div class="workImage">
+                    <div class="info">
+                        <span class="job-info">
+                            <span class="job-id">ID: {{ jobs[pos].id }}</span>
+                            <span class="job-title">
+                                {{jobs[pos].titulo}}
+                            </span>
+                            <span class="job-price">
+                                {{jobs[pos].precio | currency:'CLP$ ':'symbol':'1.0-0'}}
+                            </span>
+                            <a class="show-more" href="">Más información...</a>
+                        </span>
+                    </div>
                     <div class="filter">
-
                     </div>
                     <img [src]="'http://localhost:3000/'+jobs[pos].foto" class="content" [alt]="jobs[pos].titulo">
                 </div>
                 <div class="buttons-right">
                     <div class="upside">
-                        <a class="btn btn-block transparent">
+                        <a class="btn btn-block transparent" routerLink="about">
                             <span class="material-symbols-outlined">
                                 info
                             </span>
@@ -53,5 +64,4 @@
     <div class="p-10 flex-1">
         <app-job-info [job]="jobs[pos]"></app-job-info>
     </div>
-
 </div>

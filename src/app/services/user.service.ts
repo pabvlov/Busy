@@ -4,6 +4,7 @@ import { User } from '../interfaces/user';
 import { Session } from '../interfaces/session';
 import { map, tap } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { ApiResponse } from '../interfaces/api-response';
 
 @Injectable({
   providedIn: 'root'
@@ -49,8 +50,18 @@ export class UserService {
     let splitRut = rut.split('-');
     let dv = splitRut[1];
     rut = splitRut[0];
-    let user = this.httpClient.get(`http://localhost:3000/user/${rut}/${dv}`);    
-    return user;
+    if (dv == undefined) {
+      dv = "-1";
+    }
+    let user = this.httpClient.get<ApiResponse>(`http://localhost:3000/user/${rut}/${dv}`);    
+    return user.pipe(
+      tap( resp => {
+        if( resp.ok ) {
+          return resp.content;
+        }
+      } ),
+      map( resp => resp )
+    );
   }
 
   registerUser(rut: string, nombres: string, apellidos: string, mail: string, password: string): any {

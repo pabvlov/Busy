@@ -31,10 +31,6 @@
     display: none;
 } 
 
-#information::-webkit-scrollbar:horizontal {
-    height: 20px;
-}
-
 #information::-webkit-scrollbar-thumb {
     background-color: rgba($color: #3f02e8, $alpha: 1);
     border-radius: 20px;
@@ -44,10 +40,16 @@
     border-radius: 10px;  
 }
 
-span {
+/* span {
+    
+    padding-top: 20px;
+} */
+
+span.italic {
     font-family: 'Secular One';
     font-size: 3rem;
-    padding-top: 20px;
+    font-style: italic;
+    font-size: 1rem;
 }
 
 .card-title {
@@ -58,7 +60,9 @@ span {
 
 
 .card {
-    height: 150px;
+    height: 90%;
+    border-radius: 20px;
+    border: 5px solid #3f02e8;
 }
 
 iframe {
@@ -67,6 +71,7 @@ iframe {
     left: 0;
     width: 100% !important;
     height: 100% !important;
+    border-radius: 20px;
 }
 
 .precio {
@@ -75,4 +80,33 @@ iframe {
 
 .list-group-item {
     background-color: rgb(231, 231, 231);
+}
+
+.btn-busy {
+    background-color: #3f02e8;
+    color: white;
+    border-radius: 20px;
+    border: 0;
+    font-family: 'Secular One';
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding: 0 20px;
+    margin: 10px 0;
+    text-align: center;
+    transition: .2s ease-in-out;
+}
+
+.btn-busy:hover {
+    padding: 10px 20px;
+    transition: .2s ease-in-out;
+}
+
+.postular {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.btn-block {
+    width: 100%;
 }

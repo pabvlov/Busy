@@ -13,7 +13,7 @@ import { SafePipe } from '../pipes/safe.pipe';
 import { MatChipListbox, MatChipsModule } from '@angular/material/chips';
 import { BrowserModule } from '@angular/platform-browser';
 import { JobInfoComponent } from './job-info/job-info.component';
-import {MatCardModule} from '@angular/material/card';
+import { AboutComponent } from './about/about.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +21,8 @@ import {MatCardModule} from '@angular/material/card';
     OfferComponent,
     ProfileComponent,
     SafePipe,
-    JobInfoComponent
+    JobInfoComponent,
+    AboutComponent,
   ],
   imports: [
     CommonModule,
