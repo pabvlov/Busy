@@ -1,2 +1,57 @@
-<section id="application">
-</section>
+<div class="split-page">
+    <section id="application" class="flex-1">
+        <div class="right">
+            <div class="flex-container">
+                <div class="buttons-left">
+                    <button class="btn btn-block transparent" (click)="prev()">
+                        <span class="material-symbols-outlined">
+                            arrow_upward
+                        </span>
+                    </button>
+                    <a class="btn btn-block transparent" routerLink="offer">
+                        <span class="material-symbols-outlined">
+                            library_add
+                        </span>
+                    </a>
+                    <button class="btn btn-block transparent" (click)="next()">
+                        <span class="material-symbols-outlined">
+                            arrow_downward
+                        </span>
+                    </button>
+                </div>
+                <div class="workImage">
+                    <div class="filter">
+
+                    </div>
+                    <img [src]="'http://localhost:3000/'+jobs[pos].foto" class="content" [alt]="jobs[pos].titulo">
+                </div>
+                <div class="buttons-right">
+                    <div class="upside">
+                        <a class="btn btn-block transparent">
+                            <span class="material-symbols-outlined">
+                                info
+                            </span>
+                        </a>
+                        <a class="btn btn-block transparent" routerLink="profile">
+                            <span class="material-symbols-outlined">
+                                person
+                            </span>
+                        </a>
+                    </div>
+                    <div class="downside">
+                        <button class="btn btn-block transparent" (click)="logout()">
+                            <span class="material-symbols-outlined">
+                                logout
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div></div>
+    </section>
+    <div class="p-10 flex-1">
+        <app-job-info [job]="jobs[pos]"></app-job-info>
+    </div>
+
+</div>

@@ -18,6 +18,11 @@ import { AntiAuthGuard } from './guard/anti-auth.guard';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RutModule } from 'rut-chileno';
 import { MatChipsModule } from '@angular/material/chips';
+import {MatCardModule} from '@angular/material/card';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatButtonModule } from '@angular/material/button';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
 
 @NgModule({
   declarations: [
@@ -34,12 +39,13 @@ import { MatChipsModule } from '@angular/material/chips';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    ApplicationModule,
     BrowserAnimationsModule,
     RutModule,
-
     MatChipsModule,
     MatFormFieldModule,
+    MatDatepickerModule,
+    MatButtonModule,
+    MatNativeDateModule, MatMomentDateModule,
   ],
   providers: [AuthGuardGuard, AntiAuthGuard],
   bootstrap: [AppComponent]

@@ -38,3 +38,21 @@ body { margin: 0; font-family: "Secular One", Roboto, "Helvetica Neue", sans-ser
     background-color: #3f02e8;
     color: white;
 }
+
+.text-busy {
+    color: #3f02e8;
+}
+
+.transparent {
+    background-color: transparent;
+    border: 0;
+}
+
+.p-10 {
+    background-color: rgb(231, 231, 231);;
+    padding: 5.6rem 10% 5.6rem 20px;
+}
+
+.flex-1 {
+    flex: 0 1 50%;
+}
