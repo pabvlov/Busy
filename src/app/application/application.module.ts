@@ -12,14 +12,16 @@ import { ProfileComponent } from './profile/profile.component';
 import { SafePipe } from '../pipes/safe.pipe';
 import { MatChipListbox, MatChipsModule } from '@angular/material/chips';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { JobInfoComponent } from './job-info/job-info.component';
+import {MatCardModule} from '@angular/material/card';
 
 @NgModule({
   declarations: [
     ApplicationComponent,
     OfferComponent,
     ProfileComponent,
-    SafePipe
+    SafePipe,
+    JobInfoComponent
   ],
   imports: [
     CommonModule,

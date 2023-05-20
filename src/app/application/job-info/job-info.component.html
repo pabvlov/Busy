@@ -1,0 +1,41 @@
+<div class="container" id="information">
+        <h1 class="title text-busy">[{{ job.id }}] {{ job.titulo }}</h1>
+        <span class="precio">
+            {{ job.precio | currency:'CLP$ ':'symbol':'1.0-0' }}
+        </span>
+        <p class="description">
+            {{ job.descripcion }}
+        </p>
+        
+        <div class="row">
+            <div class="col-lg-4 col-6">
+                <div class="card text-center">
+                    <div class="card-title">
+                        Cantidad Personas
+                    </div>
+                    <div class="card-body">
+                       <span>{{ job.cantidad_personas }}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8 col-6">
+                <div class="card">
+                    <div class="card-body">
+                        <iframe style="border:0" loading="lazy" allowfullscreen
+                            referrerpolicy="no-referrer-when-downgrade" [src]="(mapskey + getUbicacion()) | safe">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">Fecha Publicación: {{ job.fecha_publicacion | date: 'dd/MM/yyyy' }}</li>
+            <li class="list-group-item">Fecha Selección: {{ job.fecha_seleccion_postulante | date: 'dd/MM/yyyy' }}</li>
+            <li class="list-group-item">Fecha Termino: {{ job.fecha_finalizacion | date: 'dd/MM/yyyy' }}</li>
+        </ul>
+            
+            
+            
+    
+</div>

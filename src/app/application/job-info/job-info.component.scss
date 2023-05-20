@@ -1,0 +1,78 @@
+.title {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 0.5em;
+    line-height: normal;
+    font-family: 'Secular One';
+}
+
+.description {
+    font-size: 1.2em;
+    font-weight: normal;
+    line-height: normal;
+    font-family: 'Secular One';
+}
+
+#information {
+    background-color: rgb(231, 231, 231);
+    height: 80vh;
+    overflow-y: scroll;
+}
+
+#information::-webkit-scrollbar {
+    -webkit-appearance: none;
+}
+
+#information::-webkit-scrollbar:vertical {
+    width:5px;
+}
+
+#information::-webkit-scrollbar-button:increment,#information::-webkit-scrollbar-button {
+    display: none;
+} 
+
+#information::-webkit-scrollbar:horizontal {
+    height: 20px;
+}
+
+#information::-webkit-scrollbar-thumb {
+    background-color: rgba($color: #3f02e8, $alpha: 1);
+    border-radius: 20px;
+}
+
+#information::-webkit-scrollbar-track {
+    border-radius: 10px;  
+}
+
+span {
+    font-family: 'Secular One';
+    font-size: 3rem;
+    padding-top: 20px;
+}
+
+.card-title {
+    font-family: 'Secular One';
+    font-size: 2rem;
+    padding-top: 20px;
+}
+
+
+.card {
+    height: 150px;
+}
+
+iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.precio {
+    padding-bottom: 10px;
+}
+
+.list-group-item {
+    background-color: rgb(231, 231, 231);
+}

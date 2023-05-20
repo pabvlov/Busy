@@ -15,6 +15,29 @@ storage: storageEngine,
 limits: { fileSize: 100000000 },
 });
 
+router.get('/works', async (req, res) => {
+    try {
+        res.json(await { ok: true, content: await work.getWorks()});
+    } catch (err) {
+        console.error(`Error while getting all jobs: `, err.message);
+        res.json({ ok: false, message: err.message });
+        next(err);
+    }
+});
+
+router.get('/work/getWorkById/:id', async (req, res) => {
+    try {
+        const workById = await work.getWorkById(req.params.id);
+        res.status(200).json({
+            ok: true,
+            work: workById,
+        });
+    } catch (err) {
+        console.error(`Error while getting the job: `, err.message);
+        next(err);
+    }
+});
+
 router.post('/work/uploadWork', upload.single("file"), (req, res) => {
     try {
         console.log(req.file);

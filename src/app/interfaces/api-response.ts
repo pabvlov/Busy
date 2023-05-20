@@ -1,4 +1,5 @@
 export interface ApiResponse {
     ok: boolean,
-    message: any
+    message?: any,
+    content?: any
 }

@@ -38,6 +38,8 @@ app.put("/user/edit", userRouter);
 // work
 app.post("/work/uploadImage", workRouter);
 app.post("/work/add", workRouter);
+app.get("/works", workRouter);
+app.get("/work/getWorkById/:id", workRouter);
 
 // reactions
 app.get("/reactions", reactionRouter);
