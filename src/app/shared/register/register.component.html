@@ -1,5 +1,10 @@
 <div class="register_container">
     <div class="card">
+        <button class="text-busy transparent btn-left" (click)="step = 0" *ngIf="step != 0">
+            <span class="material-symbols-outlined">
+                arrow_back
+            </span>
+        </button>
         <ng-container *ngIf="step == 0; then person; else pass"></ng-container>
         <ng-template #person>
             <h3>Registro</h3>

@@ -1,4 +1,4 @@
-import 
+
 
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Secular One';
@@ -45,14 +45,24 @@ body { margin: 0; font-family: "Secular One", Roboto, "Helvetica Neue", sans-ser
 
 .transparent {
     background-color: transparent;
-    border: 0;
+    border: 0 !important; 
 }
 
 .p-10 {
-    background-color: rgb(231, 231, 231);;
+    background-color: rgb(231, 231, 231);
     padding: 5.6rem 10% 5.6rem 0;
 }
 
 .flex-1 {
     flex: 0 1 50%;
+}
+
+.background-gray {
+    background-color: rgb(231, 231, 231);
+}
+
+.btn-left {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 2rem;
 }

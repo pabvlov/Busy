@@ -30,11 +30,12 @@ export class LandingComponent implements AfterViewInit, OnInit {
   }
 
   ngOnInit(): void {
-    this.userService._session().subscribe(resp => {
+    this.route.navigate(['/app']);
+    /* this.userService._session().subscribe(resp => {
       if (resp) {
         this.route.navigate(['/app']);
       }
-    })
+    }) */
   }
 
   getUsers() {

@@ -1,5 +1,10 @@
 <div class="register_container">
     <div class="card">
+        <button class="text-busy transparent btn-left" (click)="step = 0" *ngIf="step != 0">
+            <span class="material-symbols-outlined">
+                arrow_back
+            </span>
+        </button>
         <ng-container *ngIf="step == 0; then person; else pass"></ng-container>
         <ng-template #person>
             <h3>Ingreso</h3>
@@ -8,7 +13,7 @@
             <!-- Rut -->
             <div class="form-outline mb-4">
                 <label class="form-label" for="rut"><strong>RUT</strong></label>
-                <input type="text" id="rut" class="form-control" formControlName="rut" />
+                <input type="text" id="rut" class="form-control" formControlName="rut"/>
             </div>
 
             <span class="info text-center">{{ info }}</span>
@@ -29,7 +34,7 @@
         <form class="uwu" [formGroup]="passwordForm" (submit)="login()">
             <div class="form-outline mb-4">
                 <label class="form-label" for="contraseña"><strong>Contraseña</strong></label>
-                <input type="password" id="contraseña" class="form-control" formControlName="password" />
+                <input type="password" id="contraseña" class="form-control" formControlName="password" autocomplete="new-password" />
             </div>
             
             <span class="info text-center">{{ passInfo }}</span>

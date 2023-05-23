@@ -1,6 +1,5 @@
 .profile {
     padding-top: 4rem;
-    background-color: rgb(206, 206, 206);
     text-align: center;
 }
 
@@ -11,7 +10,6 @@
 #formulario {
     display: flex;
     flex-direction: column;
-    max-width: 800px;
     margin: auto;
 }
 
@@ -36,7 +34,7 @@
 
 .picture {
     max-width: 100%;
-    max-height: 400px;
+    max-height: 100px;
     border-radius: 50%;
 }
 
@@ -50,4 +48,18 @@
     padding-top: 30px;
     height: 0;
     overflow: hidden;
+}
+
+
+
+.btn {
+    max-width: 300px;
+    min-width: 150px;
+    margin: auto;
+
+}
+
+.trabajos {
+    width: 100%;
+    border: 0
 }

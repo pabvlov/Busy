@@ -1,9 +1,6 @@
  .full-page {
     display: flex;
-  }
-  .sidebar {
-    position: inherit;
-    background: lightblue;
+    flex-direction: column;
   }
   .page-wrapper {
     flex: 1 1 auto;

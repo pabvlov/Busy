@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const user = require('../services/user.service.js');
+const work = require('../services/work.service.js');
 const multer = require('multer');
 
 const storageEngineProfile = multer.diskStorage({
@@ -27,6 +28,24 @@ router.get('/users', async function(req, res, next) {
 router.get('/user/:rut/:dv', async function(req, res, next) {
   try {
     return res.status(201).json(await user.getUserByRut(parseInt(req.params.rut), parseInt(req.params.dv)))
+  } catch (err) {
+    return res.status(200).json({
+      ok: false,
+      msg: 'Error obteniendo el usuario: ' + err
+    })
+    next(err);
+  }
+});
+
+router.get('/user/profile/:rut/:dv', async function(req, res, next) {
+  try {
+    return res.status(201).json({
+      ok: true,
+      content: {
+        user: await user.getUserByRut(parseInt(req.params.rut), parseInt(req.params.dv)),
+        workInformation: await work.getWorksByRut(parseInt(req.params.rut), parseInt(req.params.dv))
+      }
+    })
   } catch (err) {
     return res.status(200).json({
       ok: false,
