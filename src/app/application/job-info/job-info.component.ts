@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnChanges } from '@angular/core';
 import { WorkInformation } from 'src/app/interfaces/work-information';
 import { UserService } from '../../services/user.service';
 import { User } from 'src/app/interfaces/user';
@@ -8,7 +8,7 @@ import { User } from 'src/app/interfaces/user';
   templateUrl: './job-info.component.html',
   styleUrls: ['./job-info.component.scss']
 })
-export class JobInfoComponent implements OnInit {
+export class JobInfoComponent implements OnInit, OnChanges {
 
   @Input()
   job!: WorkInformation;
@@ -40,6 +40,31 @@ export class JobInfoComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getUserInfo().subscribe((data: any) => {
+      this.empleador = data[0]
+    })
+  }
+
+  ngOnChanges(): void {
+    
+    this.empleador = {
+      rut: 0,
+      dv: 0,
+      nombres: '',
+      apellidos: '',
+      mail: '',
+      foto: '',
+      direccion: null,
+      esAdmin: 0,
+      fecha_nacimiento: null,
+      fecha_registro: new Date(),
+      ultima_visita: new Date(),
+      ubicacion: undefined,
+      aprobado: {
+        type: '',
+        data: []
+      }
+    }
     this.getUserInfo().subscribe((data: any) => {
       this.empleador = data[0]
     })

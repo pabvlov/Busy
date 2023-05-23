@@ -30,5 +30,5 @@ module.exports = {
     getUserByRut,
     uploadImage,
     getImage,
-    updateUser
+    updateUser,
 }

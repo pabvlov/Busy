@@ -1,19 +1,20 @@
+<app-navbar></app-navbar>
 <div class="split-page">
     <section id="application" class="flex-1">
         <div class="center">
             <div class="flex-container">
                 <div class="buttons-left">
-                    <button class="btn btn-block transparent" (click)="prev()">
+                    <button class="btn btn-block transparent" (click)="prev()" matTooltip="Subir" matTooltipPosition="above">
                         <span class="material-symbols-outlined">
                             arrow_upward
                         </span>
                     </button>
-                    <a class="btn btn-block transparent" routerLink="offer">
+                    <button class="btn btn-block transparent" (click)="gotoOffer()" matTooltip="Registrar Trabajo" matTooltipPosition="right">
                         <span class="material-symbols-outlined">
                             library_add
                         </span>
-                    </a>
-                    <button class="btn btn-block transparent" (click)="next()">
+                    </button>
+                    <button class="btn btn-block transparent" (click)="next()" matTooltip="Bajar" matTooltipPosition="below">
                         <span class="material-symbols-outlined">
                             arrow_downward
                         </span>
@@ -38,19 +39,17 @@
                 </div>
                 <div class="buttons-right">
                     <div class="upside">
-                        <a class="btn btn-block transparent" routerLink="about">
+                        <a class="btn btn-block transparent" routerLink="about" matTooltip="Sobre Busy" matTooltipPosition="right">
                             <span class="material-symbols-outlined">
                                 info
                             </span>
                         </a>
-                        <a class="btn btn-block transparent" routerLink="profile">
-                            <span class="material-symbols-outlined">
-                                person
-                            </span>
-                        </a>
+                        <button class="btn btn-block transparent" (click)="gotoProfile()" matTooltip="Mi Perfil" matTooltipPosition="right">
+                            <img [src]="'http://localhost:3000/'+usuario.foto" alt="" class="perfil-thumbnail">
+                        </button>
                     </div>
                     <div class="downside">
-                        <button class="btn btn-block transparent" (click)="logout()">
+                        <button class="btn btn-block transparent" (click)="logout()" matTooltip="Salir" matTooltipPosition="right">
                             <span class="material-symbols-outlined">
                                 logout
                             </span>

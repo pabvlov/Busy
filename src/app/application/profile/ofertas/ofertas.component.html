@@ -1,0 +1,10 @@
+<button *ngFor="let work of works" class="works" [style]="'background: url(http://localhost:3000/' + work.foto + ');'">
+    <div class="card text-center">
+        <div class="card-body" >
+            <div class="filter">
+                <h5 class="card-title">{{ work.titulo }}</h5>
+                <p class="card-text"> {{ work.precio | currency:'CLP$ ':'symbol':'1.0-0' }}</p>
+            </div>
+        </div>
+    </div>
+</button>

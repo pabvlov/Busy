@@ -110,3 +110,19 @@ iframe {
 .btn-block {
     width: 100%;
 }
+
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+button.btn-busy {    
+    -webkit-box-shadow: -5px 14px 12px 0px rgba(0,0,0,0.37);
+    -moz-box-shadow: -5px 14px 12px 0px rgba(0,0,0,0.37);
+    box-shadow: -5px 14px 12px 0px rgba(0,0,0,0.37);
+}

@@ -6,6 +6,8 @@ import { ApiResponse } from '../interfaces/api-response';
 import { getLocaleMonthNames } from '@angular/common';
 import { Work } from '../interfaces/work';
 import { Jobs } from '../interfaces/jobs';
+import Swal from 'sweetalert2';
+import { SwalService } from '../services/swal.service';
 
 @Component({
   selector: 'app-application',
@@ -16,10 +18,8 @@ export class ApplicationComponent {
 
   constructor(private userService: UserService,
     private workService: WorkService,
-    private router: Router) {
-    if (!this.userService.isAuthenticated()) {
-      window.location.href = '/';
-    }
+    private router: Router,
+    private swal: SwalService) {
   }
 
   isShowingAbout = false;
@@ -30,12 +30,36 @@ export class ApplicationComponent {
     window.location.reload();
   }
 
+  get usuario() {
+    return this.userService._usuario;
+  }
+
   pos = 0;
 
   next() {
     if (this.jobs.length - 1 > this.pos) {
       this.pos++;
     }
+  }
+
+  isLogged() {
+    return this.userService.isAuthenticated();
+  }
+
+  
+
+  gotoProfile() {
+    if (!this.userService.isAuthenticated()) {
+      this.swal.authFail();
+    } else  {
+      this.router.navigate(['app/profile']);
+    }
+  }
+
+  gotoOffer() {
+    if (!this.userService.isAuthenticated()) {
+      this.swal.authFail();
+    } else this.router.navigate(['app/offer']);
   }
 
   prev() {
@@ -46,7 +70,6 @@ export class ApplicationComponent {
     this.workService.getWorks().subscribe((data: ApiResponse) => {
       if (data.ok) {
         this.jobs = data.content;
-        console.log(this.jobs);
       } else {
         console.log(data.message);
       }

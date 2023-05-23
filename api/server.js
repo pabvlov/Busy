@@ -31,9 +31,11 @@ app.post("/auth/regenerate", authRouter);
 // users
 app.get("/users", userRouter);
 app.get("/user/:rut/:dv", userRouter);
+app.get("/user/profile/:rut/:dv", userRouter);
 app.post("/user/upload", userRouter);
 app.post("/user/add", userRouter);
 app.put("/user/edit", userRouter);
+
 
 // work
 app.post("/work/uploadImage", workRouter);

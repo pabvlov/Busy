@@ -1,0 +1,21 @@
+<nav class="navbar background-gray" *ngIf="isLogged">
+    <a routerLink="/" class="btn text-busy" matTooltip="Home" matTooltipPosition="below">
+      <span class="material-symbols-outlined">
+        home
+      </span>
+    </a>
+    <button class="btn text-white color-busy" (click)="logout()" matTooltip="Salir" matTooltipPosition="below">
+      <span class="material-symbols-outlined">
+        logout
+      </span>
+    </button>
+  </nav>
+  
+  <nav class="navbar background-gray" *ngIf="!isLogged">
+    <a routerLink="/register" class="btn text-white color-busy" matTooltip="Ingresar" matTooltipPosition="below">
+      <span class="material-symbols-outlined">
+        login
+      </span>
+      <span>Ingresar</span>
+    </a>
+</nav>

@@ -5,6 +5,7 @@ import { Session } from '../interfaces/session';
 import { map, tap } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { ApiResponse } from '../interfaces/api-response';
+import { Profile } from '../interfaces/profile';
 
 @Injectable({
   providedIn: 'root'
@@ -54,6 +55,24 @@ export class UserService {
       dv = "-1";
     }
     let user = this.httpClient.get<ApiResponse>(`http://localhost:3000/user/${rut}/${dv}`);    
+    return user.pipe(
+      tap( resp => {
+        if( resp.ok ) {
+          return resp.content;
+        }
+      } ),
+      map( resp => resp )
+    );
+  }
+
+  getProfileByRut(rut: string): any {
+    let splitRut = rut.split('-');
+    let dv = splitRut[1];
+    rut = splitRut[0];
+    if (dv == undefined) {
+      dv = "-1";
+    }
+    let user = this.httpClient.get<ApiResponse>(`http://localhost:3000/user/profile/${rut}/${dv}`);    
     return user.pipe(
       tap( resp => {
         if( resp.ok ) {
@@ -205,7 +224,6 @@ export class UserService {
   }
 
   updateUser(user: any) {
-    console.log(user.value);
     const rut = user.value.rut.split('-')[0];
     const dv = user.value.rut.split('-')[1];
     return this.httpClient.put(`http://localhost:3000/user/edit`, user.value);

@@ -20,7 +20,11 @@ export class RegisterComponent implements OnInit {
 
   /* constructor and init methods */
   constructor(private fb: FormBuilder, private userService: UserService,
-              private router: Router, private rutService: RutService) { }
+              private router: Router, private rutService: RutService) {
+                if (this.userService.isAuthenticated()) {
+                  window.location.href = '/';
+                }
+               }
 
   ngOnInit(): void {
 

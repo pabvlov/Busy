@@ -6,6 +6,9 @@ import { Session } from 'src/app/interfaces/session';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { MatChip } from '@angular/material/chips';
+import Swal from 'sweetalert2';
+import { SwalService } from 'src/app/services/swal.service';
+import { Profile } from 'src/app/interfaces/profile';
 
 
 
@@ -16,7 +19,11 @@ import { MatChip } from '@angular/material/chips';
 })
 export class ProfileComponent implements OnInit, AfterViewInit {
 
-  constructor( private userService: UserService, private fb: FormBuilder ) {}
+  constructor( private userService: UserService, private fb: FormBuilder, private swal: SwalService) {
+    if (!this.userService.isAuthenticated()) {
+      window.location.href = '/';
+    }
+  }
 
   get rut() {
     return this.userService._usuario.rut + '-' + this.userService._usuario.dv;
@@ -78,22 +85,6 @@ export class ProfileComponent implements OnInit, AfterViewInit {
   });
 
 
-  ubicacion: String = ''
-  mapskey = "https://www.google.com/maps/embed/v1/place?key=AIzaSyDa4NeSZREAb_IGxYJ6Z_5FDuCM2VWHyMQ&q="
-
-  setUbicacion(ubicacion: String) {
-    if(ubicacion === 'undefined' || ubicacion === null || ubicacion === '') {
-      this.userService.getPosition().then(pos => {
-          this.ubicacion = `${this.latitude},${this.longitude}`;
-        })
-      }
-      this.ubicacion = ubicacion;
-  }
-
-  getUbicacion() {
-    return this.ubicacion;
-  }
-
   get profilePicture() {
     return !!this.userService._usuario.foto ? "http://localhost:3000/" + this.userService._usuario.foto : '../../../assets/img/defaultprofilepic.png';
   }
@@ -111,7 +102,6 @@ export class ProfileComponent implements OnInit, AfterViewInit {
       })
     })
       
-    this.setUbicacion(this.userData.value.direccion!);
   }
 
   picture: any = new Event('');
@@ -119,7 +109,6 @@ export class ProfileComponent implements OnInit, AfterViewInit {
   handlePicture(event: Event) {
     this.picture = event;
     this.handleProfile();
-    this.getLocation();
   }
 
   handleProfile(){
@@ -135,7 +124,6 @@ export class ProfileComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.setUbicacion(this.userData.value.direccion!);
     this.userData.setValue({
       rut: this.rut,
       nombres: this.nombres,
@@ -144,28 +132,35 @@ export class ProfileComponent implements OnInit, AfterViewInit {
       direccion: this.direccion,
       fecha_nacimiento: this.fecha_nacimiento
     });
+    this.userService.regenerateSession().subscribe( (resp: any) => {
+      if(resp.ok) {
+        this.getProfileInfo(resp.content.user.rut.toString());
+      }
+    });
     
-    this.getLocation();
+  }
+
+  profileInfo!: Profile;
+
+  getProfileInfo(rut: string) {
+    this.userService.getProfileByRut(rut).subscribe( (resp: ApiResponse) => {
+      if(resp.ok) {
+        console.log(resp.content);
+        
+        this.profileInfo = resp.content;
+      }
+    })
   }
 
   latitude: string = "";
   longitude: string = "";
-
-  getLocation() {
-    this.userService.getPosition().then(pos => {
-      if(this.userService._usuario.direccion === null){
-        this.latitude = pos.lat;
-        this.longitude = pos.lng;
-        this.ubicacion = `${this.latitude},${this.longitude}`;
-      }
-    });
-  }
 
   editUser() {
     
     this.userService.updateUser(this.userData).subscribe((resp: any) => {
       if(resp.ok) {
         this.userService.regenerateSession().subscribe();
+        this.swal.success('Usuario actualizado', 'Se han actualizado los datos del usuario');
       }
     });
   }

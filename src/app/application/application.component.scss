@@ -10,6 +10,9 @@
     margin: auto;
     border-radius: 20px;
     box-shadow: inset 0px -15px 30px -10px rgba(58, 58, 58, 0.40);
+    -webkit-box-shadow: -12px 14px 46px 0px rgba(0,0,0,0.37);
+    -moz-box-shadow: -12px 14px 46px 0px rgba(0,0,0,0.37);
+    box-shadow: -12px 14px 46px 0px rgba(0,0,0,0.37);
 }
 
 .split-page {
@@ -135,4 +138,15 @@ button, a {
 .material-symbols-outlined {
     box-shadow: 0px 0px 200px -10px #ACA9D8;
 
+}
+
+.perfil-thumbnail {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin: 0 10px;
+    border: 3px solid #3f02e8;
+    -webkit-box-shadow: -5px 5px 23px 0px rgba(0,0,0,0.50);
+    -moz-box-shadow: -5px 5px 23px 0px rgba(0,0,0,0.50);
+    box-shadow: -5px 5px 23px 0px rgba(0,0,0,0.50);
 }
