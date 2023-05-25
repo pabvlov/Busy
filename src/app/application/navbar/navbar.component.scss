@@ -3,17 +3,22 @@
     right: 30px;
 }
 
-a {
+
+a.btn, button.btn {
     display: flex;
     flex-direction: row;
     -webkit-box-shadow: -12px 14px 46px 0px rgba(0,0,0,0.37);
     -moz-box-shadow: -12px 14px 46px 0px rgba(0,0,0,0.37);
     box-shadow: -12px 14px 46px 0px rgba(0,0,0,0.37);
+    border-radius: 20px;
+    margin-right: 20px;
+    min-width: 150px;
+    justify-content: space-around;
 }
 
-span {
-    margin: 5px;
+.title {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    font-family: 'Secular One' !important;
 }

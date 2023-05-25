@@ -31,7 +31,7 @@ router.post('/auth/login', async function(req, res, next) {
       } else {
         return res.status(401).json({
           ok: false,
-          resp: "Usuario no existe o contraseña incorrecta"
+          message: "Usuario no existe o contraseña incorrecta"
       })
       }
       

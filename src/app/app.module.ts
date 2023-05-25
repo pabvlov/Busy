@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { LandingComponent } from './landing/landing.component';
 import { BtnGotoComponent } from './shared/btn-goto/btn-goto.component';
 import { RegisterComponent } from './shared/register/register.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './shared/login/login.component';
 import { AuthGuardGuard } from './guard/auth-guard.guard';
 import { AntiAuthGuard } from './guard/anti-auth.guard';
@@ -20,6 +20,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { ApplicationModule } from './application/application.module';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import { ErrorInterceptor } from './interceptors/error.interceptor';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,9 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     MatNativeDateModule, MatMomentDateModule,
     ApplicationModule
   ],
-  providers: [AuthGuardGuard, AntiAuthGuard],
+  providers: [AuthGuardGuard, AntiAuthGuard,
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -79,6 +79,10 @@ export class ApplicationComponent {
   showAbout() {
     this.isShowingAbout = !this.isShowingAbout;
   }
+  
+  get foto() {
+    return !!this.usuario.foto ? this.usuario.foto : 'app/defaultprofilepic.png';
+  }
 
 
 
