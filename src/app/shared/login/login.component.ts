@@ -65,6 +65,10 @@ export class LoginComponent {
         if (resp) {
           this.router.navigate(['/app'], { skipLocationChange: false })
           this.swal.close();
+        } else {
+          this.swal.close();
+          this.swal.authFail("Contraseña incorrecta");
+          this.passInfo = 'Contraseña incorrecta';
         }
       })
   }

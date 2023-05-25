@@ -10,6 +10,7 @@
     background-color: transparent;
     width: 100%;
     height: 100px;
+    color: white;
 }
 
 .works {
@@ -21,9 +22,16 @@
     background-position: center;
     background-size: cover;
     border-radius: 10px;
-    max-height: 70px;
+    max-height: 100px;
 }
 
 .work {
     
+}
+
+.filter {
+    /* black filter */
+    padding: 10px;
+    background: rgba($color: #000000, $alpha: 0.5);
+    height: 100px;
 }

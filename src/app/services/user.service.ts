@@ -6,6 +6,7 @@ import { map, tap } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { ApiResponse } from '../interfaces/api-response';
 import { Profile } from '../interfaces/profile';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -40,7 +41,7 @@ export class UserService {
     this._usuario.foto = foto;
   }
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient, private router: Router) { }
 
   getUsers(): any {
     let users = this.httpClient.get('http://localhost:3000/users');
@@ -63,6 +64,12 @@ export class UserService {
       } ),
       map( resp => resp )
     );
+  }
+
+  logout() { // removemos token jwt del localstorage, por lo tanto desloguea al usuario y lo manda al inicio
+    localStorage.removeItem('token')
+    this.router.navigate(['/'], { skipLocationChange: false });
+    window.location.reload();
   }
 
   getProfileByRut(rut: string): any {

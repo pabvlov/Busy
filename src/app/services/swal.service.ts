@@ -60,11 +60,11 @@ export class SwalService {
     Swal.close();
   }
 
-  authFail() {
+  authFail(text: string = 'Debes iniciar sesión para acceder a esta sección') {
     let timerInterval: any;
       Swal.fire({
         position: 'top-end',
-        text: 'Debes iniciar sesión para acceder a esta sección',
+        text: text,
         timer: 2000,
         timerProgressBar: true,
         didOpen: () => {
