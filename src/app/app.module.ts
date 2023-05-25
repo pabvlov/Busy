@@ -17,7 +17,6 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatButtonModule } from '@angular/material/button';
-import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { ApplicationModule } from './application/application.module';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { ErrorInterceptor } from './interceptors/error.interceptor';
@@ -42,7 +41,7 @@ import { ErrorInterceptor } from './interceptors/error.interceptor';
     MatFormFieldModule,
     MatDatepickerModule,
     MatButtonModule,
-    MatNativeDateModule, MatMomentDateModule,
+    MatNativeDateModule,
     ApplicationModule
   ],
   providers: [AuthGuardGuard, AntiAuthGuard,

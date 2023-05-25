@@ -1,0 +1,69 @@
+.filter {
+    background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 10%, rgba(0,0,0,0) 100%);
+    height: 570px;
+    width: 450px;
+    position: absolute;
+    z-index: 1;
+    opacity: 0.5;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    color: white;
+    padding-bottom: 5%;
+    padding-left: 10px;
+}
+
+.info {
+    height: 570px;
+    width: 450px;
+    position: absolute;
+    z-index: 2;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    color: white;
+    padding: 0 0 5% 10px;
+}
+
+.job-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.job-id {
+    color: #ACA9D8;
+}
+
+.job-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.show-more {
+    font-size: 0.8rem;
+    font-weight: bold;
+    transition: .2s ease-in-out;
+    margin: 10px auto 0 0;
+}
+
+.content {
+    height: 100%;
+    max-width: 450px;
+    object-fit: cover;
+    border-radius: 20px;
+    min-width: 450px;
+}
+
+.workImage {
+    max-width: 450px;
+    height: 570px;
+    object-fit: cover;
+    margin: auto;
+    border-radius: 20px;
+    box-shadow: inset 0px -15px 30px -10px rgba(58, 58, 58, 0.40);
+    -webkit-box-shadow: -12px 14px 46px 0px rgba(0,0,0,0.37);
+    -moz-box-shadow: -12px 14px 46px 0px rgba(0,0,0,0.37);
+    box-shadow: -12px 14px 46px 0px rgba(0,0,0,0.37);
+}
