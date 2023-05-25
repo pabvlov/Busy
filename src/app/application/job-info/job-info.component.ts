@@ -2,6 +2,7 @@ import { Component, Input, OnInit, OnChanges } from '@angular/core';
 import { WorkInformation } from 'src/app/interfaces/work-information';
 import { UserService } from '../../services/user.service';
 import { User } from 'src/app/interfaces/user';
+import { WorkService } from 'src/app/services/work.service';
 
 @Component({
   selector: 'app-job-info',
@@ -10,13 +11,13 @@ import { User } from 'src/app/interfaces/user';
 })
 export class JobInfoComponent implements OnInit, OnChanges {
 
-  @Input()
-  job!: WorkInformation;
-
+  get job() {
+    return this.workService.jobs[this.workService.pos];
+  }
   isViewingMap = false;
 
   mapskey = "https://www.google.com/maps/embed/v1/place?key=AIzaSyDa4NeSZREAb_IGxYJ6Z_5FDuCM2VWHyMQ&q="
-  constructor(private userService: UserService) { 
+  constructor(private userService: UserService, private workService: WorkService) { 
 
   }
 

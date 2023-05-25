@@ -17,6 +17,8 @@ import { AboutComponent } from './about/about.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { OfertasComponent } from './profile/ofertas/ofertas.component';
+import { TrabajosComponent } from './trabajos/trabajos.component';
+import { ServiciosComponent } from './servicios/servicios.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +30,8 @@ import { OfertasComponent } from './profile/ofertas/ofertas.component';
     JobInfoComponent,
     AboutComponent,
     OfertasComponent,
+    TrabajosComponent,
+    ServiciosComponent,
   ],
   imports: [
     CommonModule,

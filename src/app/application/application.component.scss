@@ -3,17 +3,7 @@
     height: 100vh;
 }
 
-.workImage {
-    max-width: 450px;
-    height: 80%;
-    object-fit: cover;
-    margin: auto;
-    border-radius: 20px;
-    box-shadow: inset 0px -15px 30px -10px rgba(58, 58, 58, 0.40);
-    -webkit-box-shadow: -12px 14px 46px 0px rgba(0,0,0,0.37);
-    -moz-box-shadow: -12px 14px 46px 0px rgba(0,0,0,0.37);
-    box-shadow: -12px 14px 46px 0px rgba(0,0,0,0.37);
-}
+
 
 .split-page {
     display: flex;
@@ -22,64 +12,16 @@
     height: 100vh;
 }
 
-.content {
-    height: 100%;
-    max-width: 450px;
-    object-fit: cover;
-    border-radius: 20px;
-    min-width: 450px;
-}
 
 
-.filter {
-    background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 10%, rgba(0,0,0,0) 100%);
-    height: 80%;
-    width: 450px;
-    position: absolute;
-    z-index: 1;
-    opacity: 0.5;
-    border-radius: 20px;
+/* dual buttons on top of workImage */
+.dual-buttons {
     display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    color: white;
-    padding-bottom: 5%;
-    padding-left: 10px;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin: 30px 0 15px;
 }
 
-.info {
-    height: 80%;
-    width: 450px;
-    position: absolute;
-    z-index: 2;
-    border-radius: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    color: white;
-    padding: 0 0 5% 10px;
-}
-
-.job-info {
-    display: flex;
-    flex-direction: column;
-}
-
-.job-id {
-    color: #ACA9D8;
-}
-
-.job-title {
-    font-size: 1.2rem;
-    font-weight: bold;
-}
-
-.show-more {
-    font-size: 0.8rem;
-    font-weight: bold;
-    transition: .2s ease-in-out;
-    margin: 10px auto 0 0;
-}
 
 .show-more:hover {
     transform: scale(1.1);
@@ -103,15 +45,17 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    margin: 5.5rem 1rem;
+    margin: 1rem;
     transition: .2s ease-in-out;
+    width: 48px;
 }
 
 .buttons-right {
+    width: 48px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    margin: 5.5rem 1rem;
+    margin: 1rem;
     display: 100%;
 }
 
@@ -145,9 +89,25 @@ button, a {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    margin: 0 10px;
+    margin: 0;
     border: 3px solid #3f02e8;
     -webkit-box-shadow: -5px 5px 23px 0px rgba(0,0,0,0.50);
     -moz-box-shadow: -5px 5px 23px 0px rgba(0,0,0,0.50);
     box-shadow: -5px 5px 23px 0px rgba(0,0,0,0.50);
+}
+
+#servicios, #trabajos {
+    display: flex;
+    flex-direction: row;
+    -webkit-box-shadow: -12px 14px 46px 0px rgba(0,0,0,0.37);
+    -moz-box-shadow: -12px 14px 46px 0px rgba(0,0,0,0.37);
+    box-shadow: -12px 14px 46px 0px rgba(0,0,0,0.37);
+    border-radius: 20px;
+    margin: 0 20px;
+    min-width: 150px;
+    justify-content: space-around;
+}
+
+button.profile {
+    padding: 0;
 }
