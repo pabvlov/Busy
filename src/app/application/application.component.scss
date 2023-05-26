@@ -6,8 +6,6 @@
 
 
 .split-page {
-    display: -webkit-box;
-    width: 100%;
     height: 100vh;
 }
 
@@ -32,7 +30,7 @@
     display: flex;
     justify-content: center;
     height: 100%;
-    width: 100vh;
+    width: 100%;
 }
 
 .flex-container {
@@ -109,4 +107,8 @@ button, a {
 
 button.profile {
     padding: 0;
+}
+
+.hidden {
+    display: none;
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
 import { WorkService } from '../services/work.service';
@@ -10,8 +10,15 @@ import { SwalService } from '../services/swal.service';
   styleUrls: ['./application.component.scss']
 })
 export class ApplicationComponent {
+
+  public innerWidth: any = window.innerWidth;
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.innerWidth = window.innerWidth;
+  }
   /* Section 1 = Trabajos, Section 2 = Servicios */
   section = 1;
+  showingInfo = false;
 
   constructor(private userService: UserService,
     private workService: WorkService,
