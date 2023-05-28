@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { WorkInformation } from 'src/app/interfaces/work-information';
+import { Jobs } from 'src/app/interfaces/jobs';
 
 @Component({
   selector: 'app-ofertas',
@@ -8,5 +8,5 @@ import { WorkInformation } from 'src/app/interfaces/work-information';
 })
 export class OfertasComponent {
 
-  @Input('ofertas') works: WorkInformation[] = [];
+  @Input('ofertas') works: Jobs[] = [];
 }

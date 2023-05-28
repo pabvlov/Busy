@@ -11,6 +11,7 @@ const workRouter = require("./app/routes/work.routes");
 app.use(express.json());
 app.use(express.static('app/images'));
 app.use(express.static('app/images/profiles'));
+app.use(express.static('app/images/app'));
 app.use(
   express.urlencoded({
     extended: true,
@@ -41,7 +42,8 @@ app.put("/user/edit", userRouter);
 app.post("/work/uploadImage", workRouter);
 app.post("/work/add", workRouter);
 app.get("/works", workRouter);
-app.get("/work/getWorkById/:id", workRouter);
+app.get("/work/:id", workRouter);
+app.post("/work/apply", workRouter);
 
 // reactions
 app.get("/reactions", reactionRouter);

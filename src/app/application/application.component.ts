@@ -17,8 +17,12 @@ export class ApplicationComponent {
     this.innerWidth = window.innerWidth;
   }
   /* Section 1 = Trabajos, Section 2 = Servicios */
-  section = 1;
+  section = true;
   showingInfo = false;
+
+  get ready() {
+    return this.workService.ready;
+  }
 
   constructor(private userService: UserService,
     private workService: WorkService,

@@ -67,3 +67,11 @@ body { margin: 0; font-family: "Secular One", Roboto, "Helvetica Neue", sans-ser
     margin-bottom: 2rem;
 }
 
+.hover {
+    transition: .2s ease-in-out;
+}
+
+.hover:hover {
+    transform: translate(5px, -5px);
+    transition: .2s ease-in-out;
+}

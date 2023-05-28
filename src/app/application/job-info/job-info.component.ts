@@ -1,104 +1,93 @@
-import { Component, Input, OnInit, OnChanges } from '@angular/core';
-import { WorkInformation } from 'src/app/interfaces/work-information';
+import { Component, Input, OnInit, OnChanges, HostListener, Host } from '@angular/core';
 import { UserService } from '../../services/user.service';
-import { User } from 'src/app/interfaces/user';
 import { WorkService } from 'src/app/services/work.service';
+import { ApplicationComponent } from '../application.component';
+import { UtilsService } from 'src/app/services/utils.service';
+import { SwalService } from 'src/app/services/swal.service';
+import { Jobs } from 'src/app/interfaces/jobs';
 
 @Component({
   selector: 'app-job-info',
   templateUrl: './job-info.component.html',
   styleUrls: ['./job-info.component.scss']
 })
-export class JobInfoComponent implements OnInit, OnChanges {
+export class JobInfoComponent {
+
+  @Input() id = 0;
+
+  public innerWidth: any = window.innerWidth;
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.innerWidth = window.innerWidth;
+  }
 
   get job() {
     return this.workService.jobs[this.workService.pos];
   }
+
   isViewingMap = false;
 
   mapskey = "https://www.google.com/maps/embed/v1/place?key=AIzaSyDa4NeSZREAb_IGxYJ6Z_5FDuCM2VWHyMQ&q="
-  constructor(private userService: UserService, private workService: WorkService) { 
+  constructor(private userService: UserService, 
+              private workService: WorkService, 
+              @Host() private app: ApplicationComponent, 
+              private utils: UtilsService,
+              private swal: SwalService) { 
 
   }
 
-  empleador: User = {
-    rut: 0,
-    dv: 0,
-    nombres: '',
-    apellidos: '',
-    mail: '',
-    foto: '',
-    direccion: null,
-    esAdmin: 0,
-    fecha_nacimiento: null,
-    fecha_registro: new Date(),
-    ultima_visita: new Date(),
-    ubicacion: undefined,
-    aprobado: {
-      type: '',
-      data: []
-    }
+  gotoJobs() {
+    this.app.showingInfo = !this.app.showingInfo;
+
   }
 
-  ngOnInit(): void {
-    this.getUserInfo().subscribe((data: any) => {
-      this.empleador = data[0]
-    })
-  }
 
-  ngOnChanges(): void {
-    
-    this.empleador = {
-      rut: 0,
-      dv: 0,
-      nombres: '',
-      apellidos: '',
-      mail: '',
-      foto: '',
-      direccion: null,
-      esAdmin: 0,
-      fecha_nacimiento: null,
-      fecha_registro: new Date(),
-      ultima_visita: new Date(),
-      ubicacion: undefined,
-      aprobado: {
-        type: '',
-        data: []
-      }
-    }
-    this.getUserInfo().subscribe((data: any) => {
-      this.empleador = data[0]
-    })
-  }
+
 
   viewMap() {
     this.isViewingMap = !this.isViewingMap;
   }
 
   getUbicacion() {
-    return this.empleador.direccion
+    return this.job.work.ubicacion
   }
 
   getUserInfo() {
-    return this.userService.getUserByRut(this.job.rut_empleador.toString())
+    console.log(this.job.work.rut_empleador);
+    return this.userService.getUserByRut(this.job.work.rut_empleador.toString())
   }
 
   dateDiff(date: Date) {
-    let fecha = new Date();
-    let fecha2 = new Date(date);
-    let diff = fecha2.getTime() - fecha.getTime();
-    let diffDays = Math.ceil(diff / (1000 * 3600 * 24));
-    if (diffDays < 0) {
-      return "Hace " + Math.abs(diffDays) + " días";
-    } else if (diffDays == 0) {
-      return "Hoy";
-    } else if (diffDays == 1) {
-      return "Mañana";
-    } else if (diffDays > 1) {
-      return "En " + diffDays + " días";
-    } else {
-      return diffDays;
+    return this.utils.dateDiff(date);
+  }
+
+  applyWork() {
+    const button = document.getElementById('apply')!;
+    // verify if its his own job or if he already applied
+    if (this.job.work.rut_empleador === this.userService._usuario.rut) {
+      this.swal.error('Error al postular', 'No puedes postular a tu propio trabajo');
     }
+    for (let index = 0; index < this.job.appliers.length; index++) {
+      const element = this.job.appliers[index];
+      if (element.rut === this.userService._usuario.rut) {
+        this.swal.error('Error al postular', 'Ya has postulado a este trabajo');
+        return;
+      }
+    }
+    this.workService.applyWork(this.job.work.id, this.userService._usuario.rut).subscribe((data: any) => {
+      button.classList.add('disabled');
+
+      if (data.ok) {
+        this.workService.updateWorks();
+        this.swal.success('Postulación exitosa', data.message);
+      } else {
+        this.swal.error('Error al postular', data.message);
+      }
+    })
+  }
+
+  get isUpdating() {
+    return this.workService.isUpdating;
   }
 
 }

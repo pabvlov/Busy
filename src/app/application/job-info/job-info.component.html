@@ -1,54 +1,71 @@
-<ng-container *ngIf="empleador.rut != 0;then loaded; else loading"></ng-container>
+<ng-container *ngIf="job.work.precio != '';then loaded; else loading"></ng-container>
 <ng-template #loaded>
     <div class="container" id="information" *ngIf="!isViewingMap">
-        <h3 class="title text-busy">{{ job.titulo }}</h3>
+        <button class="btn transparent" (click)="gotoJobs()">
+            <span class="material-symbols-outlined">
+                arrow_back
+            </span>
+        </button>
+        <h3 class="title text-busy">{{ job.work.titulo }}</h3>
         <p class="description">
-            {{ job.descripcion }}
+            {{ job.work.descripcion }}
         </p>
         <table class="table">
-            <thead class="color-busy">
+            <thead class="color-busy sombra">
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Datos</th>
                 </tr>
             </thead>
+            <br>
             <tbody>
                 <tr>
                     <th scope="row">Precio</th>
-                    <td>{{ job.precio | currency:'CLP$ ':'symbol':'1.0-0' }}</td>
+                    <td>{{ job.work.precio | currency:'CLP$ ':'symbol':'1.0-0' }}</td>
                 </tr>
                 <tr>
                     <th scope="row">Cantidad de Personas</th>
-                    <td>{{ job.cantidad_personas }}</td>
+                    <td>{{ job.work.cantidad_personas }}</td>
                 </tr>
                 <tr>
                     <th scope="row">Ubicación</th>
-                    <td>{{ empleador.direccion }} — <button class="btn transparent" (click)="viewMap()">Ver Mapa</button>
+                    <td>{{ job.work.rut_empleador }} — <button class="btn transparent" (click)="viewMap()">Ver Mapa</button>
                     </td>
                 </tr>
                 <tr>
                     <th scope="row">Fecha de Publicación</th>
-                    <td>{{ job.fecha_publicacion | date: 'dd/MM/yyyy' }} — <span class="italic text-busy">{{
-                            dateDiff(job.fecha_publicacion) }}</span></td>
+                    <td>{{ job.work.fecha_publicacion | date: 'dd/MM/yyyy' }} — <span class="italic text-busy">{{
+                            dateDiff(job.work.fecha_publicacion) }}</span></td>
                 </tr>
                 <tr>
                     <th scope="row">Fecha de Selección</th>
-                    <td>{{ job.fecha_seleccion_postulante | date: 'dd/MM/yyyy' }} — <span class="italic text-busy">{{
-                            dateDiff(job.fecha_seleccion_postulante) }}</span></td>
+                    <td>{{ job.work.fecha_seleccion_postulante | date: 'dd/MM/yyyy' }} — <span class="italic text-busy">{{
+                            dateDiff(job.work.fecha_seleccion_postulante) }}</span></td>
                 </tr>
                 <tr>
                     <th scope="row">Fecha de Término</th>
-                    <td>{{ job.fecha_finalizacion | date: 'dd/MM/yyyy' }} — <span class="italic text-busy">{{
-                            dateDiff(job.fecha_finalizacion) }}</span></td>
+                    <td>{{ job.work.fecha_finalizacion | date: 'dd/MM/yyyy' }} — <span class="italic text-busy">{{
+                            dateDiff(job.work.fecha_finalizacion) }}</span></td>
                 </tr>
                 <tr>
                     <th scope="row">Empleador</th>
-                    <td>{{ empleador.nombres }} {{ empleador.apellidos }}</td>
+                    <td>{{ job.work.rut_empleador }}</td>
+                    
                 </tr>
             </tbody>
         </table>
+
+        <h6 class="title text-busy">{{ job.appliers.length }} postulantes</h6>
+        <div class="postulantes" *ngIf="!isUpdating;else loading">
+            
+            <div class="trabajador" *ngFor="let applier of job.appliers">
+                <img [src]="'http://localhost:3000/' + applier.foto" alt="" class="img-fluid foto">
+            </div>
+        </div>
+
         <div class="postular">
-            <button class="btn btn-block btn-busy">Postular</button>
+            <button class="btn btn-block btn-busy hover" (click)="applyWork()" id="apply">Postular</button>
+            <!-- <button class="btn btn-block btn-busy hover">Hacer oferta</button> -->
         </div>
     </div>
     

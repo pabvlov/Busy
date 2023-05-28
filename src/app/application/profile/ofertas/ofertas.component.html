@@ -1,6 +1,6 @@
 <h3>Trabajos ofrecidos</h3>
-<button *ngFor="let work of works" class="works" [style]="'background-image: url(http://localhost:3000/' + work.foto + ');'">
-    <div class="card text-center">
+<a *ngFor="let work of works" class="works" [routerLink]="'trabajo/'+work.id">
+    <div class="card text-center" [style]="'background-image: url(http://localhost:3000/' + work.foto + ');'">
         <div class="card-body" >
             <div class="filter">
                 <h5 class="card-title">{{ work.titulo }}</h5>
@@ -8,4 +8,4 @@
             </div>
         </div>
     </div>
-</button>
+</a>

@@ -58,7 +58,9 @@ export class UserService {
     let user = this.httpClient.get<ApiResponse>(`http://localhost:3000/user/${rut}/${dv}`);    
     return user.pipe(
       tap( resp => {
-        if( resp.ok ) {
+        if( resp.ok ) 
+        console.log(resp);
+        {
           return resp.content;
         }
       } ),
