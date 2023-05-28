@@ -7,7 +7,7 @@ import { OfferComponent } from './offer/offer.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ProfileComponent } from './profile/profile.component';
 import { SafePipe } from '../pipes/safe.pipe';
 import { MatChipsModule } from '@angular/material/chips';
@@ -19,6 +19,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { OfertasComponent } from './profile/ofertas/ofertas.component';
 import { TrabajosComponent } from './trabajos/trabajos.component';
 import { ServiciosComponent } from './servicios/servicios.component';
+import { TrabajoComponent } from './profile/trabajo/trabajo.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { ServiciosComponent } from './servicios/servicios.component';
     OfertasComponent,
     TrabajosComponent,
     ServiciosComponent,
+    TrabajoComponent,
   ],
   imports: [
     CommonModule,
@@ -44,6 +46,7 @@ import { ServiciosComponent } from './servicios/servicios.component';
     ReactiveFormsModule,
     BrowserModule,
     MatInputModule,
+    FormsModule
   ]
 })
 export class ApplicationModule { }

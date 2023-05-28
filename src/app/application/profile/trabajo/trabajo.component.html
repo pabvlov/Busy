@@ -1,0 +1,89 @@
+<div class="container-fluid">
+    <div class="row h-100">
+        <div class="col-lg-6 col-md-12 col-sm-12 h-100" [style]="'background-image: url(http://localhost:3000/Screenshot_3.png)'">
+            <div class="container" id="information">
+                <h3 class="title text-busy">{{ job.titulo }}</h3>
+                <p class="description">
+                    {{ job.descripcion }}
+                </p>
+                <table class="table">
+                    <thead class="color-busy sombra">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Datos</th>
+                        </tr>
+                    </thead>
+                    <br>
+                    <tbody>
+                        <tr>
+                            <th scope="row">Precio</th>
+                            <td>{{ job.precio | currency:'CLP$ ':'symbol':'1.0-0' }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Cantidad de Personas</th>
+                            <td>{{ job.cantidad_personas }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Ubicación</th>
+                            <td>{{ empleador.direccion }} — <button class="btn transparent">Ver Mapa</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Fecha de Publicación</th>
+                            <td>{{ job.fecha_publicacion | date: 'dd/MM/yyyy' }} — <span class="italic text-busy">{{
+                                    dateDiff(job.fecha_publicacion) }}</span></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Fecha de Selección</th>
+                            <td>{{ job.fecha_seleccion_postulante | date: 'dd/MM/yyyy' }} — <span class="italic text-busy">{{
+                                    dateDiff(job.fecha_seleccion_postulante) }}</span></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Fecha de Término</th>
+                            <td>{{ job.fecha_finalizacion | date: 'dd/MM/yyyy' }} — <span class="italic text-busy">{{
+                                    dateDiff(job.fecha_finalizacion) }}</span></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Empleador</th>
+                            <td>{{ empleador.nombres }} {{ empleador.apellidos }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="postular">
+                    <button class="btn btn-block btn-busy hover">Postular</button>
+                    <button class="btn btn-block btn-busy hover">Hacer oferta</button>
+                </div>
+            </div>
+            
+            <div id="information">
+                <button class="btn transparent">
+                    <span class="material-symbols-outlined">
+                        arrow_back
+                    </span>
+                </button>
+                <div class="card">
+                    <div class="card-body">
+                        <iframe style="border:0" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade">
+                            <!-- [src]="(mapskey + getUbicacion()) | safe" -->
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-12 col-sm-12">
+            <section class="postulantes">
+                <h3 class="title">Postulantes</h3>
+
+                <div class="d-flex flex-row">
+                    <div class="profile">
+                        <img [src]="" alt="">
+                    </div>
+                    <div class="nombre">
+                        Pablo Prieto
+                    </div>
+                </div>
+            </section>
+            
+        </div>
+    </div>
+</div>
