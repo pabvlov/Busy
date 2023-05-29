@@ -38,11 +38,7 @@ export class JobInfoComponent {
 
   gotoJobs() {
     this.app.showingInfo = !this.app.showingInfo;
-
   }
-
-
-
 
   viewMap() {
     this.isViewingMap = !this.isViewingMap;
@@ -76,7 +72,6 @@ export class JobInfoComponent {
     }
     this.workService.applyWork(this.job.work.id, this.userService._usuario.rut).subscribe((data: any) => {
       button.classList.add('disabled');
-
       if (data.ok) {
         this.workService.updateWorks();
         this.swal.success('Postulación exitosa', data.message);

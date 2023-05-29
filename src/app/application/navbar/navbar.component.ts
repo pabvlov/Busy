@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 
@@ -8,6 +8,13 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent {
+
+  public innerWidth: any = window.innerWidth;
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.innerWidth = window.innerWidth;
+  }
+
   constructor(private router: Router, private userService: UserService) { }
 
   get isLogged() {

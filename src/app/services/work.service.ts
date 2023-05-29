@@ -1,9 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, OnChanges } from '@angular/core';
-import { Work } from '../interfaces/work';
 import { ApiResponse } from '../interfaces/api-response';
-import { Jobs } from '../interfaces/jobs';
-import { User } from '../interfaces/user';
 import { UserService } from './user.service';
 import { WorkInformation } from '../interfaces/work-information';
 
@@ -23,8 +20,6 @@ export class WorkService {
         this.jobs = data.content;
         this.isUpdating = false;
         this.ready = true;
-        console.log(data.content);
-        
       } else {
         console.log(data.message);
       }
@@ -74,8 +69,6 @@ export class WorkService {
   ];
 
   getUserInfo() {
-    console.log(this.jobs[this.pos].work.rut_empleador);
-    
     return this.userService.getUserByRut(`${this.jobs[this.pos].work.rut_empleador}`);
   }
 
@@ -92,7 +85,6 @@ export class WorkService {
   }
 
   applyWork(id_trabajo: number, rut_trabajador: number) {
-    
     return this.httpClient.post<ApiResponse>(`http://localhost:3000/work/apply/`, { id_trabajo, rut_trabajador });
   }
 

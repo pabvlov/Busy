@@ -59,7 +59,8 @@
         <div class="postulantes" *ngIf="!isUpdating;else loading">
             
             <div class="trabajador" *ngFor="let applier of job.appliers">
-                <img [src]="'http://localhost:3000/' + applier.foto" alt="" class="img-fluid foto">
+                <img [src]="applier.foto == null ? 'http://localhost:3000/' + 'app/defaultprofilepic.png': 'http://localhost:3000/' + applier.foto" alt="" class="img-fluid foto" [matTooltip]="applier.nombres + ' ' + applier.apellidos"
+                matTooltipPosition="below">
             </div>
         </div>
 

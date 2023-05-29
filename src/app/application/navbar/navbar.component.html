@@ -1,9 +1,15 @@
-<nav class="navbar" *ngIf="isLogged">
+<nav class="navbar" *ngIf="isLogged && innerWidth > 1070">
     <a routerLink="/" class="btn text-busy" matTooltip="Home" matTooltipPosition="below">
       <span class="material-symbols-outlined">
         home
       </span>
-      <span class="title">App</span>
+      <span class="title">Home</span>
+    </a>
+    <a routerLink="/app/offer" class="btn text-busy" matTooltip="Home" matTooltipPosition="below">
+      <span class="material-symbols-outlined mr-2">
+        construction
+      </span>
+      <span class="title">Registrar trabajo</span>
     </a>
     <button class="btn text-white color-busy" (click)="logout()" matTooltip="Salir" matTooltipPosition="below">
       <span class="material-symbols-outlined">
