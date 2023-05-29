@@ -6,4 +6,5 @@ export interface Work {
     endDate: Date;
     selectionDate: Date;
     rut_empleador: number;
+    ubicacion: string;
 }

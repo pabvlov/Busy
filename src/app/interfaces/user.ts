@@ -15,8 +15,9 @@ export interface User {
 }
 
 export interface Ubicacion {
-    lng: number;
-    lat: number;
+    lng?: number;
+    lat?: number;
+    direccion: string;
 }
 
 export interface Aprobado {

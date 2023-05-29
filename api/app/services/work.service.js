@@ -18,7 +18,7 @@ async function getWorkById(id){
 
 async function uploadWork(work) {
 
-    const create = db.query(`INSERT INTO  trabajos (titulo, descripcion, fecha_publicacion, rut_empleador, foto, cantidad_personas, fecha_seleccion_postulante, fecha_finalizacion, precio) VALUES ('${ work.title }', '${ work.description }', '${ new Date().toISOString() }', ${ work.rut_empleador }, '${ work.image }', '${ work.peopleNeeded }', '${ work.selectionDate }', '${ work.endDate }', '${ work.price }');`)
+    const create = db.query(`INSERT INTO  trabajos (titulo, descripcion, fecha_publicacion, rut_empleador, foto, cantidad_personas, fecha_seleccion_postulante, fecha_finalizacion, precio, ubicacion) VALUES ('${ work.title }', '${ work.description }', '${ new Date().toISOString() }', ${ work.rut_empleador }, '${ work.image }', '${ work.peopleNeeded }', '${ work.selectionDate }', '${ work.endDate }', '${ work.price }', '${ work.ubicacion }');`)
     .then(() => {
         return true;
       })

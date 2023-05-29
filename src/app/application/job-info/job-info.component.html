@@ -1,4 +1,4 @@
-<ng-container *ngIf="job.work.precio != '';then loaded; else loading"></ng-container>
+<ng-container *ngIf="work.precio != '';then loaded; else loading"></ng-container>
 <ng-template #loaded>
     <div class="container" id="information" *ngIf="!isViewingMap">
         <button class="btn transparent" (click)="gotoJobs()">
@@ -6,10 +6,8 @@
                 arrow_back
             </span>
         </button>
-        <h3 class="title text-busy">{{ job.work.titulo }}</h3>
-        <p class="description">
-            {{ job.work.descripcion }}
-        </p>
+        <h3 class="title text-busy">{{ work.titulo }}</h3>
+        <pre class="description">{{ work.descripcion }}</pre>
         <table class="table">
             <thead class="color-busy sombra">
                 <tr>
@@ -21,35 +19,36 @@
             <tbody>
                 <tr>
                     <th scope="row">Precio</th>
-                    <td>{{ job.work.precio | currency:'CLP$ ':'symbol':'1.0-0' }}</td>
+                    <td>{{ work.precio | currency:'CLP$ ':'symbol':'1.0-0' }}</td>
                 </tr>
                 <tr>
                     <th scope="row">Cantidad de Personas</th>
-                    <td>{{ job.work.cantidad_personas }}</td>
+                    <td>{{ work.cantidad_personas }}</td>
                 </tr>
                 <tr>
                     <th scope="row">Ubicación</th>
-                    <td>{{ job.work.rut_empleador }} — <button class="btn transparent" (click)="viewMap()">Ver Mapa</button>
+                    <td class="map-cell"><p class="bold">{{ !!work.ubicacion ? work.ubicacion : 'No especificada' }}</p>
+                        <button class="btn transparent viewmap text-busy" (click)="viewMap()" *ngIf="work.ubicacion != null">Ver Mapa</button>
                     </td>
                 </tr>
                 <tr>
                     <th scope="row">Fecha de Publicación</th>
-                    <td>{{ job.work.fecha_publicacion | date: 'dd/MM/yyyy' }} — <span class="italic text-busy">{{
-                            dateDiff(job.work.fecha_publicacion) }}</span></td>
+                    <td>{{ work.fecha_publicacion | date: 'dd/MM/yyyy' }} — <span class="italic text-busy">{{
+                            dateDiff(work.fecha_publicacion) }}</span></td>
                 </tr>
                 <tr>
                     <th scope="row">Fecha de Selección</th>
-                    <td>{{ job.work.fecha_seleccion_postulante | date: 'dd/MM/yyyy' }} — <span class="italic text-busy">{{
-                            dateDiff(job.work.fecha_seleccion_postulante) }}</span></td>
+                    <td>{{ work.fecha_seleccion_postulante | date: 'dd/MM/yyyy' }} — <span class="italic text-busy">{{
+                            dateDiff(work.fecha_seleccion_postulante) }}</span></td>
                 </tr>
                 <tr>
                     <th scope="row">Fecha de Término</th>
-                    <td>{{ job.work.fecha_finalizacion | date: 'dd/MM/yyyy' }} — <span class="italic text-busy">{{
-                            dateDiff(job.work.fecha_finalizacion) }}</span></td>
+                    <td>{{ work.fecha_finalizacion | date: 'dd/MM/yyyy' }} — <span class="italic text-busy">{{
+                            dateDiff(work.fecha_finalizacion) }}</span></td>
                 </tr>
                 <tr>
                     <th scope="row">Empleador</th>
-                    <td>{{ job.work.rut_empleador }}</td>
+                    <td>{{ work.rut_empleador }}</td>
                     
                 </tr>
             </tbody>

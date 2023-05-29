@@ -26,10 +26,6 @@ router.get('/works', async (req, res) => {
                 appliers: appliers
             });
         }
-        for (let index = 0; index < worksWithAppliers.length; index++) {
-            const element = worksWithAppliers[index];
-            console.log(element);
-        }
         res.json(await { ok: true, content: worksWithAppliers});
     } catch (err) {
         console.error(`Error while getting all jobs: `, err.message);
@@ -45,7 +41,7 @@ router.get('/work/:id', async (req, res) => {
         res.status(200).json({
             ok: true,
             content: {
-                work: workById,
+                work: workById[0],
                 appliers: workAppliers
             }
         });
@@ -80,6 +76,12 @@ router.post('/work/uploadWork', upload.single("file"), (req, res) => {
 router.post('/work/apply', (req, res, next) => {
     try {
         const { id_trabajo, rut_trabajador } = req.body;
+        if (id_trabajo == 0 || rut_trabajador == 0) {
+            res.status(200).json({
+                ok: false,
+                message: "Necesitamos que actualices la página y vuelvas a intentarlo",
+            });
+        }
         if(work.checkHimself(id_trabajo, rut_trabajador)) {
             console.log();
             console.log("No puedes postularte a tu propio trabajo");
@@ -112,7 +114,7 @@ router.post('/work/add', upload.single("file"), (req, res) => {
     try {
         console.log(JSON.parse(req.body.work));
         console.log(req.file);
-        const { title, description, price, peopleNeeded, endDate, selectionDate, rut_empleador } = JSON.parse(req.body.work);
+        const { title, description, price, peopleNeeded, endDate, selectionDate, rut_empleador, ubicacion } = JSON.parse(req.body.work);
         const object = {
             title,
             description,
@@ -121,7 +123,8 @@ router.post('/work/add', upload.single("file"), (req, res) => {
             endDate,
             selectionDate,
             image: req.file.filename,
-            rut_empleador: rut_empleador
+            rut_empleador: rut_empleador,
+            ubicacion: ubicacion
         }
         
         if (req.file) {

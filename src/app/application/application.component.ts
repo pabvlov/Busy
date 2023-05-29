@@ -3,6 +3,7 @@ import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
 import { WorkService } from '../services/work.service';
 import { SwalService } from '../services/swal.service';
+import { WorkInformation } from '../interfaces/work-information';
 
 @Component({
   selector: 'app-application',
@@ -43,6 +44,8 @@ export class ApplicationComponent {
   get job() {
     return this.workService.jobs[this.workService.pos];
   }
+
+
 
   get jobPos() {
     return this.workService.pos;
