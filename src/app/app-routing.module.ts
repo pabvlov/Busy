@@ -8,6 +8,7 @@ import { OfferComponent } from './application/offer/offer.component';
 import { ProfileComponent } from './application/profile/profile.component';
 import { AboutComponent } from './application/about/about.component';
 import { TrabajoComponent } from './application/profile/trabajo/trabajo.component';
+import { OfferServiceComponent } from './application/offer-service/offer-service.component';
 
 const routes: Routes = [
   { path: '',  component: LandingComponent },
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: 'register',  component: RegisterComponent },
   { path: 'app', component: ApplicationComponent },
   { path: 'app/offer', component: OfferComponent },
+  { path: 'app/offer-service', component: OfferServiceComponent },
   { path: 'app/profile', component: ProfileComponent },
   { path: 'app/profile/:id', component: ProfileComponent },
   { path: 'app/about', component: AboutComponent },

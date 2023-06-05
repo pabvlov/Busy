@@ -22,6 +22,7 @@ import { ServiciosComponent } from './servicios/servicios.component';
 import { TrabajoComponent } from './profile/trabajo/trabajo.component';
 import { SharedModule } from '../shared/shared.module';
 import { LoaderComponent } from '../shared/loader/loader.component';
+import { OfferServiceComponent } from './offer-service/offer-service.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { LoaderComponent } from '../shared/loader/loader.component';
     ServiciosComponent,
     TrabajoComponent,
     LoaderComponent,
+    OfferServiceComponent,
   ],
   imports: [
     CommonModule,

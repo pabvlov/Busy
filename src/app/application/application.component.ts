@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { WorkService } from '../services/work.service';
 import { SwalService } from '../services/swal.service';
 import { WorkInformation } from '../interfaces/work-information';
+import { ServiceService } from '../services/service.service';
 
 @Component({
   selector: 'app-application',
@@ -27,6 +28,7 @@ export class ApplicationComponent {
 
   constructor(private userService: UserService,
     private workService: WorkService,
+    private serviceService: ServiceService,
     private router: Router,
     private swal: SwalService) {
   }
@@ -49,6 +51,10 @@ export class ApplicationComponent {
 
   get jobPos() {
     return this.workService.pos;
+  }
+
+  get userRut() {
+    return this.serviceService.services[this.serviceService.pos].rut_usuario;
   }
 
   
@@ -75,15 +81,24 @@ export class ApplicationComponent {
   }
 
   prev() {
-    this.workService.prev();
+    if (this.section) {
+      this.workService.prev();
+    } else {
+      this.serviceService.prev();
+    }
   }
 
   next() {
-    this.workService.next();
+    if (this.section) {
+      this.workService.next();
+    } else {
+      this.serviceService.next();
+    }
   }
 
   ngOnInit(): void {
     this.workService.updateWorks();
+    this.serviceService.updateServices();
   }
 
   showAbout() {

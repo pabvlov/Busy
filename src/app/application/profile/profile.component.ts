@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, OnChanges } from '@angular/core';
+import { Component, Input, OnInit, AfterViewInit, OnChanges } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
 import { ApiResponse } from '../../interfaces/api-response';
@@ -18,8 +18,10 @@ import { ReturnStatement } from '@angular/compiler';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
-export class ProfileComponent implements OnInit, AfterViewInit {
-  visitor = false;
+export class ProfileComponent implements OnInit, AfterViewInit, OnChanges {
+  @Input() visitor = false;
+  @Input() userRut: number = 0;
+
   loading = true;
   constructor( private userService: UserService, private fb: FormBuilder, private swal: SwalService, private route: ActivatedRoute) {
     if (!this.userService.isAuthenticated()) {
@@ -37,6 +39,23 @@ export class ProfileComponent implements OnInit, AfterViewInit {
     return this.userService._usuario.rut + '-' + this.userService._usuario.dv;
   }
 
+  ngOnChanges(): void {
+    this.loading = true;
+    
+    if (this.route.snapshot.paramMap.get('id') != null || this.userRut != 0) {
+      this.visitor = true;
+      this.userService.getProfileByRut(this.visitor ? (this.route.snapshot.paramMap.get('id') == null ? ''+this.userRut: this.route.snapshot.paramMap.get('id')!) : this.rut).subscribe( (resp: ApiResponse) => {
+        if(resp.ok) {
+          console.log(resp.content);
+          this.loading = false;
+          this.profileInfo = resp.content;
+        }
+      })
+    } else {
+      this.visitor = false;
+    }
+    
+  }
 
   get nombre() {
     return this.userService._usuario.nombres + ' ' + this.userService._usuario.apellidos;
@@ -80,6 +99,27 @@ export class ProfileComponent implements OnInit, AfterViewInit {
   }
 
   usuario() {
+  }
+
+  getProfileInfo(rut: string) {
+    this.route.snapshot.paramMap.get('id') != null ? this.visitor = true : this.visitor = false;
+    if (this.route.snapshot.paramMap.get('id') != null || this.userRut != 0) {
+      this.visitor = true;
+    } else {
+      this.visitor = false;
+    }
+    console.log(this.route.snapshot.paramMap.get('id'), this.userRut, this.visitor, rut);
+    
+    this.userService.getProfileByRut(this.visitor ? (this.route.snapshot.paramMap.get('id') == null ? ''+this.userRut: this.route.snapshot.paramMap.get('id')!) : rut).subscribe( (resp: ApiResponse) => {
+      if(resp.ok) {
+        console.log(resp.content);
+        this.loading = false;
+        this.profileInfo = resp.content;
+      }
+    })
+    console.log(this.visitor);
+    
+    
   }
 
   userData = this.fb.group({
@@ -166,18 +206,7 @@ export class ProfileComponent implements OnInit, AfterViewInit {
     workInformation: [],
   };
 
-  getProfileInfo(rut: string) {
-    this.route.snapshot.paramMap.get('id') != null ? this.visitor = true : this.visitor = false;
-    console.log(this.visitor);
-    
-    this.userService.getProfileByRut(this.visitor ? this.route.snapshot.paramMap.get('id')! : rut).subscribe( (resp: ApiResponse) => {
-      if(resp.ok) {
-        console.log(resp.content);
-        this.loading = false;
-        this.profileInfo = resp.content;
-      }
-    })
-  }
+  
 
   latitude: string = "";
   longitude: string = "";

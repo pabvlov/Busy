@@ -7,6 +7,7 @@ import { WorkInformation } from 'src/app/interfaces/work-information';
 import { Jobs } from 'src/app/interfaces/jobs';
 import { Applier } from 'src/app/interfaces/applier';
 import { MapsService } from 'src/app/services/maps.service';
+import { SwalService } from 'src/app/services/swal.service';
 
 @Component({
   selector: 'app-trabajo',
@@ -21,7 +22,8 @@ export class TrabajoComponent implements OnInit {
               private workService: WorkService, 
               private userService: UserService, 
               private utils: UtilsService,
-              private maps: MapsService) {}
+              private maps: MapsService,
+              private swal: SwalService) {}
 
 
   id: number = +this.route.snapshot.paramMap.get('id')!;
@@ -58,5 +60,17 @@ export class TrabajoComponent implements OnInit {
 
   goBack() {
     this.router.navigate(['/app/profile']);
+  }
+
+  handleDeleteWork() {
+    this.workService.deleteWork(this.id).subscribe( resp => {
+      this.swal.loading('Eliminando trabajo...');
+      if (resp.ok) {
+        this.swal.stopLoading();
+        this.router.navigate(['/app/profile']);
+      }
+      
+    })
+    //this.router.navigate(['/app/profile']);
   }
 }

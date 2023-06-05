@@ -86,9 +86,9 @@ export class SwalService {
       })
   }
 
-  loading() {
+  loading(title: string = 'Cargando...') {
     Swal.fire({
-      title: 'Cargando...',
+      title,
       allowOutsideClick: false,
       didOpen: () => {
         Swal.showLoading()

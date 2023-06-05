@@ -7,6 +7,7 @@ import { User } from '../interfaces/user';
 import { UserService } from './user.service';
 import { WorkInformation } from '../interfaces/work-information';
 import { ServiceInformation } from '../interfaces/service-information';
+import { SwalService } from './swal.service';
 
 @Injectable({
   providedIn: 'root'
@@ -32,6 +33,7 @@ export class WorkService {
         console.log(data.message);
       }
     })
+    
   }
 
   updateProfileWork(id: number) {
@@ -48,7 +50,17 @@ export class WorkService {
     })
   }
 
-  constructor(private httpClient: HttpClient, private userService: UserService) { }
+  handleDeleteWork(id: number) {
+    this.deleteWork(id).subscribe((data: ApiResponse) => {
+      if (data.ok) {
+        this.updateWorks();
+      } else {
+        this.swal.error('', data.message);
+      }
+    })
+  }
+
+  constructor(private httpClient: HttpClient, private userService: UserService, private swal: SwalService) { }
 
   pos = 0;
 
@@ -61,16 +73,7 @@ export class WorkService {
       this.pos++;
     }    
   }
-  services: ServiceInformation[] = [
-    {
-        id: 1,
-        titulo: 'Desarrollador Web',
-        descripcion: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.',
-        rut_usuario: 20482869,
-        foto: '1684560833479-mrlapaditeaxe.webp',
-        precio: 6350000,
-      }
-  ]
+  
 
   jobs: WorkInformation[] = [
     {
@@ -150,22 +153,11 @@ export class WorkService {
     return this.httpClient.post<ApiResponse>(`http://localhost:3000/work/apply/`, { id_trabajo, rut_trabajador });
   }
 
-  uploadService(body: FormData) {
-    return this.httpClient.post('http://localhost:3000/service/add', body);
+  deleteWork(id: number) {
+    return this.httpClient.delete<ApiResponse>(`http://localhost:3000/work/delete/${id}`);
   }
 
-  getServices() {
-    return this.httpClient.get<ApiResponse>('http://localhost:3000/services');
-  }
-
-  getService(id: number) {
-    return this.httpClient.get<ApiResponse>(`http://localhost:3000/service/${id}`);
-  }
-
-  hire(id_trabajo: number, rut_trabajador: number) {
-    
-    return this.httpClient.post<ApiResponse>(`http://localhost:3000/service/hire/`, { id_trabajo, rut_trabajador });
-  }
+  
 
   
 

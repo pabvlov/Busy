@@ -1,8 +1,8 @@
 export interface ServiceInformation {
-    id: number;
+    id?: number;
     titulo: string;
     descripcion: string;
-    foto: string;
+    foto?: string;
     rut_usuario: number;
     precio: number;
 }

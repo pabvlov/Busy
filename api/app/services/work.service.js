@@ -67,6 +67,24 @@ function checkHimself(id_trabajo, rut_trabajador){
   })
 }
 
+function deleteWork(id) {
+  const postulaciones = db.query(`DELETE FROM postulaciones WHERE id_trabajo = ${ id }`)
+  console.log(postulaciones);
+  if (postulaciones) {
+    const trabajos = db.query(`DELETE FROM trabajos WHERE id = ${ id }`)
+    .then(() => {
+      return true;
+    })
+    .catch((err) => {
+      console.error(err)
+    })
+  } else {
+    return false;
+  }
+  
+  
+}
+
 module.exports = {
   uploadWork,
   getWorks,
@@ -75,5 +93,6 @@ module.exports = {
   getWorkAppliers,
   applyWork,
   alreadyApplied,
-  checkHimself
+  checkHimself,
+  deleteWork
 }

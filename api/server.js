@@ -8,6 +8,7 @@ const authRouter = require("./app/routes/auth.routes");
 const reactionRouter = require("./app/routes/reaction.routes");
 const userRouter = require("./app/routes/user.routes");
 const workRouter = require("./app/routes/work.routes");
+const serviceRouter = require("./app/routes/service.routes");
 app.use(express.json());
 app.use(express.static('app/images'));
 app.use(express.static('app/images/profiles'));
@@ -44,6 +45,14 @@ app.post("/work/add", workRouter);
 app.get("/works", workRouter);
 app.get("/work/:id", workRouter);
 app.post("/work/apply", workRouter);
+app.delete("/work/delete/:id", workRouter);
+
+// services
+app.post("/service/uploadImage", serviceRouter);
+app.post("/service/add", serviceRouter);
+app.get("/services", serviceRouter);
+app.get("/service/:id", serviceRouter);
+app.post("/service/apply", serviceRouter);
 
 // reactions
 app.get("/reactions", reactionRouter);
