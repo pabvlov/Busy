@@ -173,3 +173,30 @@ div.postulantes {
     flex-direction: row;
 }
 
+pre {
+    white-space: pre-wrap;       /* Since CSS 2.1 */
+    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+    white-space: -pre-wrap;      /* Opera 4-6 */
+    white-space: -o-pre-wrap;    /* Opera 7 */
+    word-wrap: break-word;       /* Internet Explorer 5.5+ */
+    text-align: justify;
+ }
+
+ .map-cell {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+ }
+
+ p {
+    margin: auto auto auto 0;
+ }
+
+ .viewmap {
+    text-decoration: underline;
+    font-style: oblique;
+ }
+
+ .bold {
+        font-weight: bold;
+ }

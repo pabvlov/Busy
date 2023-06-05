@@ -1,15 +1,10 @@
-.h-100 {
-    height: 100vh !important;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-
 .title {
     font-size: 1.5em;
     font-weight: bold;
     margin-bottom: 0.5em;
     line-height: normal;
     font-family: 'Secular One';
+    margin-bottom: 1rem;
 }
 
 .description {
@@ -19,36 +14,23 @@
     font-family: 'Secular One';
 }
 
+#maps {
+    padding: 1rem;
+}
+
 #information {
-    background-color: rgba(231, 231, 231, 79%);
-    height: 100vh;
+    background-color: rgba(231, 231, 231, 60%);
     overflow-y: scroll;
-    padding: 5.5rem 1rem;
+    padding: 5.5rem 2rem 0 2rem;
     
     @media screen and (max-width: 997px) {
-        position: absolute;
-        top: 0;
-        right: 0;
-        height: 100vh;
         width: 100%;
-        background-color: #ffffffd7;
-        outline: 5px solid #3f02e8;
+        background-color: rgba(231, 231, 231, 60%);
         color: black;
         padding-left: 2rem;
         padding-right: 3rem;
         text-align: justify;
-        -webkit-box-shadow: -5px 14px 12px 0px rgba(0,0,0,0.37);
-        -moz-box-shadow: -5px 14px 12px 0px rgba(0,0,0,0.37);
-        box-shadow: -5px 14px 12px 0px rgba(0,0,0,0.37);
     }
-    @media screen and (min-width: 575px) {
-        border-bottom-left-radius: 20px;
-        border-top-left-radius: 20px;
-    }
-}
-
-.postulantes {
-    margin: 5.5rem 2rem !important;
 }
 
 #information::-webkit-scrollbar {
@@ -100,4 +82,60 @@ span.italic {
 .row>* {
     padding: 0 !important;
     border-radius: 0 !important;
+}
+
+.postulante {
+    display: flex;
+    border: 2px solid #3f02e8;
+    margin-bottom: 5px;
+    padding: 5px;
+}
+
+.profile {
+    width: 40px;
+    height: 40px;
+}
+
+.nombre {
+    /* align vertically center */
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+    font-family: 'Secular One';
+    font-size: 1rem;
+}
+
+.foto {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    
+    border: 3px solid #3f02e8;
+}
+
+div.postulantes { 
+    margin: 0 2rem;   
+}
+
+div.postulante {
+    display: flex;
+    flex-direction: row;
+}
+
+.cover {
+    background-position: center;
+    background-size: cover;
+}
+
+h3 {
+    margin-top: 1rem;
+}
+
+.background {
+    background-color: rgba(231, 231, 231, 60%);
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 800px;
 }

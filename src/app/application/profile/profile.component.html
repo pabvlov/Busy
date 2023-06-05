@@ -1,66 +1,54 @@
 <app-navbar></app-navbar>
-<section class="profile background-gray">
-    <form action="" class="photo image-upload">
-        <label for="file-input">
-            <img [src]="profilePicture" alt="" class="img-fluid picture">
-        </label>
-        <label for="file-input" class="edit">
-            <i class="fa-solid fa-pencil"></i>
-        </label>
-        <input id="file-input" type="file" (change)="handlePicture($event)" accept="image/*" #picture />
-    </form>
-    <h3> {{ nombre }} </h3>
+<section class="profile background-gray" *ngIf="!loading">
+
     <div class="container-fluid">
         <div class="data">
             <form action="" [formGroup]="userData" id="formulario" (submit)="editUser()">
                 <div class="row">
-                    <div class="col-lg-2 col-md-12 col-sm-12">
-                        <ng-container *ngIf="!!profileInfo;then loaded; else loading"></ng-container>
-                        <ng-template #loaded>
-
-
-                            <!-- WORKS -->
-                            <app-ofertas [ofertas]="profileInfo.workInformation"></app-ofertas>
-
-
-
-                        </ng-template>
+                    <div class="col-6 col-lg-6 trabajos">
+                        <!-- WORKS -->
+                        <app-ofertas [ofertas]="profileInfo.workInformation"></app-ofertas>
                     </div>
-                    <div class="col-lg-2 col-md-12 col-sm-12 servicios"></div>
-                        <ng-template #loading>
-                            <!-- LOADING HAS TO BE SAME FLEX AS WORKS -->
-                            <div class="col-lg-2 col-md-12 col-sm-12 loading">
-                                <div class="spinner-border text-busy" role="status">
-                                    <span class="visually-hidden">Loading...</span>
-                                </div>
-                            </div>
-                        </ng-template>
-                        <div class="col-lg-4 col-md-12 col-sm-12">
-                            <!-- PROFILE INFORMATION -->
-                            <table class="table">
-                                <thead class="color-busy">
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Datos</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <th scope="row">RUT</th>
-                                        <td>{{ rut }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">Nombres</th>
-                                        <td>{{ nombres }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">Apellidos</th>
-                                        <td>{{ apellidos }}
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <!-- PROFILE EDITABLE -->
+                    <div class="col-6 col-lg-6 perfil">
+                        <!-- PROFILE INFORMATION -->
+                        <form action="" class="photo image-upload">
+                            <label for="file-input">
+                                <img [src]="profilePicture" alt="" class="img-fluid picture">
+                            </label>
+                            <label for="file-input" class="edit" *ngIf="!visitor">
+                                <i class="fa-solid fa-pencil"></i>
+                            </label>
+                            <input id="file-input" type="file" (change)="handlePicture($event)" accept="image/*" #picture />
+                        </form>
+                        <h3> {{ profileInfo.user[0].nombres }} {{ profileInfo.user[0].apellidos }}</h3>
+                        <table class="table">
+                            <thead class="color-busy">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Datos</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">RUT</th>
+                                    <td>{{ profileInfo.user[0].rut }}-{{ profileInfo.user[0].dv }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Nombres</th>
+                                    <td>{{ profileInfo.user[0].nombres }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Apellidos</th>
+                                    <td>{{ profileInfo.user[0].apellidos }}</td>
+                                </tr>
+                                <tr *ngIf="visitor">
+                                    <th scope="row">Correo</th>
+                                    <td>{{ profileInfo.user[0].mail }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <!-- PROFILE EDITABLE -->
+                        <div *ngIf="!visitor">
                             <mat-form-field>
                                 <mat-label>Correo electrónico</mat-label>
                                 <input matInput formControlName="mail" [value]="mail" readonly>
@@ -78,14 +66,11 @@
                                 <mat-datepicker #picker></mat-datepicker>
                             </mat-form-field>
                         </div>
-                        <div class="col-lg-2 col-md-12 col-sm-12">
-
-                        </div>
-                        <div class="col-lg-2 col-md-12 col-sm-12">
-
-                        </div>
+                    </div>
+                    <div class="col-6 servicios"></div>
+                    <div class="col-6 "></div>
                 </div>
-                <button class="btn btn-block color-busy">Guardar</button>
+                <button class="btn btn-block color-busy" *ngIf="!visitor">Guardar</button>
             </form>
         </div>
     </div>
@@ -110,3 +95,4 @@
     </div>
 
 </section>
+<app-loader *ngIf="loading"></app-loader>

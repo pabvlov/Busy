@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { WorkService } from '../../services/work.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Work } from 'src/app/interfaces/work';
 import { UserService } from 'src/app/services/user.service';
+import { map } from 'rxjs';
+import { MapsService } from 'src/app/services/maps.service';
 
 
 @Component({
@@ -10,9 +12,14 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: './offer.component.html',
   styleUrls: ['./offer.component.scss']
 })
-export class OfferComponent {
+export class OfferComponent implements OnInit {
 
-  constructor(private workService: WorkService, private fb: FormBuilder, private userService: UserService) { }
+  constructor(private workService: WorkService, 
+              private fb: FormBuilder, 
+              private userService: UserService,
+              private maps: MapsService) { }
+
+  part = 1;
 
   offerForm = this.fb.group({
     title: [''],
@@ -21,12 +28,35 @@ export class OfferComponent {
     peopleNeeded: [1],
     endDate: [],
     selectionDate: [],
+    ubicacion: []
   });
+
+  get usuario() {
+    return this.userService._usuario;
+  }
+
+  get mapskey() {
+    return this.maps.mapskey;
+  }
 
   event: any = new Event('');
 
   handleEvent(event: Event) {
     this.event = event;
+  }
+
+  ubicacion: string = '';
+
+  ngOnInit(): void {
+    this.userService.getPosition().then(pos => {
+      this.ubicacion = pos.lat + ',' + pos.lng;
+    })
+
+    this.offerForm.valueChanges.subscribe(resp => {
+      this.ubicacion = resp.ubicacion!
+
+    })
+
   }
 
   uploadWork() {
@@ -43,6 +73,7 @@ export class OfferComponent {
         endDate: this.offerForm.value.endDate!,
         selectionDate: this.offerForm.value.selectionDate!,
         rut_empleador: user.rut!,
+        ubicacion: this.ubicacion
       }
   
       const formData = new FormData();
@@ -59,8 +90,12 @@ export class OfferComponent {
 
     }
     )
-
-    
   }
+
+  next() {
+    this.part++;
+  }
+
+  
 
 }

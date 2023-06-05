@@ -1,24 +1,20 @@
 const db = require('./db');
-const helper = require('../../config/helper.js');
-const { async } = require('rxjs');
-const { get } = require('../routes/auth.routes');
-const e = require('express');
 
-async function getWorks(){
-  return await db.query(`SELECT * FROM trabajos;`);
+async function getServices(){
+  return await db.query(`SELECT * FROM servicios;`);
 } 
 
-async function getWorksByRut(rut){
-  return db.query(`SELECT * FROM trabajos WHERE rut_empleador = ${ rut };`);
+async function getServicesByRut(rut){
+  return db.query(`SELECT * FROM servicios WHERE rut_usuario = ${ rut };`);
 }
 
-async function getWorkById(id){
-  return await db.query(`SELECT * FROM trabajos WHERE id = ${ id };`);
+async function getServiceById(id){
+  return await db.query(`SELECT * FROM servicios WHERE id = ${ id };`);
 }
 
-async function uploadWork(work) {
+async function uploadService(service) {
 
-    const create = db.query(`INSERT INTO  trabajos (titulo, descripcion, fecha_publicacion, rut_empleador, foto, cantidad_personas, fecha_seleccion_postulante, fecha_finalizacion, precio, ubicacion) VALUES ('${ work.title }', '${ work.description }', '${ new Date().toISOString() }', ${ work.rut_empleador }, '${ work.image }', '${ work.peopleNeeded }', '${ work.selectionDate }', '${ work.endDate }', '${ work.price }', '${ work.ubicacion }');`)
+    const create = db.query(`INSERT INTO servicios (titulo, descripcion, rut_usuario, foto, precio) VALUES ('${ service.titulo }', '${ service.descripcion }', ${ service.rut_usuario }, '${ service.image }', '${ service.precio }');`)
     .then(() => {
         return true;
       })
@@ -28,11 +24,11 @@ async function uploadWork(work) {
       })
 }
 
-async function getWorkAppliers(id){
+/* async function getHires(id){
   return await db.query(`SELECT u.rut, u.foto, u.nombres, u.apellidos, u.direccion, pos.fecha_publicacion FROM postulaciones pos join usuario u on pos.rut_trabajador = u.rut  WHERE pos.id_trabajo = ${ id }`);
-}
+} */
 
-function applyWork(id_trabajo, rut_trabajador) {
+function applyService(id_trabajo, rut_trabajador) {
  //db.query(`ALTER TABLE postulaciones DROP COLUMN fecha_publicacion;`)
   //db.query(`ALTER TABLE postulaciones ADD fecha_publicacion date;`)
   const create = db.query(`INSERT INTO postulaciones (id_trabajo, rut_trabajador, id_estado, fecha_publicacion) VALUES (${ id_trabajo }, ${ rut_trabajador }, 3 , '${ new Date().toISOString() }');`)
@@ -67,32 +63,12 @@ function checkHimself(id_trabajo, rut_trabajador){
   })
 }
 
-function deleteWork(id) {
-  const postulaciones = db.query(`DELETE FROM postulaciones WHERE id_trabajo = ${ id }`)
-  console.log(postulaciones);
-  if (postulaciones) {
-    const trabajos = db.query(`DELETE FROM trabajos WHERE id = ${ id }`)
-    .then(() => {
-      return true;
-    })
-    .catch((err) => {
-      console.error(err)
-    })
-  } else {
-    return false;
-  }
-  
-  
-}
-
 module.exports = {
-  uploadWork,
-  getWorks,
-  getWorksByRut,
-  getWorkById,
-  getWorkAppliers,
-  applyWork,
+  uploadService,
+  getServices,
+  getServicesByRut,
+  getServiceById,
+  applyService,
   alreadyApplied,
-  checkHimself,
-  deleteWork
+  checkHimself
 }

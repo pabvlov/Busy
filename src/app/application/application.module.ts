@@ -20,6 +20,9 @@ import { OfertasComponent } from './profile/ofertas/ofertas.component';
 import { TrabajosComponent } from './trabajos/trabajos.component';
 import { ServiciosComponent } from './servicios/servicios.component';
 import { TrabajoComponent } from './profile/trabajo/trabajo.component';
+import { SharedModule } from '../shared/shared.module';
+import { LoaderComponent } from '../shared/loader/loader.component';
+import { OfferServiceComponent } from './offer-service/offer-service.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +37,8 @@ import { TrabajoComponent } from './profile/trabajo/trabajo.component';
     TrabajosComponent,
     ServiciosComponent,
     TrabajoComponent,
+    LoaderComponent,
+    OfferServiceComponent,
   ],
   imports: [
     CommonModule,
@@ -46,7 +51,8 @@ import { TrabajoComponent } from './profile/trabajo/trabajo.component';
     ReactiveFormsModule,
     BrowserModule,
     MatInputModule,
-    FormsModule
+    FormsModule,
+    
   ]
 })
 export class ApplicationModule { }

@@ -5,6 +5,7 @@ import { ApplicationComponent } from '../application.component';
 import { UtilsService } from 'src/app/services/utils.service';
 import { SwalService } from 'src/app/services/swal.service';
 import { Jobs } from 'src/app/interfaces/jobs';
+import { MapsService } from 'src/app/services/maps.service';
 
 @Component({
   selector: 'app-job-info',
@@ -25,36 +26,44 @@ export class JobInfoComponent {
     return this.workService.jobs[this.workService.pos];
   }
 
+  get work() {
+    return this.job.work;
+  }
+
+  get appliers() {
+    return this.job.appliers;
+  }
+
   isViewingMap = false;
 
-  mapskey = "https://www.google.com/maps/embed/v1/place?key=AIzaSyDa4NeSZREAb_IGxYJ6Z_5FDuCM2VWHyMQ&q="
+  get mapskey() {
+    return this.maps.mapskey;
+  }
+  
   constructor(private userService: UserService, 
               private workService: WorkService, 
               @Host() private app: ApplicationComponent, 
               private utils: UtilsService,
-              private swal: SwalService) { 
+              private swal: SwalService,
+              private maps: MapsService) { 
 
   }
 
   gotoJobs() {
     this.app.showingInfo = !this.app.showingInfo;
-
   }
-
-
-
 
   viewMap() {
     this.isViewingMap = !this.isViewingMap;
   }
 
   getUbicacion() {
-    return this.job.work.ubicacion
+    return this.work.ubicacion
   }
 
   getUserInfo() {
-    console.log(this.job.work.rut_empleador);
-    return this.userService.getUserByRut(this.job.work.rut_empleador.toString())
+    console.log(this.work.rut_empleador);
+    return this.userService.getUserByRut(this.work.rut_empleador.toString())
   }
 
   dateDiff(date: Date) {
@@ -64,7 +73,7 @@ export class JobInfoComponent {
   applyWork() {
     const button = document.getElementById('apply')!;
     // verify if its his own job or if he already applied
-    if (this.job.work.rut_empleador === this.userService._usuario.rut) {
+    if (this.work.rut_empleador === this.userService._usuario.rut) {
       this.swal.error('Error al postular', 'No puedes postular a tu propio trabajo');
     }
     for (let index = 0; index < this.job.appliers.length; index++) {
@@ -74,9 +83,8 @@ export class JobInfoComponent {
         return;
       }
     }
-    this.workService.applyWork(this.job.work.id, this.userService._usuario.rut).subscribe((data: any) => {
+    this.workService.applyWork(this.work.id, this.userService._usuario.rut).subscribe((data: any) => {
       button.classList.add('disabled');
-
       if (data.ok) {
         this.workService.updateWorks();
         this.swal.success('Postulación exitosa', data.message);

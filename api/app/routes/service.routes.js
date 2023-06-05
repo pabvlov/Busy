@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const work = require('../services/work.service.js');
+const service = require('../services/service.service.js');
 const multer = require('multer');
 
 const storageEngine = multer.diskStorage({
@@ -15,43 +15,33 @@ storage: storageEngine,
 limits: { fileSize: 100000000 },
 });
 
-router.get('/works', async (req, res) => {
+router.get('/services', async (req, res, next) => {
     try {
-        const works = await work.getWorks();
-        const worksWithAppliers = [];
-        for(var i = 0; i < works.length; i++){
-            const appliers = await work.getWorkAppliers(works[i].id);
-            worksWithAppliers.push({
-                work: works[i],
-                appliers: appliers
-            });
-        }
-        res.json(await { ok: true, content: worksWithAppliers});
+        const services = await service.getServices();
+        res.json(await { ok: true, content: services });
     } catch (err) {
-        console.error(`Error while getting all jobs: `, err.message);
+        console.error(`Error while getting all services: `, err.message);
         res.json({ ok: false, message: err.message });
         next(err);
     }
 });
 
-router.get('/work/:id', async (req, res) => {
+router.get('/service/:id', async (req, res) => {
     try {
-        const workById = await work.getWorkById(req.params.id);
-        const workAppliers = await work.getWorkAppliers(req.params.id);
+        const serviceById = await service.getServiceById(req.params.id);
         res.status(200).json({
             ok: true,
             content: {
-                work: workById[0],
-                appliers: workAppliers
+                service: serviceById[0],
             }
         });
     } catch (err) {
-        console.error(`Error while getting the job: `, err.message);
+        console.error(`Error while getting the service: `, err.message);
         next(err);
     }
 });
 
-router.post('/work/uploadWork', upload.single("file"), (req, res) => {
+router.post('/work/uploadService', upload.single("file"), (req, res) => {
     try {
         console.log(req.file);
         if (req.file) {
@@ -68,7 +58,7 @@ router.post('/work/uploadWork', upload.single("file"), (req, res) => {
             });
         }
     } catch (err) {
-        console.error(`Error while getting all works: `, err.message);
+        console.error(`Error while uploading service: `, err.message);
         next(err);
     }
 });
@@ -105,30 +95,26 @@ router.post('/work/apply', (req, res, next) => {
            }
         }
     } catch (err) {
-        console.error(`Error while getting all works: `, err.message);
+        console.error(`Error while applying service: `, err.message);
         next(err);
     }
 });
 
-router.post('/work/add', upload.single("file"), (req, res) => {
+router.post('/service/add', upload.single("file"), (req, res, next) => {
     try {
-        console.log(JSON.parse(req.body.work));
+        console.log(JSON.parse(req.body.service));
         console.log(req.file);
-        const { title, description, price, peopleNeeded, endDate, selectionDate, rut_empleador, ubicacion } = JSON.parse(req.body.work);
+        const { titulo, descripcion, precio, rut_usuario } = JSON.parse(req.body.service);
         const object = {
-            title,
-            description,
-            price,
-            peopleNeeded,
-            endDate,
-            selectionDate,
+            titulo,
+            descripcion,
+            precio,
             image: req.file.filename,
-            rut_empleador: rut_empleador,
-            ubicacion: ubicacion
+            rut_usuario: rut_usuario,
         }
         
         if (req.file) {
-            if(work.uploadWork(object)){
+            if(service.uploadService(object)){
                 res.status(200).json({
                     ok: true,
                     message: "Trabajo subido con éxito",
@@ -146,33 +132,7 @@ router.post('/work/add', upload.single("file"), (req, res) => {
             });
         }
     } catch (err) {
-        console.error(`Error while getting all works: `, err.message);
-        next(err);
-    }
-});
-
-router.delete('/work/delete/:id', async (req, res) => {
-    try {
-        const { id } = req.params;
-        if (id == 0) {
-            res.status(200).json({
-                ok: false,
-                message: "Necesitamos que actualices la página y vuelvas a intentarlo",
-            });
-        }
-        if(work.deleteWork(id)){
-            res.status(200).json({
-                ok: true,
-                message: "Trabajo eliminado con éxito",
-            });
-        } else {
-            res.status(400).json({
-                ok: false,
-                message: "Error while deleting work",
-            });
-        }
-    } catch (err) {
-        console.error(`Error while getting all works: `, err.message);
+        console.error(`Error while adding service: `, err.message);
         next(err);
     }
 });

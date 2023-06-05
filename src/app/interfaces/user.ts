@@ -6,17 +6,18 @@ export interface User {
     apellidos:        string;
     foto:             string;
     direccion:        null;
-    esAdmin:          number;
-    fecha_nacimiento: null;
-    fecha_registro:   Date;
-    ultima_visita:    Date;
-    aprobado:         Aprobado;
+    esAdmin?:          number;
+    fecha_nacimiento?: null;
+    fecha_registro?:   Date;
+    ultima_visita?:    Date;
+    aprobado?:        Aprobado;
     ubicacion?:       Ubicacion;
 }
 
 export interface Ubicacion {
-    lng: number;
-    lat: number;
+    lng?: number;
+    lat?: number;
+    direccion: string;
 }
 
 export interface Aprobado {

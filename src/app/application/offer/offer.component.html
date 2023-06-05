@@ -1,7 +1,9 @@
-<div class="container">
+<app-navbar></app-navbar>
+<div class="container" [ngSwitch]="part">
     <form class="offer" [formGroup]="offerForm">
       <h2>Registrar Trabajo</h2>
       <br>
+      <div class="q-container" *ngSwitchCase="1">
         <mat-form-field>
           <mat-label>Título</mat-label>
           <input matInput placeholder="Necesito ..." formControlName="title">
@@ -48,7 +50,27 @@
           <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
           <mat-datepicker #picker2></mat-datepicker>
         </mat-form-field>
+        <button class="btn color-busy mt-5" (click)="next()">Siguiente</button>
+      </div>
+      <div class="q-container" *ngSwitchCase="2">
+        <mat-form-field>
+          <mat-label>Ubicación</mat-label>
+          <input matInput placeholder="Santa María 2670, Providencia, Santiago." formControlName="ubicacion" [value]="usuario.direccion">
+        </mat-form-field>
+
+        <div class="card">
+          <div class="card-body">
+              <iframe style="border:0" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade" *ngIf="ubicacion != ''"
+                  [src]="(mapskey + ubicacion) | safe">
+              </iframe>
+              <h5 *ngIf="ubicacion == ''">Para mostrar el mapa, debes ingresar una dirección. El campo es opcional</h5>
+          </div>
+      </div>
 
         <button class="btn color-busy mt-5" (click)="uploadWork()">Registrar</button>
+      </div>
+        
+        
     </form>
+      
 </div>
