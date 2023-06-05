@@ -6,6 +6,7 @@ import { Jobs } from '../interfaces/jobs';
 import { User } from '../interfaces/user';
 import { UserService } from './user.service';
 import { WorkInformation } from '../interfaces/work-information';
+import { ServiceInformation } from '../interfaces/service-information';
 
 @Injectable({
   providedIn: 'root'
@@ -60,8 +61,18 @@ export class WorkService {
       this.pos++;
     }    
   }
+  services: ServiceInformation[] = [
+    {
+        id: 1,
+        titulo: 'Desarrollador Web',
+        descripcion: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.',
+        rut_usuario: 20482869,
+        foto: '1684560833479-mrlapaditeaxe.webp',
+        precio: 6350000,
+      }
+  ]
 
-   jobs: WorkInformation[] = [
+  jobs: WorkInformation[] = [
     {
       work: {
         id: 1,
@@ -137,6 +148,23 @@ export class WorkService {
   applyWork(id_trabajo: number, rut_trabajador: number) {
     
     return this.httpClient.post<ApiResponse>(`http://localhost:3000/work/apply/`, { id_trabajo, rut_trabajador });
+  }
+
+  uploadService(body: FormData) {
+    return this.httpClient.post('http://localhost:3000/service/add', body);
+  }
+
+  getServices() {
+    return this.httpClient.get<ApiResponse>('http://localhost:3000/services');
+  }
+
+  getService(id: number) {
+    return this.httpClient.get<ApiResponse>(`http://localhost:3000/service/${id}`);
+  }
+
+  hire(id_trabajo: number, rut_trabajador: number) {
+    
+    return this.httpClient.post<ApiResponse>(`http://localhost:3000/service/hire/`, { id_trabajo, rut_trabajador });
   }
 
   

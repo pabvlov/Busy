@@ -6,11 +6,11 @@ export interface User {
     apellidos:        string;
     foto:             string;
     direccion:        null;
-    esAdmin:          number;
-    fecha_nacimiento: null;
-    fecha_registro:   Date;
-    ultima_visita:    Date;
-    aprobado:         Aprobado;
+    esAdmin?:          number;
+    fecha_nacimiento?: null;
+    fecha_registro?:   Date;
+    ultima_visita?:    Date;
+    aprobado?:        Aprobado;
     ubicacion?:       Ubicacion;
 }
 

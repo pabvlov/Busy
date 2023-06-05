@@ -5,8 +5,8 @@ async function getUsers(){
 }
 
 async function getUserByRut(rut, dv = -1) {
-    if(dv === -1) return await db.query(`SELECT u.rut, u.dv, u.mail, u.nombres, u.apellidos, foto, direccion, esAdmin, fecha_nacimiento, fecha_registro, ultima_visita, aprobado FROM usuario u WHERE u.rut = "${ rut }";`)
-    return await db.query(`SELECT u.rut, u.dv, u.mail, u.nombres, u.apellidos, foto, direccion, esAdmin, fecha_nacimiento, fecha_registro, ultima_visita, aprobado FROM usuario u WHERE u.rut = "${ rut }" AND u.dv = "${ dv }";`)
+    if(dv === -1) return await db.query(`SELECT u.rut, u.dv, u.mail, u.nombres, u.apellidos, foto, direccion, esAdmin, fecha_nacimiento, fecha_registro, ultima_visita, aprobado FROM usuario u WHERE u.rut = "${ rut }" LIMIT 1;`)
+    return await db.query(`SELECT u.rut, u.dv, u.mail, u.nombres, u.apellidos, foto, direccion, esAdmin, fecha_nacimiento, fecha_registro, ultima_visita, aprobado FROM usuario u WHERE u.rut = "${ rut }" AND u.dv = "${ dv }" LIMIT 1;`)
 }
 
 async function uploadImage(imgName, rut) {

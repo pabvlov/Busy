@@ -16,6 +16,7 @@ const routes: Routes = [
   { path: 'app', component: ApplicationComponent },
   { path: 'app/offer', component: OfferComponent },
   { path: 'app/profile', component: ProfileComponent },
+  { path: 'app/profile/:id', component: ProfileComponent },
   { path: 'app/about', component: AboutComponent },
   { path: 'app/profile/trabajo/:id', component: TrabajoComponent },
   { path: '**', redirectTo: 'app' }

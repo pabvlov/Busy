@@ -66,7 +66,7 @@
                 <section class="postulantes">
                     <h3 class="title text-busy">Postulantes</h3>
                     <div class="postulantes">
-                        <div class="postulante" *ngFor="let applier of appliers">
+                        <a class="postulante" *ngFor="let applier of appliers" [routerLink]="'/app/profile/'+applier.rut">
                             <div class="profile">
                                 <img [src]="applier.foto == null ? 'http://localhost:3000/' + 'app/defaultprofilepic.png': 'http://localhost:3000/' + applier.foto" alt="" class="foto" [matTooltip]="applier.nombres + ' ' + applier.apellidos"
                                 matTooltipPosition="below">
@@ -74,7 +74,7 @@
                             <div class="nombre">
                                 {{ applier.nombres }} {{ applier.apellidos }}
                             </div>
-                        </div>
+                        </a>
                     </div>
                 </section>
             

@@ -5,10 +5,11 @@ import { ApiResponse } from '../../interfaces/api-response';
 import { Session } from 'src/app/interfaces/session';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips';
-import { MatChip } from '@angular/material/chips';
-import Swal from 'sweetalert2';
 import { SwalService } from 'src/app/services/swal.service';
 import { Profile } from 'src/app/interfaces/profile';
+import { Subscription } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+import { ReturnStatement } from '@angular/compiler';
 
 
 
@@ -18,16 +19,24 @@ import { Profile } from 'src/app/interfaces/profile';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit, AfterViewInit {
-
-  constructor( private userService: UserService, private fb: FormBuilder, private swal: SwalService) {
+  visitor = false;
+  loading = true;
+  constructor( private userService: UserService, private fb: FormBuilder, private swal: SwalService, private route: ActivatedRoute) {
     if (!this.userService.isAuthenticated()) {
       window.location.href = '/';
     }
   }
 
   get rut() {
+    if (this.route.snapshot.paramMap.get('id') != null) {
+      if(!!this.profileInfo) {
+        return this.profileInfo.user[0].rut! + '-' + this.profileInfo.user[0].dv;
+      }
+        return 'Cargando...'
+    }
     return this.userService._usuario.rut + '-' + this.userService._usuario.dv;
   }
+
 
   get nombre() {
     return this.userService._usuario.nombres + ' ' + this.userService._usuario.apellidos;
@@ -42,7 +51,9 @@ export class ProfileComponent implements OnInit, AfterViewInit {
   }
 
   get mail() {
-    return this.userService._usuario.mail;
+    if (this.route.snapshot.paramMap.get('id') != null) {
+      return this.profileInfo.user[0].mail;
+    } else return this.userService._usuario.mail;
   }
 
   get direccion() {
@@ -69,9 +80,6 @@ export class ProfileComponent implements OnInit, AfterViewInit {
   }
 
   usuario() {
-    this.userService.getUserDataFromToken().subscribe( (res: Session) => {
-      return res.content.user;
-    })
   }
 
   userData = this.fb.group({
@@ -86,10 +94,11 @@ export class ProfileComponent implements OnInit, AfterViewInit {
 
 
   get profilePicture() {
-    return !!this.userService._usuario.foto ? "http://localhost:3000/" + this.userService._usuario.foto : '../../../assets/img/defaultprofilepic.png';
+    return !!this.profileInfo.user[0].foto ? "http://localhost:3000/" + this.profileInfo.user[0].foto : '../../../assets/img/defaultprofilepic.png';
   }
 
   ngOnInit(): void {
+
     this.userService.getUserDataFromToken().subscribe( (res: Session) => {
       const { rut, dv, nombres, apellidos, mail, direccion, fecha_nacimiento, ultima_visita, fecha_registro } = res.content.user;
       this.userData.setValue({
@@ -138,15 +147,33 @@ export class ProfileComponent implements OnInit, AfterViewInit {
       }
     });
     
+    
   }
 
-  profileInfo!: Profile;
+  profileInfo: Profile = {
+    user: [{
+      rut: 0,
+      dv: 0,
+      nombres: '',
+      apellidos: '',
+      mail: '',
+      direccion: null,
+      fecha_nacimiento: null,
+      ultima_visita: new Date(),
+      fecha_registro: new Date(),
+      foto: ''
+    }],
+    workInformation: [],
+  };
 
   getProfileInfo(rut: string) {
-    this.userService.getProfileByRut(rut).subscribe( (resp: ApiResponse) => {
+    this.route.snapshot.paramMap.get('id') != null ? this.visitor = true : this.visitor = false;
+    console.log(this.visitor);
+    
+    this.userService.getProfileByRut(this.visitor ? this.route.snapshot.paramMap.get('id')! : rut).subscribe( (resp: ApiResponse) => {
       if(resp.ok) {
         console.log(resp.content);
-        
+        this.loading = false;
         this.profileInfo = resp.content;
       }
     })
