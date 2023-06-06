@@ -1,6 +1,7 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, Host, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
+import { ApplicationComponent } from '../application.component';
 
 @Component({
   selector: 'app-navbar',
@@ -15,7 +16,7 @@ export class NavbarComponent {
     this.innerWidth = window.innerWidth;
   }
 
-  constructor(private router: Router, private userService: UserService) { }
+  constructor(private router: Router, private userService: UserService, @Host() private app: ApplicationComponent) { }
 
   get isLogged() {
     return this.userService.isAuthenticated();
@@ -29,7 +30,15 @@ export class NavbarComponent {
     return this._user.nombres.split(' ')[0] + ' ' + this._user.apellidos.split(' ')[0];
   }
 
+  get section () {
+    return this.app.section;
+  }
+
   logout() {
     this.userService.logout()
+  }
+
+  handleSection() {
+    this.app.section = !this.app.section;
   }
 }

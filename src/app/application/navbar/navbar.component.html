@@ -1,29 +1,55 @@
-<nav class="navbar" *ngIf="isLogged && innerWidth > 1070">
-    <a routerLink="/" class="btn text-busy" matTooltip="Home" matTooltipPosition="below">
-      <span class="material-symbols-outlined">
-        home
-      </span>
-      <span class="title">Home</span>
-    </a>
-    <a routerLink="/app/offer" class="btn text-busy" matTooltip="Home" matTooltipPosition="below">
-      <span class="material-symbols-outlined mr-2">
-        construction
-      </span>
-      <span class="title">Registrar trabajo</span>
-    </a>
-    <button class="btn text-white color-busy" (click)="logout()" matTooltip="Salir" matTooltipPosition="below">
-      <span class="material-symbols-outlined">
-        logout
-      </span>
-      <span class="title">Salir</span>
-    </button>
-  </nav>
-  
-  <nav class="navbar background-gray" *ngIf="!isLogged">
-    <a routerLink="/register" class="btn text-white color-busy" matTooltip="Ingresar" matTooltipPosition="below">
-      <span class="material-symbols-outlined">
-        login
-      </span>
-      <span class="title">Ingresar</span>
-    </a>
+<nav class="navbar navbar-expand-lg navbar-light bg-light" *ngIf="isLogged && innerWidth > 1070">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarcito">
+    <a class="navbar-brand" href="#">busy</a>
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item active">
+        <a routerLink="/" class="btn text-busy" matTooltip="Home" matTooltipPosition="below">
+          <span class="material-symbols-outlined">
+            home
+          </span>
+          <span class="title">Home</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a [routerLink]="section ? '/app/offer': '/app/offer-service'" class="btn text-busy" matTooltip="Home" matTooltipPosition="below">
+          <span class="material-symbols-outlined mr-2">
+            construction
+          </span>
+          <span class="title">{{ section ? 'Ofrece!': 'Únete!'}}</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <button class="btn text-busy" matTooltip="Home" matTooltipPosition="below" (click)="handleSection()">
+          <span class="material-symbols-outlined mr-2">
+            construction
+          </span>
+          <span class="title">{{ section ? 'Ver servicios': 'Ver trabajos' }} </span>
+        </button>
+      </li>
+      <li class="nav-item">
+        <button class="btn text-white color-busy" (click)="logout()" matTooltip="Salir" matTooltipPosition="below">
+          <span class="material-symbols-outlined">
+            logout
+          </span>
+          <span class="title">Salir</span>
+        </button>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0" *ngIf="!section">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+</nav>
+
+<nav class="navbar background-gray" *ngIf="!isLogged">
+  <a routerLink="/register" class="btn text-white color-busy" matTooltip="Ingresar" matTooltipPosition="below">
+    <span class="material-symbols-outlined">
+      login
+    </span>
+    <span class="title">Ingresar</span>
+  </a>
 </nav>

@@ -5,6 +5,7 @@ import { Work } from 'src/app/interfaces/work';
 import { UserService } from 'src/app/services/user.service';
 import { map } from 'rxjs';
 import { MapsService } from 'src/app/services/maps.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -17,7 +18,8 @@ export class OfferComponent implements OnInit {
   constructor(private workService: WorkService, 
               private fb: FormBuilder, 
               private userService: UserService,
-              private maps: MapsService) { }
+              private maps: MapsService,
+              private route: Router) { }
 
   part = 1;
 
@@ -84,7 +86,7 @@ export class OfferComponent implements OnInit {
       const file: File = this.event.target.files[0];
       if (file) {
         this.workService.uploadWork(formData).subscribe(resp => {
-          console.log(resp);
+          this.route.navigate(['/app/profile']);
         });
       }
 

@@ -11,10 +11,6 @@ import { ServiceService } from 'src/app/services/service.service';
 export class ServiciosComponent {
   constructor(private serviceServices: ServiceService, @Host() private app: ApplicationComponent) { }
 
-  get pos() {
-    return this.serviceServices.pos;
-  }
-
   get services() {
     return this.serviceServices.services;
   }

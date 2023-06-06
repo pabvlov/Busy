@@ -4,6 +4,7 @@ import { UserService } from 'src/app/services/user.service';
 import { WorkService } from 'src/app/services/work.service';
 import { FormBuilder } from '@angular/forms';
 import { ServiceService } from 'src/app/services/service.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-offer-service',
@@ -13,7 +14,8 @@ import { ServiceService } from 'src/app/services/service.service';
 export class OfferServiceComponent {
   constructor(private serviceService: ServiceService,
     private fb: FormBuilder,
-    private userService: UserService) { }
+    private userService: UserService,
+    private route: Router) { }
 
   part = 1;
 
@@ -50,6 +52,7 @@ export class OfferServiceComponent {
         descripcion: this.offerForm.value.description!,
         precio: +this.offerForm.value.price!,
         rut_usuario: user.rut!,
+
       }
 
       const formData = new FormData();
@@ -61,6 +64,7 @@ export class OfferServiceComponent {
       if (file) {
         this.serviceService.uploadService(formData).subscribe(resp => {
           console.log(resp);
+          this.route.navigate(['/app/profile']);
         });
       }
 

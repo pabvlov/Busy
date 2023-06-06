@@ -2,23 +2,13 @@
 <ng-container *ngIf="ready; then loaded else loading"></ng-container>
 <ng-template #loaded>
     <app-navbar></app-navbar>
-    <div class="container-fluid">
+    <div class="container-fluid" *ngIf="section == true">
         <div class="row">
             <div class="split-page col-lg-6 col-md-12 col-sm-12" >
                 <section id="application">
                     <div class="center">
                         <div class="d-flex flex-column">
-                            <div class="dual-buttons">
-                                <div class="toggle">
-                                    <span class="toggle__text">Servicios</span>
-                                    <input type="checkbox" id="toggle_mobileData" [(ngModel)]="section">
-                                    <label class="toggle__bar"
-                                           for="toggle_mobileData">
-                                      <span class="toggle__handle"></span>
-                                    </label>
-                                    <span class="toggle__text">Trabajos</span>
-                                  </div>
-                            </div>
+                            
                             
                             <div class="flex-container">
                                 <div class="buttons-right animate__animated animate__backInDown">
@@ -45,8 +35,7 @@
                                     </div>
                                 </div>
                                 
-                                <app-trabajos [pos]="jobPos" *ngIf="section == true" class="animate__animated animate__backInUp"></app-trabajos>
-                                <app-servicios *ngIf="section == false"></app-servicios>
+                                <app-trabajos [pos]="jobPos" class="animate__animated animate__backInUp"></app-trabajos>
                                 <div class="buttons-left animate__animated animate__backInDown">
                                     <button class="btn btn-block transparent" (click)="prev()" matTooltip="Subir"
                                         matTooltipPosition="above">
@@ -75,10 +64,11 @@
             </div>
             <div class="col-lg-6 col-md-12 col-sm-12 animate__animated absolute-sm" [ngClass]="innerWidth <= 997 && !showingInfo ? 'hidden animate__backOutRight': 'active animate__fadeInRightBig'">
                 <app-job-info *ngIf="section"></app-job-info>
-                <app-profile *ngIf="!section" [userRut]="userRut"></app-profile>
             </div>
         </div>    
     </div>    
+    <app-servicios *ngIf="!section"></app-servicios>
+    <!-- <app-profile *ngIf="section" [userRut]="userRut"></app-profile> -->
 </ng-template>
 <ng-template #loading>
     <app-loader></app-loader>

@@ -1,6 +1,6 @@
 .filter {
-    background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 10%, rgba(0,0,0,0) 100%);
-    height: 85vh;
+    background: linear-gradient(0deg, rgb(0, 0, 0) 0%, rgb(0, 0, 0) 10%, rgba(0, 0, 0, 0) 100%);
+    min-height: 270px;
     width: 100%;
     position: absolute;
     z-index: 1;
@@ -15,8 +15,6 @@
 }
 
 .info {
-    height: 85vh;
-    max-width: 450px;
     position: absolute;
     z-index: 2;
     border-radius: 20px;
@@ -24,13 +22,16 @@
     flex-direction: column;
     justify-content: flex-end;
     color: white;
-    padding: 0 0 5% 10px;
+    padding: 0 2% 2% 2%;
+    height: 100%;
+    width: 100%;
 }
 
 .job-info {
     display: flex;
     flex-direction: column;
-    margin-left: 2rem;
+    height: 100%;
+    justify-content: space-between;
 }
 
 .job-id {
@@ -38,18 +39,17 @@
 }
 
 .job-title {
-    font-size: 3rem;
+    font-size: 1.7rem;
     font-weight: bold;
     line-height: 1;
-    
+    padding-right: 1rem;
 }
 
 .job-price {
-    padding: 20px 0;
 }
 
 .price {
-    font-size: 2rem;
+    font-size: 1.3rem;
     font-weight: bold;
     line-height: 1;
 }
@@ -68,23 +68,44 @@
 
 .content {
     height: 100%;
-    max-width: 100%;
+    width: 100%;
     object-fit: cover;
     z-index: 1;
     border-radius: 20px;
 }
 
 .workImage {
-    max-width: 100%;
-    min-width: 400px;
-    height: 85vh;
+    /* min-width: 400px; */
+    /* min-height: 270px; */
+    height: 270px;
     margin: auto;
     border-radius: 20px;
-    box-shadow: inset 0px -15px 30px -10px rgba(58, 58, 58, 0.40);
-    -webkit-box-shadow: -12px 14px 46px 0px rgba(0,0,0,0.37);
-    -moz-box-shadow: -12px 14px 46px 0px rgba(0,0,0,0.37);
-    box-shadow: -12px 14px 46px 0px rgba(0,0,0,0.37);
-    position:relative;
-    width: auto;
+    box-shadow: inset 0px -15px 30px -10px rgba(58, 58, 58, 0.4);
+    box-shadow: -12px 14px 46px 0px rgba(0, 0, 0, 0.37);
+    position: relative;
+    /* width: auto; */
 }
 
+.service {
+    margin: 1% 0;
+}
+
+.perfil-thumbnail {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin: 0;
+    border: 3px solid #3f02e8;
+    -webkit-box-shadow: -5px 5px 23px 0px rgba(0,0,0,0.50);
+    -moz-box-shadow: -5px 5px 23px 0px rgba(0,0,0,0.50);
+    box-shadow: -5px 5px 23px 0px rgba(0,0,0,0.50);
+
+}
+
+.separador {
+    height: auto;
+}
+
+.profile {
+    text-align: left;
+}
