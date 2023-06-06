@@ -1,27 +1,23 @@
 # Busy
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.2.
+Este proyecto fue generado con [Angular CLI](https://github.com/angular/angular-cli) versión 15.2.2.
 
-## Development server
+## Primeros pasos
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Lo primero que hay que tener en cuenta es que se tiene que instalar Angular y Nodejs
+`npm i @angular/cli`
+y node: https://nodejs.org/es/download
 
-## Code scaffolding
+y tanto en la carpeta principal como en la API se ejecuta el siguiente comando: `npm install --force`
+Como paso extra, hay que crear en la api un archivo llamado `.env` con este texto: `SECRET_JWT_SEED=holaxd`
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+
+## ¿Cómo lo hago funcionar en mi máquina?
+
+En una consola posicionate en la carpeta de Busy y con las últimas versiones de NodeJS y Angular podrás poner el comando `ng serve` o `ng serve -o` para abrir automáticamente una pestaña. El siguiente paso sería ingresar a la API Rest `cd api` y poner `node server` o si tienes nodemon que es más cómodo: `nodemon`
+
+`http://localhost:4200/` La aplicación se recargará automáticamente cada cuando guardes un archivo
 
 ## Build
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
