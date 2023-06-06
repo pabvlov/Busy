@@ -23,7 +23,8 @@ import { TrabajoComponent } from './profile/trabajo/trabajo.component';
 import { SharedModule } from '../shared/shared.module';
 import { LoaderComponent } from '../shared/loader/loader.component';
 import { OfferServiceComponent } from './offer-service/offer-service.component';
-
+import { MatGridListModule } from '@angular/material/grid-list';
+import { ServiciosProfileComponent } from './profile/servicios/servicios.component';
 @NgModule({
   declarations: [
     ApplicationComponent,
@@ -39,6 +40,7 @@ import { OfferServiceComponent } from './offer-service/offer-service.component';
     TrabajoComponent,
     LoaderComponent,
     OfferServiceComponent,
+    ServiciosProfileComponent,
   ],
   imports: [
     CommonModule,
@@ -48,11 +50,12 @@ import { OfferServiceComponent } from './offer-service/offer-service.component';
     MatDatepickerModule,
     MatNativeDateModule,
     MatTooltipModule,
+    MatGridListModule,
     ReactiveFormsModule,
+    
     BrowserModule,
     MatInputModule,
     FormsModule,
-    
   ]
 })
 export class ApplicationModule { }

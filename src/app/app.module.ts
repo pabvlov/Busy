@@ -20,6 +20,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { ApplicationModule } from './application/application.module';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { ErrorInterceptor } from './interceptors/error.interceptor';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { ErrorInterceptor } from './interceptors/error.interceptor';
     MatFormFieldModule,
     MatDatepickerModule,
     MatButtonModule,
+    MatGridListModule,
     MatNativeDateModule,
     ApplicationModule
   ],

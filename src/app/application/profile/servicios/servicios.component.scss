@@ -52,11 +52,12 @@ h3 {
     min-height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-end;
 }
 
 mat-grid-list { 
     margin: 0 !important;
+    margin-bottom: 20px !important;
     border: 0 !important;
     background-color: transparent !important;
 }
@@ -76,38 +77,6 @@ mat-grid-list {
     margin: 0;
 }
 
-.material-symbols-outlined {
-    font-family: 'Material Symbols Outlined';
-    font-weight: normal;
-    font-style: normal;
-    font-size: 15px;
-    line-height: 1;
-    letter-spacing: normal;
-    text-transform: none;
-    display: inline-block;
-    white-space: nowrap;
-    word-wrap: normal;
-    direction: ltr;
-    -webkit-font-feature-settings: 'liga';
-    -webkit-font-smoothing: antialiased;
-    margin-right: 4px;
-}
-
-span {
-    /* align */
-    display: flex;
-    align-items: center;
-    justify-content: left;
-}
-
-.error-red {
-    color: rgb(155, 0, 0);
-}
-
-.green {
-    color: green;
-}
-
 a {
     text-decoration: none;
     transition: all 0.3s ease-in-out;
@@ -117,9 +86,4 @@ a:hover {
     /* smooth growing animation */
     transform: scale(1.1);
     transition: all 0.3s ease-in-out;
-}
-
-.text-left {
-    justify-content: left;
-    margin-left: 10px;
 }

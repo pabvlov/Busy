@@ -1,15 +1,11 @@
 <app-navbar></app-navbar>
 <section class="profile background-gray" *ngIf="!loading">
 
-    <div class="container-fluid">
+    <div [class]="visitor ? 'container-fluid': 'container'">
         <div class="data">
             <form action="" [formGroup]="userData" id="formulario" (submit)="editUser()">
                 <div class="row">
-                    <div class="col-6 col-lg-6 trabajos">
-                        <!-- WORKS -->
-                        <app-ofertas [ofertas]="profileInfo.workInformation"></app-ofertas>
-                    </div>
-                    <div class="col-6 col-lg-6 perfil">
+                    <div class="perfil">
                         <!-- PROFILE INFORMATION -->
                         <form action="" class="photo image-upload">
                             <label for="file-input">
@@ -21,7 +17,7 @@
                             <input id="file-input" type="file" (change)="handlePicture($event)" accept="image/*" #picture />
                         </form>
                         <h3> {{ profileInfo.user[0].nombres }} {{ profileInfo.user[0].apellidos }}</h3>
-                        <table class="table">
+                        <table class="table table-responsive">
                             <thead class="color-busy">
                                 <tr>
                                     <th scope="col">#</th>
@@ -67,8 +63,14 @@
                             </mat-form-field>
                         </div>
                     </div>
-                    <div class="col-6 servicios"></div>
-                    <div class="col-6 "></div>
+                    <div class="servicios">
+                        <app-servicios-profile [servicios]="profileInfo.serviceInformation"></app-servicios-profile>
+                    </div>
+                    <div class="trabajos">
+                        <!-- WORKS -->
+                        <app-ofertas [ofertas]="profileInfo.workInformation"></app-ofertas>
+                    </div>
+                    <div class=""></div>
                 </div>
                 <button class="btn btn-block color-busy" *ngIf="!visitor">Guardar</button>
             </form>

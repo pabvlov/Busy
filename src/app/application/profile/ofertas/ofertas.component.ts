@@ -9,4 +9,9 @@ import { Jobs } from 'src/app/interfaces/jobs';
 export class OfertasComponent {
 
   @Input('ofertas') works: Jobs[] = [];
+
+  disponible(date: Date) {
+    return new Date(date).getTime() > new Date().getTime();
+  }
+
 }

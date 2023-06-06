@@ -1,5 +1,5 @@
-<h3>Trabajos ofrecidos</h3>
-<a *ngFor="let work of works" class="works" [routerLink]="'trabajo/'+work.id">
+<h3>Trabajos</h3>
+<!-- <a *ngFor="let work of works" class="works" [routerLink]="'trabajo/'+work.id">
     <div class="card text-center" [style]="'background-image: url(http://localhost:3000/' + work.foto + ');'">
         <div class="card-body" >
             <div class="filter">
@@ -8,4 +8,26 @@
             </div>
         </div>
     </div>
-</a>
+</a> -->
+
+<mat-grid-list cols="2">
+    <mat-grid-tile *ngFor="let work of works" class="works" [routerLink]="'trabajo/'+work.id">
+        <a class="card text-center" [style]="'background-image: url(http://localhost:3000/' + work.foto + ');'" [routerLink]="'/app/profile/trabajo/'+work.id">
+            <div class="card-body" >
+                <div class="filter">
+                    <span class="text-left" [class]="disponible(work.fecha_seleccion_postulante) ? 'animate__animated animate__shakeY animate__infinite animate__slower': ''"> 
+                        <span class="material-symbols-outlined green" *ngIf="disponible(work.fecha_seleccion_postulante)">
+                            check_circle
+                        </span>
+                        <span class="material-symbols-outlined error-red" *ngIf="!disponible(work.fecha_seleccion_postulante)">
+                            cancel
+                        </span>
+                        {{ disponible(work.fecha_seleccion_postulante) ? ' Disponible' : ' No disponible' }}
+                    </span>
+                    
+                    <h3 class="card-title">{{ work.titulo }}</h3>
+                </div>
+            </div>
+        </a>
+    </mat-grid-tile>
+</mat-grid-list>

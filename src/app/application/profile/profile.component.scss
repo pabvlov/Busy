@@ -2,6 +2,29 @@
     padding-top: 4rem;
     text-align: center;
     min-height: 100vh;
+    height: 100vh;
+    overflow-y: scroll;
+}
+
+.profile::-webkit-scrollbar {
+    -webkit-appearance: none;
+}
+
+.profile::-webkit-scrollbar:vertical {
+    width:5px;
+}
+
+.profile::-webkit-scrollbar-button:increment,.profile::-webkit-scrollbar-button {
+    display: none;
+} 
+
+.profile::-webkit-scrollbar-thumb {
+    background-color: rgba($color: #3f02e8, $alpha: 1);
+    border-radius: 20px;
+}
+
+.profile::-webkit-scrollbar-track {
+    border-radius: 10px;  
 }
 
 .photo {

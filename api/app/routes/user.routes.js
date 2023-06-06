@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const user = require('../services/user.service.js');
 const work = require('../services/work.service.js');
+const service = require('../services/service.service.js');
 const multer = require('multer');
 
 const storageEngineProfile = multer.diskStorage({
@@ -43,7 +44,8 @@ router.get('/user/profile/:rut/:dv', async function(req, res, next) {
       ok: true,
       content: {
         user: await user.getUserByRut(parseInt(req.params.rut), parseInt(req.params.dv)),
-        workInformation: await work.getWorksByRut(parseInt(req.params.rut), parseInt(req.params.dv))
+        workInformation: await work.getWorksByRut(parseInt(req.params.rut), parseInt(req.params.dv)),
+        serviceInformation: await service.getServicesByRut(parseInt(req.params.rut), parseInt(req.params.dv))
       }
     })
   } catch (err) {
