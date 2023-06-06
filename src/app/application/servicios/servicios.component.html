@@ -1,17 +1,30 @@
-<div class="workImage">
-    <div class="info">
-        <span class="job-info">
-            <span class="job-id">ID: {{ services[pos].id }}</span>
-            <span class="job-title">
-                {{ services[pos].titulo }}
-            </span>
-            <span class="job-price">
-                CLP$ <span class="price">{{ services[pos].precio | currency : '' : 'symbol' : '1.0-0' }}</span>
-            </span>
-            <button class="show-more" (click)="showMore()" href="">Más información...</button>
-        </span>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 service" *ngFor="let service of services">
+            <div class="workImage">
+                <div class="info">
+                    <span class="job-info">
+                        <button class="btn btn-block transparent profile" matTooltip="Mi perfil"
+                                matTooltipPosition="right">
+                            <img [src]="'http://localhost:3000/'+ service.user.foto " alt="" class="perfil-thumbnail">
+                        </button>
+                        <div class="info">
+                            <span class="job-price">
+                                <span class="price">{{ service.precio | currency : '' : 'symbol' : '1.0-0' }}</span> CLP$ 
+                            </span>
+                            <span class="job-title">
+                                {{ service.titulo }}
+                            </span>
+                        </div>
+                        <!--  <button class="show-more" (click)="showMore()" href="">Ver más</button> -->
+                    </span>
+                </div>
+                <div class="filter">
+                </div>
+                <img [src]="'http://localhost:3000/'+service.foto" class="img-fluid content" [alt]="service.titulo">
+            </div>
+        </div>
     </div>
-    <div class="filter">
-    </div>
-    <img [src]="'http://localhost:3000/'+services[pos].foto" class="img-fluid content" [alt]="services[pos].titulo">
 </div>

@@ -5,9 +5,9 @@ export interface User {
     nombres:          string;
     apellidos:        string;
     foto:             string;
-    direccion:        null;
+    direccion:        string | null;
     esAdmin?:          number;
-    fecha_nacimiento?: null;
+    fecha_nacimiento?: Date | null;
     fecha_registro?:   Date;
     ultima_visita?:    Date;
     aprobado?:        Aprobado;

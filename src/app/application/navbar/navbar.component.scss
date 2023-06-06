@@ -1,7 +1,6 @@
 .navbar {
-    position: absolute;
-    right: 30px;
     z-index: 30;
+    background-color: rgb(231, 231, 231) !important;
 }
 
 .mr-2 {
@@ -25,4 +24,12 @@ a.btn, button.btn {
     flex-direction: column;
     justify-content: center;
     font-family: 'Secular One' !important;
+}
+
+#navbarcito {
+    padding: 0 5%;
+    @media (min-width: 992px) {
+        justify-content: space-between !important;
+    }
+    justify-content: space-between !important;
 }

@@ -23,7 +23,7 @@ export class ApplicationComponent {
   showingInfo = false;
 
   get ready() {
-    return this.workService.ready;
+    return this.workService.ready && this.serviceService.ready;
   }
 
   constructor(private userService: UserService,

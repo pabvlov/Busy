@@ -1,8 +1,11 @@
+import { User } from "./user";
+
 export interface Service {
     id:          number;
+    foto:        string;
+    user:        User;
+    precio:      number;
     titulo:      string;
     descripcion: string;
-    foto:        string;
-    precio:      number;
     rut_usuario: number;
 }

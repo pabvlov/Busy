@@ -9,16 +9,20 @@ const storageEngine = multer.diskStorage({
         cb(null, `${Date.now()}-${file.originalname}`);
     },
 });
-  
+
 const upload = multer({
-storage: storageEngine,
-limits: { fileSize: 100000000 },
+    storage: storageEngine,
+    limits: { fileSize: 100000000 },
 });
 
-router.get('/services', async (req, res, next) => {
+router.get('/services', async (err, res, next) => {
     try {
-        const services = await service.getServices();
-        res.json(await { ok: true, content: services });
+        const services = service.getServices().then((data) => {
+            console.log(data[0]);
+            res.json({ ok: true, content: data[0].result })
+        })
+        
+        
     } catch (err) {
         console.error(`Error while getting all services: `, err.message);
         res.json({ ok: false, message: err.message });
@@ -72,7 +76,7 @@ router.post('/work/apply', (req, res, next) => {
                 message: "Necesitamos que actualices la página y vuelvas a intentarlo",
             });
         }
-        if(work.checkHimself(id_trabajo, rut_trabajador)) {
+        if (work.checkHimself(id_trabajo, rut_trabajador)) {
             console.log();
             console.log("No puedes postularte a tu propio trabajo");
             res.status(200).json({
@@ -81,18 +85,18 @@ router.post('/work/apply', (req, res, next) => {
             });
         } else {
             console.log(work.alreadyApplied(id_trabajo, rut_trabajador));
-            if(!work.alreadyApplied(id_trabajo, rut_trabajador)){
+            if (!work.alreadyApplied(id_trabajo, rut_trabajador)) {
                 work.applyWork(id_trabajo, rut_trabajador)
                 res.status(200).json({
                     ok: true,
                     message: "Trabajo aplicado con éxito",
                 });
-           } else {
-               res.status(200).json({
-                   ok: false,
-                   message: "Ya te has postulado a este trabajo",
-               });
-           }
+            } else {
+                res.status(200).json({
+                    ok: false,
+                    message: "Ya te has postulado a este trabajo",
+                });
+            }
         }
     } catch (err) {
         console.error(`Error while applying service: `, err.message);
@@ -112,18 +116,18 @@ router.post('/service/add', upload.single("file"), (req, res, next) => {
             image: req.file.filename,
             rut_usuario: rut_usuario,
         }
-        
+
         if (req.file) {
-            if(service.uploadService(object)){
+            if (service.uploadService(object)) {
                 res.status(200).json({
                     ok: true,
                     message: "Trabajo subido con éxito",
-                 })   
+                })
             } else {
                 res.status(400).json({
                     ok: false,
                     message: "Error while uploading work",
-                })   
+                })
             }
         } else {
             res.status(400).json({
