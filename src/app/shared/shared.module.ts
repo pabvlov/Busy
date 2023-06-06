@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common';
     CommonModule
   ],
   exports: [
+    
   ]
 })
 export class SharedModule { }

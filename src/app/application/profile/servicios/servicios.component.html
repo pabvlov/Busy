@@ -1,0 +1,24 @@
+<h3>Servicios</h3>
+<!-- <a *ngFor="let work of works" class="works" [routerLink]="'trabajo/'+work.id">
+    <div class="card text-center" [style]="'background-image: url(http://localhost:3000/' + work.foto + ');'">
+        <div class="card-body" >
+            <div class="filter">
+                <h5 class="card-title">{{ work.titulo }}</h5>
+                <p class="card-text"> {{ work.precio | currency:'CLP$ ':'symbol':'1.0-0' }}</p>
+            </div>
+        </div>
+    </div>
+</a> -->
+
+<mat-grid-list cols="2">
+    <mat-grid-tile *ngFor="let service of services" class="works" [routerLink]="'servicio/'+service.id">
+        <a class="card text-center" [style]="!!service.foto ? 'background-image: url(http://localhost:3000/' + service.foto + ');' : 'background-image: url(http://localhost:3000/app/defaultprofilepic.png);'" [routerLink]="'/app/profile/servicio/'+service.id">
+            <div class="card-body" >
+                <div class="filter">
+                    
+                    <h3 class="card-title">{{ service.titulo }}</h3>
+                </div>
+            </div>
+        </a>
+    </mat-grid-tile>
+</mat-grid-list>

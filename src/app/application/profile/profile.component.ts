@@ -204,6 +204,7 @@ export class ProfileComponent implements OnInit, AfterViewInit, OnChanges {
       foto: ''
     }],
     workInformation: [],
+    serviceInformation: []
   };
 
   

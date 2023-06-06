@@ -76,7 +76,6 @@
             <div class="col-lg-6 col-md-12 col-sm-12 animate__animated absolute-sm" [ngClass]="innerWidth <= 997 && !showingInfo ? 'hidden animate__backOutRight': 'active animate__fadeInRightBig'">
                 <app-job-info *ngIf="section"></app-job-info>
                 <app-profile *ngIf="!section" [userRut]="userRut"></app-profile>
-                {{ userRut }}
             </div>
         </div>    
     </div>    
