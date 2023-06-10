@@ -8,6 +8,7 @@ import { Jobs } from 'src/app/interfaces/jobs';
 import { Applier } from 'src/app/interfaces/applier';
 import { MapsService } from 'src/app/services/maps.service';
 import { SwalService } from 'src/app/services/swal.service';
+import { Postulaciones } from 'src/app/interfaces/postulaciones';
 
 @Component({
   selector: 'app-trabajo',
@@ -33,11 +34,11 @@ export class TrabajoComponent implements OnInit {
   }
 
   get work(): Jobs {
-    return this.workService.work.work;
+    return this.workService.work;
   }
 
-  get appliers(): Applier[] {
-    return this.workService.work.appliers;
+  get appliers(): Postulaciones[] {
+    return this.workService.work.postulaciones;
   }
 
   get mapskey() {

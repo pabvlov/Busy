@@ -72,6 +72,10 @@ span.italic {
     padding-top: 20px;
 }
 
+.card-body {
+    padding: 0;
+}
+
 
 .card {
     height: 90%;
@@ -138,4 +142,8 @@ h3 {
 
 .container {
     max-width: 800px;
+}
+
+iframe {
+    border-radius: 20px;
 }

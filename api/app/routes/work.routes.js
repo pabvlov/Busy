@@ -17,16 +17,10 @@ limits: { fileSize: 100000000 },
 
 router.get('/works', async (req, res) => {
     try {
-        const works = await work.getWorks();
-        const worksWithAppliers = [];
-        for(var i = 0; i < works.length; i++){
-            const appliers = await work.getWorkAppliers(works[i].id);
-            worksWithAppliers.push({
-                work: works[i],
-                appliers: appliers
-            });
-        }
-        res.json(await { ok: true, content: worksWithAppliers});
+        const works = await work.getWorks()
+
+        res.json({ ok: true, content: works.map(item => item.result[0]) })
+        //res.json(await { ok: true, content: works });
     } catch (err) {
         console.error(`Error while getting all jobs: `, err.message);
         res.json({ ok: false, message: err.message });
@@ -34,16 +28,12 @@ router.get('/works', async (req, res) => {
     }
 });
 
-router.get('/work/:id', async (req, res) => {
+router.get('/work/:id', async (req, res, err) => {
     try {
-        const workById = await work.getWorkById(req.params.id);
         const workAppliers = await work.getWorkAppliers(req.params.id);
         res.status(200).json({
             ok: true,
-            content: {
-                work: workById[0],
-                appliers: workAppliers
-            }
+            content: workAppliers[0].result,
         });
     } catch (err) {
         console.error(`Error while getting the job: `, err.message);

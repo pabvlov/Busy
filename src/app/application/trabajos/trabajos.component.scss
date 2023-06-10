@@ -72,10 +72,12 @@
     object-fit: cover;
     z-index: 1;
     border-radius: 20px;
+    min-width: 200px;
 }
 
 .workImage {
     max-width: 100%;
+    min-width: 400px;
     height: 85vh;
     margin: auto;
     border-radius: 20px;

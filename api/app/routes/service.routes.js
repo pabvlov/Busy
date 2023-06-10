@@ -18,7 +18,6 @@ const upload = multer({
 router.get('/services', async (err, res, next) => {
     try {
         const services = service.getServices().then((data) => {
-            console.log(data[0]);
             res.json({ ok: true, content: data[0].result })
         })
         

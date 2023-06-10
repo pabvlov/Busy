@@ -21,4 +21,8 @@ export class TrabajosComponent {
     this.app.showingInfo = !this.app.showingInfo;
   }
 
+  get foto() {
+    return !!this.jobs[this.pos].foto ? this.jobs[this.pos].foto : 'app/defaultprofilepic.png';
+  }
+
 }

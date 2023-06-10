@@ -5,7 +5,63 @@ const { get } = require('../routes/auth.routes');
 const e = require('express');
 
 async function getWorks(){
-  return await db.query(`SELECT * FROM trabajos;`);
+  return await db.query(`SELECT JSON_ARRAYAGG(
+    JSON_OBJECT(
+        'id', t.id,
+        'foto', t.foto,
+        'precio', t.precio,
+        'titulo', t.titulo,
+        'ubicacion', t.ubicacion,
+        'descripcion', t.descripcion,
+        'postulaciones', (
+            SELECT JSON_ARRAYAGG(
+                JSON_OBJECT(
+                    'id', p.id,
+                    'user', JSON_OBJECT(
+                        'dv', u.dv,
+                        'rut', u.rut,
+                        'foto', u.foto,
+                        'mail', u.mail,
+                        'nombres', u.nombres,
+                        'apellidos', u.apellidos,
+                        'direccion', u.direccion,
+                        'ultima_visita', u.ultima_visita,
+                        'fecha_registro', u.fecha_registro,
+                        'fecha_nacimiento', u.fecha_nacimiento
+                    ),
+                    'id_estado', p.id_estado,
+                    'id_trabajo', p.id_trabajo,
+                    'rut_trabajador', p.rut_trabajador,
+                    'fecha_publicacion', p.fecha_publicacion
+                )
+            )
+            FROM postulaciones p
+            INNER JOIN usuario u ON p.rut_trabajador = u.rut
+            WHERE p.id_trabajo = t.id
+        ),
+        'rut_empleador', t.rut_empleador,
+        'cantidad_personas', t.cantidad_personas,
+        'fecha_publicacion', t.fecha_publicacion,
+        'fecha_finalizacion', t.fecha_finalizacion,
+        'fecha_seleccion_postulante', t.fecha_seleccion_postulante,
+        'empleador', JSON_OBJECT(
+          'dv', ue.dv,
+          'rut', ue.rut,
+          'foto', ue.foto,
+          'mail', ue.mail,
+          'nombres', ue.nombres,
+          'apellidos', ue.apellidos,
+          'direccion', ue.direccion,
+          'ultima_visita', ue.ultima_visita,
+          'fecha_registro', ue.fecha_registro,
+          'fecha_nacimiento', ue.fecha_nacimiento
+        )
+    )
+) AS result
+FROM trabajos t
+LEFT JOIN usuario ue ON t.rut_empleador = ue.rut
+GROUP BY t.id
+ORDER BY t.fecha_publicacion DESC;`);
 } 
 
 async function getWorksByRut(rut){
@@ -28,8 +84,57 @@ async function uploadWork(work) {
       })
 }
 
-async function getWorkAppliers(id){
-  return await db.query(`SELECT u.rut, u.foto, u.nombres, u.apellidos, u.direccion, pos.fecha_publicacion FROM postulaciones pos join usuario u on pos.rut_trabajador = u.rut  WHERE pos.id_trabajo = ${ id }`);
+async function getWorkAppliers(rut){
+  return await db.query(`SELECT JSON_OBJECT(
+    'id', t.id,
+    'foto', t.foto,
+    'precio', t.precio,
+    'titulo', t.titulo,
+    'ubicacion', t.ubicacion,
+    'descripcion', t.descripcion,
+    'postulaciones', (
+        SELECT JSON_ARRAYAGG(
+            JSON_OBJECT(
+                'id', p.id,
+                'user', JSON_OBJECT(
+                    'dv', u.dv,
+                    'rut', u.rut,
+                    'foto', u.foto,
+                    'mail', u.mail,
+                    'nombres', u.nombres,
+                    'apellidos', u.apellidos,
+                    'direccion', u.direccion,
+                    'ultima_visita', u.ultima_visita,
+                    'fecha_registro', u.fecha_registro,
+                    'fecha_nacimiento', u.fecha_nacimiento
+                ),
+                'id_estado', p.id_estado,
+                'id_trabajo', p.id_trabajo,
+                'rut_trabajador', p.rut_trabajador,
+                'fecha_publicacion', p.fecha_publicacion
+            )
+        )
+        FROM postulaciones p
+        INNER JOIN usuario u ON p.rut_trabajador = u.rut
+        WHERE p.id_trabajo = ${ rut }	
+    ),
+    'rut_empleador', t.rut_empleador,
+    'cantidad_personas', t.cantidad_personas,
+    'fecha_publicacion', t.fecha_publicacion,
+    'fecha_finalizacion', t.fecha_finalizacion,
+    'fecha_seleccion_postulante', t.fecha_seleccion_postulante,
+    'empleador', JSON_OBJECT(
+        'rut_empleador', ue.rut,
+        'nombre_empleador', ue.nombres,
+        'apellido_empleador', ue.apellidos,
+        'direccion_empleador', ue.direccion,
+        'foto_empleador', ue.foto
+    )
+) AS result
+FROM trabajos t
+LEFT JOIN usuario ue ON t.rut_empleador = ue.rut
+WHERE t.id = ${ rut }	
+GROUP BY t.id;`);
 }
 
 function applyWork(id_trabajo, rut_trabajador) {
