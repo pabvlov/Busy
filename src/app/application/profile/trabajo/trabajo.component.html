@@ -56,7 +56,7 @@
         <div id="maps">
             <div class="card">
                 <div class="card-body">
-                    <iframe style="border:0" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"
+                    <iframe width="100%" height="100%" style="border:0" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"
                         [src]="(mapskey + work.ubicacion) | safe">
                     </iframe>
                 </div>
@@ -66,14 +66,14 @@
             <section class="postulantes">
                 <h3 class="title text-busy">Postulantes</h3>
                 <div class="postulantes">
-                    <a class="postulante" *ngFor="let applier of appliers" [routerLink]="'/app/profile/'+applier.rut">
+                    <a class="postulante" *ngFor="let applier of appliers" [routerLink]="'/app/profile/'+applier.user.rut">
                         <div class="profile">
-                            <img [src]="applier.foto == null ? 'http://localhost:3000/' + 'app/defaultprofilepic.png': 'http://localhost:3000/' + applier.foto"
-                                alt="" class="foto" [matTooltip]="applier.nombres + ' ' + applier.apellidos"
+                            <img [src]="applier.user.foto == null ? 'http://localhost:3000/' + 'app/defaultprofilepic.png': 'http://localhost:3000/' + applier.user.foto"
+                                alt="" class="foto" [matTooltip]="applier.user.nombres + ' ' + applier.user.apellidos"
                                 matTooltipPosition="below">
                         </div>
                         <div class="nombre">
-                            {{ applier.nombres }} {{ applier.apellidos }}
+                            {{ applier.user.nombres }} {{ applier.user.apellidos }}
                         </div>
                     </a>
                 </div>

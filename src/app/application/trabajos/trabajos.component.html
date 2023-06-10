@@ -1,17 +1,17 @@
 <div class="workImage">
     <div class="info">
         <span class="job-info">
-            <span class="job-id">ID: {{ jobs[pos].work.id }}</span>
+            <span class="job-id">ID: {{ jobs[pos].id }}</span>
             <span class="job-title">
-                {{jobs[pos].work.titulo}}
+                {{jobs[pos].titulo}}
             </span>
             <span class="job-price">
-                CLP$ <span class="price">{{ jobs[pos].work.precio | currency : '' : 'symbol' : '1.0-0' }}</span>
+                CLP$ <span class="price">{{ jobs[pos].precio | currency : '' : 'symbol' : '1.0-0' }}</span>
             </span>
             <button class="show-more" (click)="showMore()" href="">Más información...</button>
         </span>
     </div>
     <div class="filter">
     </div>
-    <img [src]="'http://localhost:3000/'+jobs[pos].work.foto" class="img-fluid content" [alt]="jobs[pos].work.titulo">
+    <img [src]="'http://localhost:3000/'+ foto " class="img-fluid content" [alt]=" jobs[pos].titulo ">
 </div>

@@ -1,13 +1,17 @@
+import { Postulaciones } from "./postulaciones";
+import { User } from "./user";
+
 export interface Jobs {
     id:                         number;
-    rut_empleador:              number;
-    titulo:                     string;
-    descripcion:                string;
     foto:                       string;
+    precio:                     string | null;
+    titulo:                     string;
+    ubicacion:                  string | null;
+    descripcion:                string;
+    postulaciones:              Postulaciones[] | null;
+    rut_empleador:              number;
     cantidad_personas:          string;
-    ubicacion:                  null;
     fecha_publicacion:          Date;
-    fecha_seleccion_postulante: Date;
     fecha_finalizacion:         Date;
-    precio:                     null | string;
+    fecha_seleccion_postulante: Date;
 }

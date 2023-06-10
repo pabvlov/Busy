@@ -27,11 +27,18 @@ export class JobInfoComponent {
   }
 
   get work() {
-    return this.job.work;
+    return this.job;
   }
 
-  get appliers() {
-    return this.job.appliers;
+  get applierslength() {
+    if (this.job.postulaciones === null) {
+      return 0
+    } else 
+    return this.job.postulaciones.length;
+  }
+
+  get appliers () {
+    return this.job.postulaciones;
   }
 
   isViewingMap = false;
@@ -76,9 +83,9 @@ export class JobInfoComponent {
     if (this.work.rut_empleador === this.userService._usuario.rut) {
       this.swal.error('Error al postular', 'No puedes postular a tu propio trabajo');
     }
-    for (let index = 0; index < this.job.appliers.length; index++) {
-      const element = this.job.appliers[index];
-      if (element.rut === this.userService._usuario.rut) {
+    for (let index = 0; index < this.job.postulaciones.length; index++) {
+      const element = this.job.postulaciones[index];
+      if (element.rut_trabajador === this.userService._usuario.rut) {
         this.swal.error('Error al postular', 'Ya has postulado a este trabajo');
         return;
       }
