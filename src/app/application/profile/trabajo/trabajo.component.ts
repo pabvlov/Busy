@@ -45,7 +45,9 @@ export class TrabajoComponent implements OnInit {
     return this.maps.mapskey;
   }
 
-  empleador = this.userService._usuario;
+  get empleador() {
+    return this.workService.work.empleador
+  };
 
   ngOnInit(): void {
     this.workService.updateProfileWork(this.id);
@@ -74,4 +76,22 @@ export class TrabajoComponent implements OnInit {
     })
     //this.router.navigate(['/app/profile']);
   }
+
+  handleChooseApplier(rut: number, state: number) {
+    this.workService.chooseApplierWork(this.id, rut, state).subscribe( resp => {
+      this.swal.loading('Seleccionando postulante...');
+      
+      if (resp.ok) {
+        this.workService.updateProfileWork(this.work.id);
+      }
+      return resp.ok
+    })      
+  }
+
+  
+
+  workHasChosenApplier() {
+    return this.workService.work.postulaciones.some( applier => applier.id_estado === 1);
+  }
+
 }

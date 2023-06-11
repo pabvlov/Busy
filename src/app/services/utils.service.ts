@@ -13,13 +13,13 @@ export class UtilsService {
     let diff = fecha2.getTime() - fecha.getTime();
     let diffDays = Math.ceil(diff / (1000 * 3600 * 24));
     if (diffDays < 0) {
-      return "Hace " + Math.abs(diffDays) + " días";
+      return "hace " + Math.abs(diffDays) + " días";
     } else if (diffDays == 0) {
-      return "Hoy";
+      return "hoy";
     } else if (diffDays == 1) {
-      return "Mañana";
+      return "mañana";
     } else if (diffDays > 1) {
-      return "En " + diffDays + " días";
+      return "en " + diffDays + " días";
     } else {
       return diffDays;
     }

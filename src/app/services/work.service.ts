@@ -42,7 +42,7 @@ export class WorkService {
       if (data.ok) {
         this.work = data.content;
         this.isUpdatingProfile = false;
-        
+        this.swal.stopLoading();
         console.log(data.content);
       } else {
         console.log(data.message);
@@ -243,6 +243,9 @@ export class WorkService {
     return this.httpClient.delete<ApiResponse>(`http://localhost:3000/work/delete/${id}`);
   }
 
+  chooseApplierWork(id_trabajo: number, rut_trabajador: number, state: number) {
+    return this.httpClient.put<ApiResponse>(`http://localhost:3000/work/choose`, { id_trabajo, rut_trabajador, state });
+  }
   
 
   

@@ -1,74 +1,77 @@
 
 <ng-container *ngIf="ready; then loaded else loading"></ng-container>
 <ng-template #loaded>
-    <app-navbar></app-navbar>
-    <div class="container-fluid" *ngIf="section == true">
-        <div class="row">
-            <div class="split-page col-lg-6 col-md-12 col-sm-12" >
-                <section id="application">
-                    <div class="center">
-                        <div class="d-flex flex-column">
-                            
-                            
-                            <div class="flex-container">
-                                <div class="buttons-right animate__animated animate__backInDown">
-                                    <div class="upside">
-                                        <a class="btn btn-block transparent" routerLink="about" matTooltip="Sobre Busy"
-                                            matTooltipPosition="right">
-                                            <span class="material-symbols-outlined">
-                                                info
-                                            </span>
-                                        </a>
-                                        <button class="btn btn-block transparent profile" (click)="gotoProfile()" matTooltip="Mi perfil"
-                                            matTooltipPosition="right">
-            
-                                            <img [src]="'http://localhost:3000/'+ foto" alt="" class="perfil-thumbnail">
-                                        </button>
-                                    </div>
-                                    <div class="downside">
-                                        <button class="btn btn-block transparent" (click)="logout()" matTooltip="Salir"
-                                            matTooltipPosition="right">
-                                            <span class="material-symbols-outlined">
-                                                logout
-                                            </span>
-                                        </button>
-                                    </div>
-                                </div>
+    <div class="vh">
+        <app-navbar></app-navbar>
+        <div class="container-fluid" *ngIf="section == true">
+            <div class="row">
+                <div class="split-page col-lg-6 col-md-12 col-sm-12" >
+                    <section id="application">
+                        <div class="center">
+                            <div class="d-flex flex-column">
                                 
-                                <app-trabajos [pos]="jobPos" class="animate__animated animate__backInUp"></app-trabajos>
-                                <div class="buttons-left animate__animated animate__backInDown">
-                                    <button class="btn btn-block transparent" (click)="prev()" matTooltip="Subir"
-                                        matTooltipPosition="above">
-                                        <span class="material-symbols-outlined">
-                                            arrow_upward
-                                        </span>
-                                    </button>
-                                    <button class="btn btn-block transparent" (click)="gotoOffer()" matTooltip="Registrar Trabajo"
-                                        matTooltipPosition="right">
-                                        <span class="material-symbols-outlined">
-                                            library_add
-                                        </span>
-                                    </button>
-                                    <button class="btn btn-block transparent" (click)="next()" matTooltip="Bajar"
-                                        matTooltipPosition="below">
-                                        <span class="material-symbols-outlined">
-                                            arrow_downward
-                                        </span>
-                                    </button>
+                                
+                                <div class="flex-container">
+                                    <div class="buttons-right animate__animated animate__backInDown">
+                                        <div class="upside">
+                                            <a class="btn btn-block transparent" routerLink="about" matTooltip="Sobre Busy"
+                                                matTooltipPosition="right">
+                                                <span class="material-symbols-outlined">
+                                                    info
+                                                </span>
+                                            </a>
+                                            <button class="btn btn-block transparent profile" (click)="gotoProfile()" matTooltip="Mi perfil"
+                                                matTooltipPosition="right">
+                
+                                                <img [src]="'http://localhost:3000/'+ foto" alt="" class="perfil-thumbnail">
+                                            </button>
+                                        </div>
+                                        <div class="downside">
+                                            <button class="btn btn-block transparent" (click)="logout()" matTooltip="Salir"
+                                                matTooltipPosition="right">
+                                                <span class="material-symbols-outlined">
+                                                    logout
+                                                </span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    
+                                    <app-trabajos [pos]="jobPos" class="animate__animated animate__backInUp"></app-trabajos>
+                                    <div class="buttons-left animate__animated animate__backInDown">
+                                        <button class="btn btn-block transparent" (click)="prev()" matTooltip="Subir"
+                                            matTooltipPosition="above">
+                                            <span class="material-symbols-outlined">
+                                                arrow_upward
+                                            </span>
+                                        </button>
+                                        <button class="btn btn-block transparent" (click)="gotoOffer()" matTooltip="Registrar Trabajo"
+                                            matTooltipPosition="right">
+                                            <span class="material-symbols-outlined">
+                                                library_add
+                                            </span>
+                                        </button>
+                                        <button class="btn btn-block transparent" (click)="next()" matTooltip="Bajar"
+                                            matTooltipPosition="below">
+                                            <span class="material-symbols-outlined">
+                                                arrow_downward
+                                            </span>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </section>
-                
-            </div>
-            <div class="col-lg-6 col-md-12 col-sm-12 animate__animated absolute-sm" [ngClass]="innerWidth <= 997 && !showingInfo ? 'hidden animate__backOutRight': 'active animate__fadeInRightBig'">
-                <app-job-info *ngIf="section"></app-job-info>
-            </div>
+                    </section>
+                    
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12 animate__animated absolute-sm" [ngClass]="innerWidth <= 997 && !showingInfo ? 'hidden animate__backOutRight': 'active animate__fadeInRightBig'">
+                    <app-job-info *ngIf="section"></app-job-info>
+                </div>
+            </div>    
         </div>    
-    </div>    
-    <app-servicios *ngIf="!section"></app-servicios>
-    <!-- <app-profile *ngIf="section" [userRut]="userRut"></app-profile> -->
+        <app-servicios *ngIf="!section"></app-servicios>
+        <!-- <app-profile *ngIf="section" [userRut]="userRut"></app-profile> -->
+    </div>
+    
 </ng-template>
 <ng-template #loading>
     <app-loader></app-loader>

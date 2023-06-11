@@ -41,6 +41,18 @@ export class JobInfoComponent {
     return this.job.postulaciones;
   }
 
+  get isApplier() { 
+    if (this.job.postulaciones === null) {
+      return false;
+    } else {
+      return this.job.postulaciones.some((applier) => applier.rut_trabajador === this.userService._usuario.rut);
+    }
+  }
+
+  get isJobOwner() {
+    return this.job.rut_empleador === this.userService._usuario.rut;
+  }
+
   isViewingMap = false;
 
   get mapskey() {
@@ -83,7 +95,7 @@ export class JobInfoComponent {
     if (this.work.rut_empleador === this.userService._usuario.rut) {
       this.swal.error('Error al postular', 'No puedes postular a tu propio trabajo');
     }
-    for (let index = 0; index < this.job.postulaciones.length; index++) {
+    for (let index = 0; index < this.applierslength; index++) {
       const element = this.job.postulaciones[index];
       if (element.rut_trabajador === this.userService._usuario.rut) {
         this.swal.error('Error al postular', 'Ya has postulado a este trabajo');
@@ -91,14 +103,15 @@ export class JobInfoComponent {
       }
     }
     this.workService.applyWork(this.work.id, this.userService._usuario.rut).subscribe((data: any) => {
-      button.classList.add('disabled');
       if (data.ok) {
-        this.workService.updateWorks();
         this.swal.success('Postulación exitosa', data.message);
+        console.log(data);
+        this.workService.updateWorks();
       } else {
         this.swal.error('Error al postular', data.message);
       }
     })
+    
   }
 
   get isUpdating() {

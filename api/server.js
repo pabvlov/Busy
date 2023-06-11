@@ -46,6 +46,7 @@ app.get("/works", workRouter);
 app.get("/work/:id", workRouter);
 app.post("/work/apply", workRouter);
 app.delete("/work/delete/:id", workRouter);
+app.put("/work/choose", workRouter);
 
 // services
 app.post("/service/uploadImage", serviceRouter);

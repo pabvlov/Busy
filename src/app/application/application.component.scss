@@ -1,15 +1,7 @@
 #application {
     background-color: rgb(231, 231, 231);
-    height: 100vh;
+    height: auto;
 }
-
-
-
-.split-page {
-    height: 100vh;
-}
-
-
 
 /* dual buttons on top of workImage */
 .dual-buttons {
@@ -235,4 +227,8 @@ div.active {
 
   .btn-busy {
     margin: 0 20px !important;
+  }
+
+  .vh {
+    height: 100vh;
   }
