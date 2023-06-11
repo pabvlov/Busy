@@ -101,4 +101,20 @@ export class SwalService {
     Swal.close();
   }
 
+  confirm(title: string, text: string, confirmButtonText: string, cancelButtonText: string, callback: any) {
+    Swal.fire({
+      title,
+      text,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText,
+      cancelButtonText,
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        callback();
+      }
+    })
+  }
+
 }

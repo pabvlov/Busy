@@ -41,6 +41,18 @@ router.get('/work/:id', async (req, res, err) => {
     }
 });
 
+router.put('/work/choose', async (req, res, err) => {
+    try {
+        const applier = work.chooseApplier(req.body.id_trabajo, req.body.rut_trabajador, req.body.state).then((data) => {
+            res.json({ ok: true, content: data })
+        console.log(applier);
+        })
+    } catch (err) {
+        console.error(`Error while getting the job: `, err.message);
+        next(err);
+    }
+});
+
 router.post('/work/uploadWork', upload.single("file"), (req, res) => {
     try {
         console.log(req.file);
@@ -73,7 +85,6 @@ router.post('/work/apply', (req, res, next) => {
             });
         }
         if(work.checkHimself(id_trabajo, rut_trabajador)) {
-            console.log();
             console.log("No puedes postularte a tu propio trabajo");
             res.status(200).json({
                 ok: false,

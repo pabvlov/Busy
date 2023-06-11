@@ -64,7 +64,7 @@
         </div>
 
         <div class="postular">
-            <button class="btn btn-block btn-busy hover" (click)="applyWork()" id="apply">Postular</button>
+            <button class="btn btn-block btn-busy hover" (click)="applyWork()" id="apply" [ngClass]="isApplier || isJobOwner ? 'disabled': ''">Postular</button>
             <!-- <button class="btn btn-block btn-busy hover">Hacer oferta</button> -->
         </div>
     </div>

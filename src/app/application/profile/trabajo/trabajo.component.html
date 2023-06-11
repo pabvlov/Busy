@@ -6,59 +6,41 @@
                 arrow_back
             </span>
         </a>
-        <h3 class="title text-busy">{{ work.titulo }}</h3>
-        <p class="description">
-            {{ work.descripcion }}
-        </p>
-        <table class="table">
-            <thead class="color-busy sombra">
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Datos</th>
-                </tr>
-            </thead>
+        <h3 class="title text-busy background">
+            {{ work.titulo }}
+            <h6 class="subtitle">
+                por <a [href]="'/app/profile/' + empleador.rut" >{{ empleador.nombres }} {{ empleador.apellidos }}</a>, <span class="italic text-busy">{{
+                    dateDiff(work.fecha_publicacion) }}</span>
+            </h6>
+        </h3>
+        <p class="description background">
+            Necesito <span class="badge color-busy">{{ work.cantidad_personas }}</span> {{ work.cantidad_personas == "1" ? 'persona' : 'personas' }}
             <br>
-            <tbody>
-                <tr>
-                    <th scope="row">Precio</th>
-                    <td>{{ work.precio | currency:'CLP$ ':'symbol':'1.0-0' }}</td>
-                </tr>
-                <tr>
-                    <th scope="row">Cantidad de Personas</th>
-                    <td>{{ work.cantidad_personas }}</td>
-                </tr>
-                <tr>
-                    <th scope="row">Ubicación</th>
-                    <td>{{ empleador.direccion }} — <button class="btn transparent">Ver Mapa</button>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">Fecha de Publicación</th>
-                    <td>{{ work.fecha_publicacion | date: 'dd/MM/yyyy' }} — <span class="italic text-busy">{{
-                            dateDiff(work.fecha_publicacion) }}</span></td>
-                </tr>
-                <tr>
-                    <th scope="row">Fecha de Selección</th>
-                    <td>{{ work.fecha_seleccion_postulante | date: 'dd/MM/yyyy' }} — <span class="italic text-busy">{{
-                            dateDiff(work.fecha_seleccion_postulante) }}</span></td>
-                </tr>
-                <tr>
-                    <th scope="row">Fecha de Término</th>
-                    <td>{{ work.fecha_finalizacion | date: 'dd/MM/yyyy' }} — <span class="italic text-busy">{{
-                            dateDiff(work.fecha_finalizacion) }}</span></td>
-                </tr>
-                <tr>
-                    <th scope="row">Empleador</th>
-                    <td>{{ empleador.nombres }} {{ empleador.apellidos }}</td>
-                </tr>
-            </tbody>
-        </table>
-        <div id="maps">
-            <div class="card">
+            <br>
+            {{ work.descripcion }}
+            <br><br>
+            <span class="badge color-busy">{{ work.precio | currency:'CLP$ ':'symbol':'1.0-0' }}</span>
+        </p>
+        <div class="info-cards">
+            <div class="maps" *ngIf="work.ubicacion != null">
+                <div class="card">
+                    <div class="card-body">
+                        <iframe width="100%" height="100%" style="border:0" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"
+                            [src]="(mapskey + work.ubicacion) | safe">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white fit">
                 <div class="card-body">
-                    <iframe width="100%" height="100%" style="border:0" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"
-                        [src]="(mapskey + work.ubicacion) | safe">
-                    </iframe>
+                    <p class="value">Selección: {{ work.fecha_seleccion_postulante | date: 'dd/MM/yyyy' }} — <span class="italic text-busy">{{
+                        dateDiff(work.fecha_seleccion_postulante) }}</span></p>
+                </div>
+            </div>
+            <div class="bg-white fit">
+                <div class="card-body">
+                    <p class="value">Finaliza: {{ work.fecha_finalizacion | date: 'dd/MM/yyyy' }} — <span class="italic text-busy">{{
+                        dateDiff(work.fecha_finalizacion) }}</span></p>
                 </div>
             </div>
         </div>
@@ -66,16 +48,30 @@
             <section class="postulantes">
                 <h3 class="title text-busy">Postulantes</h3>
                 <div class="postulantes">
-                    <a class="postulante" *ngFor="let applier of appliers" [routerLink]="'/app/profile/'+applier.user.rut">
-                        <div class="profile">
-                            <img [src]="applier.user.foto == null ? 'http://localhost:3000/' + 'app/defaultprofilepic.png': 'http://localhost:3000/' + applier.user.foto"
-                                alt="" class="foto" [matTooltip]="applier.user.nombres + ' ' + applier.user.apellidos"
-                                matTooltipPosition="below">
+                    <div class="postulante" *ngFor="let applier of appliers" [style]="applier.id_estado == 1 ? 'background: rgba(0, 180, 0, 0.6)': (applier.id_estado == 2 ? 'background: rgba(180, 0, 0, 0.6)': 'background: rgba(255, 255, 0, 0.6)')">
+                        <a class="user" [routerLink]="'/app/profile/'+applier.user.rut">
+                            <div class="profile">
+                                <img [src]="applier.user.foto == null ? 'http://localhost:3000/' + 'app/defaultprofilepic.png': 'http://localhost:3000/' + applier.user.foto"
+                                    alt="" class="foto" [matTooltip]="applier.user.nombres + ' ' + applier.user.apellidos"
+                                    matTooltipPosition="below">
+                            </div>
+                            <div class="nombre">
+                                {{ applier.user.nombres }} {{ applier.user.apellidos }}
+                            </div>
+                        </a>
+                        <div class="choose" *ngIf="!workHasChosenApplier()">
+                            <button class="btn btn-busy" (click)="handleChooseApplier(applier.user.rut, 1)">
+                                <span class="material-symbols-outlined">
+                                check_circle
+                                </span>
+                            </button>
+                            <button class="btn btn-busy" (click)="handleChooseApplier(applier.user.rut, 2)">
+                                <span class="material-symbols-outlined">
+                                cancel
+                                </span>
+                            </button>
                         </div>
-                        <div class="nombre">
-                            {{ applier.user.nombres }} {{ applier.user.apellidos }}
-                        </div>
-                    </a>
+                    </div>
                 </div>
             </section>
         </div>
