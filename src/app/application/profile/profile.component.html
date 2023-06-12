@@ -1,6 +1,13 @@
 <section class="profile background-gray" *ngIf="!loading">
 
     <div [class]="visitor ? 'container-fluid': 'container'">
+        <!-- button go back -->
+        <button class="btn-back transparent" (click)="goBackToPreviousPage()" matTooltip="Volver"
+            matTooltipPosition="above">
+            <span class="material-symbols-outlined">
+                arrow_back
+            </span>
+        </button>
         <div class="data">
             <form action="" [formGroup]="userData" id="formulario" (submit)="editUser()">
                 <div class="row">

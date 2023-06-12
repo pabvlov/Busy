@@ -1,7 +1,7 @@
 <ng-container *ngIf="work.precio != '';then loaded; else loading"></ng-container>
 <ng-template #loaded>
     <div class="container" id="information" *ngIf="!isViewingMap">
-        <button class="btn transparent" (click)="gotoJobs()">
+        <button class="btn-back transparent background" (click)="goBackToPreviousPage()">
             <span class="material-symbols-outlined">
                 arrow_back
             </span>

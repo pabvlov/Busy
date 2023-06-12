@@ -9,6 +9,8 @@ import { Applier } from 'src/app/interfaces/applier';
 import { MapsService } from 'src/app/services/maps.service';
 import { SwalService } from 'src/app/services/swal.service';
 import { Postulaciones } from 'src/app/interfaces/postulaciones';
+import { Location } from '@angular/common';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-trabajo',
@@ -24,7 +26,8 @@ export class TrabajoComponent implements OnInit {
               private userService: UserService, 
               private utils: UtilsService,
               private maps: MapsService,
-              private swal: SwalService) {}
+              private swal: SwalService,
+              private location: Location) {}
 
 
   id: number = +this.route.snapshot.paramMap.get('id')!;
@@ -48,6 +51,14 @@ export class TrabajoComponent implements OnInit {
   get empleador() {
     return this.workService.work.empleador
   };
+
+  get apiUrl() {
+    return environment.apiUrl;
+  }
+
+  goBackToPreviousPage() {
+    this.location.back();
+  }
 
   ngOnInit(): void {
     this.workService.updateProfileWork(this.id);

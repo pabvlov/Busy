@@ -89,15 +89,14 @@ button, a {
 }
 
 #servicios, #trabajos {
-    display: flex;
-    flex-direction: row;
-    -webkit-box-shadow: -12px 14px 46px 0px rgba(0,0,0,0.37);
-    -moz-box-shadow: -12px 14px 46px 0px rgba(0,0,0,0.37);
-    box-shadow: -12px 14px 46px 0px rgba(0,0,0,0.37);
-    border-radius: 20px;
-    margin: 0 20px;
-    min-width: 150px;
-    justify-content: space-around;
+  display: flex;
+  flex-direction: row;
+  /* box-shadow: -12px 14px 46px 0px rgba(0, 0, 0, 0.37); */
+  /* border-radius: 20px; */
+  margin: 0 20px;
+  min-width: 150px;
+  justify-content: space-around;
+  transition: .4 ease-in-out;
 }
 
 button.profile {
@@ -233,5 +232,4 @@ div.active {
     height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
   }
