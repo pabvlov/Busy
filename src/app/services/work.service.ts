@@ -36,8 +36,8 @@ export class WorkService {
     
   }
 
-  updateProfileWork(id: number) {
-    this.isUpdatingProfile = true;
+  updateProfileWork(id: number, isUpdatingProfile: boolean = true) {
+    this.isUpdatingProfile = isUpdatingProfile;
     this.getWork(id).subscribe((data: ApiResponse) => {
       if (data.ok) {
         this.work = data.content;
