@@ -8,6 +8,7 @@ import { UserService } from './user.service';
 import { WorkInformation } from '../interfaces/work-information';
 import { ServiceInformation } from '../interfaces/service-information';
 import { SwalService } from './swal.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -223,28 +224,28 @@ export class WorkService {
 
 
   uploadWork(body: FormData) {
-    return this.httpClient.post('http://localhost:3000/work/add', body);
+    return this.httpClient.post(environment.apiUrl + 'work/add', body);
   }
 
   getWorks() {
-    return this.httpClient.get<ApiResponse>('http://localhost:3000/works');
+    return this.httpClient.get<ApiResponse>(environment.apiUrl + 'works');
   }
 
   getWork(id: number) {
-    return this.httpClient.get<ApiResponse>(`http://localhost:3000/work/${id}`);
+    return this.httpClient.get<ApiResponse>(environment.apiUrl + `work/${id}`);
   }
 
   applyWork(id_trabajo: number, rut_trabajador: number) {
     
-    return this.httpClient.post<ApiResponse>(`http://localhost:3000/work/apply/`, { id_trabajo, rut_trabajador });
+    return this.httpClient.post<ApiResponse>(environment.apiUrl + `work/apply/`, { id_trabajo, rut_trabajador });
   }
 
   deleteWork(id: number) {
-    return this.httpClient.delete<ApiResponse>(`http://localhost:3000/work/delete/${id}`);
+    return this.httpClient.delete<ApiResponse>(environment.apiUrl + `work/delete/${id}`);
   }
 
   chooseApplierWork(id_trabajo: number, rut_trabajador: number, state: number) {
-    return this.httpClient.put<ApiResponse>(`http://localhost:3000/work/choose`, { id_trabajo, rut_trabajador, state });
+    return this.httpClient.put<ApiResponse>(environment.apiUrl + `work/choose`, { id_trabajo, rut_trabajador, state });
   }
   
 
