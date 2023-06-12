@@ -1,11 +1,11 @@
 <div class="container-fluid cover" *ngIf="!ready"
-    [style]="'background-image: url(http://localhost:3000/'+ work.foto +')'">
+    [style]="'background-image: url(apiUrl '+ work.foto +')'">
     <div class="container" id="information">
-        <a class="btn transparent">
-            <span class="material-symbols-outlined" (click)="goBack()">
+        <button class="btn-back transparent background" (click)="goBackToPreviousPage()">
+            <span class="material-symbols-outlined">
                 arrow_back
             </span>
-        </a>
+        </button>
         <h3 class="title text-busy background">
             {{ work.titulo }}
             <h6 class="subtitle">
@@ -32,6 +32,7 @@
                 </div>
             </div>
             <div class="bg-white fit">
+                <br>
                 <div class="card-body">
                     <p class="value">Selección: {{ work.fecha_seleccion_postulante | date: 'dd/MM/yyyy' }} — <span class="italic text-busy">{{
                         dateDiff(work.fecha_seleccion_postulante) }}</span></p>
@@ -73,6 +74,7 @@
                         </div>
                     </div>
                 </div>
+                <br>
             </section>
         </div>
         <br>

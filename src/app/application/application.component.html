@@ -1,7 +1,7 @@
 
 <ng-container *ngIf="ready; then loaded else loading"></ng-container>
 <ng-template #loaded>
-    <div class="vh">
+    <div class="vh" [style]="section ? 'justify-content: space-around;': 'justify-content: unset;'">
         <app-navbar></app-navbar>
         <div class="container-fluid" *ngIf="section == true">
             <div class="row">
@@ -68,7 +68,10 @@
                 </div>
             </div>    
         </div>    
-        <app-servicios *ngIf="!section"></app-servicios>
+        <div id="servicios" *ngIf="!section">
+            <app-servicios></app-servicios>
+        </div>
+        
         <!-- <app-profile *ngIf="section" [userRut]="userRut"></app-profile> -->
     </div>
     

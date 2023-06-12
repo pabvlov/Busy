@@ -6,12 +6,10 @@ import { Session } from 'src/app/interfaces/session';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { SwalService } from 'src/app/services/swal.service';
-import { Profile } from 'src/app/interfaces/profile';
-import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
-import { ReturnStatement } from '@angular/compiler';
 import { Postulaciones, UserInformation } from 'src/app/interfaces/user-information';
 import { environment } from 'src/environments/environment';
+import { Location } from '@angular/common';
 
 
 
@@ -25,7 +23,8 @@ export class ProfileComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() userRut: number = 0;
 
   loading = true;
-  constructor( private userService: UserService, private fb: FormBuilder, private swal: SwalService, private route: ActivatedRoute) {
+  constructor( private userService: UserService, private fb: FormBuilder, private swal: SwalService, private route: ActivatedRoute,
+                private location: Location) {
     if (!this.userService.isAuthenticated()) {
       window.location.href = '/';
     }
@@ -39,6 +38,10 @@ export class ProfileComponent implements OnInit, AfterViewInit, OnChanges {
         return 'Cargando...'
     }
     return this.userService._usuario.usuario.rut + '-' + this.userService._usuario.usuario.dv;
+  }
+
+  goBackToPreviousPage() {
+    this.location.back();
   }
 
   ngOnChanges(): void {

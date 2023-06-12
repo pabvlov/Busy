@@ -6,6 +6,7 @@ import { UtilsService } from 'src/app/services/utils.service';
 import { SwalService } from 'src/app/services/swal.service';
 import { Jobs } from 'src/app/interfaces/jobs';
 import { MapsService } from 'src/app/services/maps.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-job-info',
@@ -64,12 +65,17 @@ export class JobInfoComponent {
               @Host() private app: ApplicationComponent, 
               private utils: UtilsService,
               private swal: SwalService,
-              private maps: MapsService) { 
+              private maps: MapsService,
+              private location: Location) { 
 
   }
 
   gotoJobs() {
     this.app.showingInfo = !this.app.showingInfo;
+  }
+
+  goBackToPreviousPage() {
+    this.location.back();
   }
 
   viewMap() {

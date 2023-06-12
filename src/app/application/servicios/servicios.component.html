@@ -1,30 +1,43 @@
 
+<div id="sidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  <a href="#">About</a>
+  <a href="#">Services</a>
+  <a href="#">Clients</a>
+  <a href="#">Contact</a>
+</div>
 
-<div class="container">
-    <div class="row">
-        <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 service" *ngFor="let service of services">
-            <div class="workImage">
-                <div class="info">
-                    <span class="job-info">
-                        <button class="btn btn-block transparent profile" matTooltip="Mi perfil"
-                                matTooltipPosition="right">
-                            <img [src]="'http://localhost:3000/'+ service.user.foto " alt="" class="perfil-thumbnail">
-                        </button>
-                        <div class="info">
-                            <span class="job-price">
-                                <span class="price">{{ service.precio | currency : '' : 'symbol' : '1.0-0' }}</span> CLP$ 
-                            </span>
-                            <span class="job-title">
-                                {{ service.titulo }}
-                            </span>
-                        </div>
-                        <!--  <button class="show-more" (click)="showMore()" href="">Ver más</button> -->
-                    </span>
+    <span (click)="openNav()">open</span>
+    <form class="form-inline my-2 my-lg-0 contenedor_buscador" *ngIf="!section">
+        <input class="form-control mr-sm-2 buscador" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0 submit_buscador" type="submit">Search</button>
+    </form>
+    <div class="container">
+        
+        <div class="row">
+            <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 service" *ngFor="let service of services">
+                <div class="workImage">
+                    <div class="info">
+                        <span class="job-info">
+                            <button class="btn btn-block transparent profile" matTooltip="Mi perfil"
+                                    matTooltipPosition="right">
+                                <img [src]="'http://localhost:3000/'+ service.user.foto " alt="" class="perfil-thumbnail">
+                            </button>
+                            <div class="info">
+                                <span class="job-price">
+                                    <span class="price">{{ service.precio | currency : '' : 'symbol' : '1.0-0' }}</span> CLP$ 
+                                </span>
+                                <span class="job-title">
+                                    {{ service.titulo }}
+                                </span>
+                            </div>
+                            <!--  <button class="show-more" (click)="showMore()" href="">Ver más</button> -->
+                        </span>
+                    </div>
+                    <div class="filter">
+                    </div>
+                    <img [src]="'http://localhost:3000/'+service.foto" class="img-fluid content" [alt]="service.titulo">
                 </div>
-                <div class="filter">
-                </div>
-                <img [src]="'http://localhost:3000/'+service.foto" class="img-fluid content" [alt]="service.titulo">
             </div>
         </div>
     </div>
-</div>

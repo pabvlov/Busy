@@ -18,4 +18,12 @@ export class ServiciosComponent {
   showMore() {
     this.app.showingInfo = !this.app.showingInfo;
   }
+
+  get section() {
+    return this.app.section
+  }
+
+  openNav() {
+    this.app.openNav();
+  }
 }

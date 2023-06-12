@@ -21,6 +21,7 @@ export class ApplicationComponent {
   /* Section 1 = Trabajos, Section 2 = Servicios */
   section = true;
   showingInfo = false;
+  leftpanel = false;
 
   get ready() {
     return this.workService.ready && this.serviceService.ready;
@@ -34,6 +35,23 @@ export class ApplicationComponent {
   }
 
   isShowingAbout = false;
+
+  openNav() {
+    if (this.leftpanel == false) {
+      document.getElementById("sidenav")!.style.width = "250px";
+      document.getElementById("servicios")!.style.marginLeft = "250px";
+      document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
+      this.isShowingAbout = true;
+      this.leftpanel = true;
+    } else {
+      document.getElementById("sidenav")!.style.width = "0";
+      document.getElementById("servicios")!.style.marginLeft = "0";
+      document.body.style.backgroundColor = "white";
+      this.isShowingAbout = false;
+      this.leftpanel = false;
+    }
+    
+  }
 
   logout() { // removemos token jwt del localstorage, por lo tanto desloguea al usuario y lo manda al inicio
     this.userService.logout();
