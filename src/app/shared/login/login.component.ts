@@ -4,6 +4,7 @@ import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
 import { RutService } from 'rut-chileno';
 import { SwalService } from 'src/app/services/swal.service';
+import { Session } from 'src/app/interfaces/session';
 
 @Component({
   selector: 'app-login',
@@ -41,11 +42,11 @@ export class LoginComponent {
 
     if (!this.rutService.validaRUT(this.personForm.value.rut!)) {
       let rut: string = <string>this.rutService.getRutChile(3, this.personForm.value.rut!)!; // saca el rut en format 11111111-1
-      this.userService.getUserByRut(rut).subscribe((data: any) => {
-        if (data.length > 0) {
+      this.userService.getUserByRut(rut).subscribe((data: Session) => {
+        if (data.content.user != null) {
           this.swal.close();
           this.info = 'Usuario encontrado';
-          this.fullname = `${data[0].nombres} ${data[0].apellidos}`;
+          this.fullname = `${data.content.user.usuario.nombres} ${data.content.user.usuario.apellidos}`;
           this.step++;
         } else {
 

@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Jobs } from 'src/app/interfaces/jobs';
+import { Trabajo } from 'src/app/interfaces/user-information';
 
 @Component({
   selector: 'app-ofertas',
@@ -8,7 +9,7 @@ import { Jobs } from 'src/app/interfaces/jobs';
 })
 export class OfertasComponent {
 
-  @Input('ofertas') works: Jobs[] = [];
+  @Input('ofertas') works: Trabajo[] = [];
 
   disponible(date: Date) {
     return new Date(date).getTime() > new Date().getTime();

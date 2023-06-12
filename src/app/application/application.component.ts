@@ -40,7 +40,7 @@ export class ApplicationComponent {
   }
 
   get usuario() {
-    return this.userService._usuario;
+    return this.userService._usuario.usuario;
   }
 
   get job() {

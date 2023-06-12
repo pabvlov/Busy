@@ -1,8 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const user = require('../services/user.service.js');
-const work = require('../services/work.service.js');
-const service = require('../services/service.service.js');
 const multer = require('multer');
 
 const storageEngineProfile = multer.diskStorage({
@@ -28,26 +26,58 @@ router.get('/users', async function(req, res, next) {
 
 router.get('/user/:rut/:dv', async function(req, res, next) {
   try {
-    return res.status(201).json(await user.getUserByRut(parseInt(req.params.rut), parseInt(req.params.dv)))
+    const usuario = await user.getUserByRut(parseInt(req.params.rut), parseInt(req.params.dv));
+
+    // Check if the user array is not empty
+    if (usuario.length > 0) {
+      // Get the first user
+      const firstUser = usuario[0].result;
+
+      return res.status(201).json({
+        ok: true,
+        content: {
+          // Assign the first user to the 'user' property
+          user: firstUser
+        }
+      });
+    } else {
+      // User array is empty
+      return res.status(200).json({
+        ok: false,
+        message: 'No se encontró ningún usuario'
+      });
+    }
   } catch (err) {
     return res.status(200).json({
       ok: false,
-      msg: 'Error obteniendo el usuario: ' + err
-    })
+      message: 'Error obteniendo el usuario: ' + err
+    });
     next(err);
   }
 });
 
 router.get('/user/profile/:rut/:dv', async function(req, res, next) {
   try {
-    return res.status(201).json({
-      ok: true,
-      content: {
-        user: await user.getUserByRut(parseInt(req.params.rut), parseInt(req.params.dv)),
-        workInformation: await work.getWorksByRut(parseInt(req.params.rut), parseInt(req.params.dv)),
-        serviceInformation: await service.getServicesByRut(parseInt(req.params.rut), parseInt(req.params.dv))
-      }
-    })
+    const usuario = await user.getUserByRut(parseInt(req.params.rut), parseInt(req.params.dv))
+    
+    if (usuario.length > 0) {
+      // Get the first user
+      const firstUser = usuario[0].result;
+
+      return res.status(201).json({
+        ok: true,
+        content: {
+          // Assign the first user to the 'user' property
+          user: firstUser
+        }
+      });
+    } else {
+      // User array is empty
+      return res.status(200).json({
+        ok: false,
+        message: 'No se encontró ningún usuario'
+      });
+    }
   } catch (err) {
     return res.status(200).json({
       ok: false,

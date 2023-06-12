@@ -23,7 +23,7 @@ export class NavbarComponent {
   }
 
   get _user() {
-    return this.userService._usuario;
+    return this.userService._usuario.usuario;
   }
 
   get lilName() {
