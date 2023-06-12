@@ -60,6 +60,11 @@ async function getWorks() {
 ) AS result
 FROM trabajos t
 LEFT JOIN usuario ue ON t.rut_empleador = ue.rut
+WHERE t.id NOT IN (
+    SELECT DISTINCT p.id_trabajo
+    FROM postulaciones p
+    WHERE p.id_estado = 1
+)
 GROUP BY t.id
 ORDER BY t.fecha_publicacion DESC;`);
 }

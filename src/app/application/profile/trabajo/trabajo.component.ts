@@ -72,9 +72,7 @@ export class TrabajoComponent implements OnInit {
         this.swal.stopLoading();
         this.router.navigate(['/app/profile']);
       }
-      
     })
-    //this.router.navigate(['/app/profile']);
   }
 
   handleChooseApplier(rut: number, state: number) {
@@ -82,7 +80,7 @@ export class TrabajoComponent implements OnInit {
       this.swal.loading('Seleccionando postulante...');
       
       if (resp.ok) {
-        this.workService.updateProfileWork(this.work.id);
+        this.workService.updateProfileWork(this.work.id, false);
       }
       return resp.ok
     })      
@@ -92,6 +90,18 @@ export class TrabajoComponent implements OnInit {
 
   workHasChosenApplier() {
     return this.workService.work.postulaciones.some( applier => applier.id_estado === 1);
+  }
+
+  workHasChosenApplierByRut(rut: number) {
+    return this.workService.work.postulaciones.some( applier => applier.id_estado != 3 && applier.rut_trabajador === rut);
+  }
+
+  isAppliersApprovedLessThanMax() {
+    return this.workService.work.postulaciones.filter( applier => applier.id_estado === 1).length < +this.workService.work.cantidad_personas;
+  }
+
+  maxAppliers() {
+    return +this.workService.work.cantidad_personas === this.workService.work.postulaciones.length;
   }
 
 }

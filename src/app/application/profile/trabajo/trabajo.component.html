@@ -59,13 +59,13 @@
                                 {{ applier.user.nombres }} {{ applier.user.apellidos }}
                             </div>
                         </a>
-                        <div class="choose" *ngIf="!workHasChosenApplier()">
-                            <button class="btn btn-busy" (click)="handleChooseApplier(applier.user.rut, 1)">
+                        <div class="choose" *ngIf="isAppliersApprovedLessThanMax()">
+                            <button class="btn btn-busy" (click)="handleChooseApplier(applier.user.rut, 1)" *ngIf="!workHasChosenApplierByRut(applier.user.rut)">
                                 <span class="material-symbols-outlined">
                                 check_circle
                                 </span>
                             </button>
-                            <button class="btn btn-busy" (click)="handleChooseApplier(applier.user.rut, 2)">
+                            <button class="btn btn-busy" (click)="handleChooseApplier(applier.user.rut, 2)" *ngIf="!workHasChosenApplierByRut(applier.user.rut)">
                                 <span class="material-symbols-outlined">
                                 cancel
                                 </span>
@@ -76,7 +76,7 @@
             </section>
         </div>
         <br>
-        <button (click)="handleDeleteWork()" class="btn btn-busy color-busy">Eliminar servicio</button>
+        <button (click)="handleDeleteWork()" class="btn btn-busy color-busy">Eliminar</button>
     </div>
 </div>
 

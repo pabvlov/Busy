@@ -6,8 +6,22 @@
                 arrow_back
             </span>
         </button>
-        <h3 class="title text-busy">{{ work.titulo }}</h3>
-        <pre class="description">{{ work.descripcion }}</pre>
+        <h3 class="title text-busy background">
+            {{ work.titulo }}
+            <h6 class="subtitle">
+                por <a [href]="'/app/profile/' + work.empleador.rut" >{{ work.empleador.nombres }} {{ work.empleador.apellidos }}</a>, <span class="italic text-busy">{{
+                    dateDiff(work.fecha_publicacion) }}</span>
+            </h6>
+        </h3>
+        <p class="description background">
+            Necesito <span class="badge color-busy">{{ work.cantidad_personas }}</span> {{ work.cantidad_personas == "1" ? 'persona' : 'personas' }}
+            <br>
+            <br>
+            {{ work.descripcion }}
+            <br><br>
+            <span class="badge color-busy">{{ work.precio | currency:'CLP$ ':'symbol':'1.0-0' }}</span>
+        </p>
+        <br>
         <table class="table">
             <thead class="color-busy sombra">
                 <tr>
@@ -18,23 +32,10 @@
             <br>
             <tbody>
                 <tr>
-                    <th scope="row">Precio</th>
-                    <td>{{ work.precio | currency:'CLP$ ':'symbol':'1.0-0' }}</td>
-                </tr>
-                <tr>
-                    <th scope="row">Cantidad de Personas</th>
-                    <td>{{ work.cantidad_personas }}</td>
-                </tr>
-                <tr>
                     <th scope="row">Ubicación</th>
                     <td class="map-cell"><p class="bold">{{ !!work.ubicacion ? work.ubicacion : 'No especificada' }}</p>
                         <button class="btn transparent viewmap text-busy" (click)="viewMap()" *ngIf="work.ubicacion != null">Ver Mapa</button>
                     </td>
-                </tr>
-                <tr>
-                    <th scope="row">Fecha de Publicación</th>
-                    <td>{{ work.fecha_publicacion | date: 'dd/MM/yyyy' }} — <span class="italic text-busy">{{
-                            dateDiff(work.fecha_publicacion) }}</span></td>
                 </tr>
                 <tr>
                     <th scope="row">Fecha de Selección</th>
@@ -45,11 +46,6 @@
                     <th scope="row">Fecha de Término</th>
                     <td>{{ work.fecha_finalizacion | date: 'dd/MM/yyyy' }} — <span class="italic text-busy">{{
                             dateDiff(work.fecha_finalizacion) }}</span></td>
-                </tr>
-                <tr>
-                    <th scope="row">Empleador</th>
-                    <td>{{ work.rut_empleador }}</td>
-                    
                 </tr>
             </tbody>
         </table>
