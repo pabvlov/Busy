@@ -7,6 +7,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { ApiResponse } from '../interfaces/api-response';
 import { Profile } from '../interfaces/profile';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -44,7 +45,7 @@ export class UserService {
   constructor(private httpClient: HttpClient, private router: Router) { }
 
   getUsers(): any {
-    let users = this.httpClient.get('http://localhost:3000/users');
+    let users = this.httpClient.get(environment.apiUrl + 'users');
     return users;
   }
 
@@ -55,7 +56,7 @@ export class UserService {
     if (dv == undefined) {
       dv = "-1";
     }
-    let user = this.httpClient.get<ApiResponse>(`http://localhost:3000/user/${rut}/${dv}`);    
+    let user = this.httpClient.get<ApiResponse>(environment.apiUrl + `user/${rut}/${dv}`);    
     return user.pipe(
       tap( resp => {
         if( resp.ok ) 
@@ -81,7 +82,7 @@ export class UserService {
     if (dv == undefined) {
       dv = "-1";
     }
-    let user = this.httpClient.get<ApiResponse>(`http://localhost:3000/user/profile/${rut}/${dv}`);    
+    let user = this.httpClient.get<ApiResponse>(environment.apiUrl + `user/profile/${rut}/${dv}`);    
     return user.pipe(
       tap( resp => {
         if( resp.ok ) {
@@ -96,12 +97,12 @@ export class UserService {
     let rutArray = rut.split('-');
     rut = rutArray[0];
     let dv = rutArray[1];
-    let register = this.httpClient.post('http://localhost:3000/auth/register', { rut, dv, nombres, apellidos, mail, password })
+    let register = this.httpClient.post(environment.apiUrl + 'auth/register', { rut, dv, nombres, apellidos, mail, password })
     return register;
   }
 
   getSession(rut: string, password: string) { // loguear al usuario
-    const url = `http://localhost:3000/auth/login`
+    const url = environment.apiUrl + `auth/login`
     const body = { rut, password }
     return this.httpClient.post<Session>(url, body)
       .pipe(
@@ -118,7 +119,7 @@ export class UserService {
   }
 
   renewSession() {
-    const url = `http://localhost:3000/auth/renew`    
+    const url = environment.apiUrl + `auth/renew`    
     return this.httpClient.post<Session>(url, { token: localStorage.getItem('token') } )
       .pipe(
         tap( resp => {
@@ -150,12 +151,12 @@ export class UserService {
   }
 
   getUserDataFromToken() {
-    const url = `http://localhost:3000/auth/renew`    
+    const url = environment.apiUrl + `auth/renew`    
     return this.httpClient.post<Session>(url, { token: localStorage.getItem('token') } )
   }
 
   regenerateSession() {
-    const url = `http://localhost:3000/auth/regenerate`    
+    const url = environment.apiUrl + `auth/regenerate`    
     return this.httpClient.post<Session>(url, { token: localStorage.getItem('token') } )
       .pipe(
         tap( resp => {
@@ -188,12 +189,12 @@ export class UserService {
   }
 
   getUpdatedUserData() {
-    const url = `http://localhost:3000/auth/regenerate`    
+    const url = environment.apiUrl + `auth/regenerate`    
     return this.httpClient.post<Session>(url, { token: localStorage.getItem('token') } )
   }
 
   _session() {
-    const url = `http://localhost:3000/auth/renew`  
+    const url = environment.apiUrl + `auth/renew`  
     let session = false
     return this.httpClient.post<Session>(url, { token: localStorage.getItem('token') } )
       .pipe(
@@ -218,7 +219,7 @@ export class UserService {
     body.append('rut', rut);
     body.append('file', file);
     this._usuario.foto = file.name;
-    return this.httpClient.post('http://localhost:3000/user/upload', body);
+    return this.httpClient.post(environment.apiUrl + 'user/upload', body);
   }
 
   getPosition(): Promise<any> {
@@ -235,6 +236,6 @@ export class UserService {
   updateUser(user: any) {
     const rut = user.value.rut.split('-')[0];
     const dv = user.value.rut.split('-')[1];
-    return this.httpClient.put(`http://localhost:3000/user/edit`, user.value);
+    return this.httpClient.put(environment.apiUrl + `user/edit`, user.value);
   }
 }

@@ -3,6 +3,7 @@ import { UserService } from './user.service';
 import { HttpClient } from '@angular/common/http';
 import { ApiResponse } from '../interfaces/api-response';
 import { Service } from '../interfaces/service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -61,19 +62,19 @@ export class ServiceService {
   }
 
   uploadService(body: FormData) {
-    return this.httpClient.post('http://localhost:3000/service/add', body);
+    return this.httpClient.post(environment.apiUrl + 'service/add', body);
   }
 
   getServices() {
-    return this.httpClient.get<ApiResponse>('http://localhost:3000/services');
+    return this.httpClient.get<ApiResponse>(environment.apiUrl + 'services');
   }
 
   getService(id: number) {
-    return this.httpClient.get<ApiResponse>(`http://localhost:3000/service/${id}`);
+    return this.httpClient.get<ApiResponse>(environment.apiUrl + `service/${id}`);
   }
 
   hire(id_trabajo: number, rut_trabajador: number) {
     
-    return this.httpClient.post<ApiResponse>(`http://localhost:3000/service/hire/`, { id_trabajo, rut_trabajador });
+    return this.httpClient.post<ApiResponse>(environment.apiUrl + `service/hire/`, { id_trabajo, rut_trabajador });
   }
 }
