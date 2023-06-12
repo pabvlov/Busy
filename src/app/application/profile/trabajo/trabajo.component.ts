@@ -104,4 +104,9 @@ export class TrabajoComponent implements OnInit {
     return +this.workService.work.cantidad_personas === this.workService.work.postulaciones.length;
   }
 
+  isEmployer() {
+    return this.userService._usuario.usuario.rut === this.work.rut_empleador;
+  }
+
+
 }

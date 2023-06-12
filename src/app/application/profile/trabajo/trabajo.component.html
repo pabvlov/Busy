@@ -59,7 +59,7 @@
                                 {{ applier.user.nombres }} {{ applier.user.apellidos }}
                             </div>
                         </a>
-                        <div class="choose" *ngIf="isAppliersApprovedLessThanMax()">
+                        <div class="choose" *ngIf="isAppliersApprovedLessThanMax() && isEmployer()">
                             <button class="btn btn-busy" (click)="handleChooseApplier(applier.user.rut, 1)" *ngIf="!workHasChosenApplierByRut(applier.user.rut)">
                                 <span class="material-symbols-outlined">
                                 check_circle
