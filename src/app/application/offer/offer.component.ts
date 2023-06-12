@@ -34,7 +34,7 @@ export class OfferComponent implements OnInit {
   });
 
   get usuario() {
-    return this.userService._usuario;
+    return this.userService._usuario.usuario;
   }
 
   get mapskey() {
@@ -65,7 +65,7 @@ export class OfferComponent implements OnInit {
     let rut = 11111111
     this.userService.getUpdatedUserData().subscribe(resp => {
       const { user, token } = resp.content // destructuring de la response
-      localStorage.setItem('token', token) // guardamos el jwt en localstorage
+      localStorage.setItem('token', token!) // guardamos el jwt en localstorage
 
       let work: Work = {
         title: this.offerForm.value.title!,
@@ -74,7 +74,7 @@ export class OfferComponent implements OnInit {
         peopleNeeded: this.offerForm.value.peopleNeeded!,
         endDate: this.offerForm.value.endDate!,
         selectionDate: this.offerForm.value.selectionDate!,
-        rut_empleador: user.rut!,
+        rut_empleador: user.usuario.rut!,
         ubicacion: this.ubicacion
       }
   

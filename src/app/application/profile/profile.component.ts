@@ -10,6 +10,8 @@ import { Profile } from 'src/app/interfaces/profile';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { ReturnStatement } from '@angular/compiler';
+import { Postulaciones, UserInformation } from 'src/app/interfaces/user-information';
+import { environment } from 'src/environments/environment';
 
 
 
@@ -32,11 +34,11 @@ export class ProfileComponent implements OnInit, AfterViewInit, OnChanges {
   get rut() {
     if (this.route.snapshot.paramMap.get('id') != null) {
       if(!!this.profileInfo) {
-        return this.profileInfo.user[0].rut! + '-' + this.profileInfo.user[0].dv;
+        return this.profileInfo.usuario.rut! + '-' + this.profileInfo.usuario.dv;
       }
         return 'Cargando...'
     }
-    return this.userService._usuario.rut + '-' + this.userService._usuario.dv;
+    return this.userService._usuario.usuario.rut + '-' + this.userService._usuario.usuario.dv;
   }
 
   ngOnChanges(): void {
@@ -58,25 +60,25 @@ export class ProfileComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   get nombre() {
-    return this.userService._usuario.nombres + ' ' + this.userService._usuario.apellidos;
+    return this.userService._usuario.usuario.nombres + ' ' + this.userService._usuario.usuario.apellidos;
   }
 
   get nombres() {
-    return this.userService._usuario.nombres;
+    return this.userService._usuario.usuario.nombres;
   }
 
   get apellidos() {
-    return this.userService._usuario.apellidos;
+    return this.userService._usuario.usuario.apellidos;
   }
 
   get mail() {
     if (this.route.snapshot.paramMap.get('id') != null) {
-      return this.profileInfo.user[0].mail;
-    } else return this.userService._usuario.mail;
+      return this.profileInfo.usuario.mail;
+    } else return this.userService._usuario.usuario.mail;
   }
 
   get direccion() {
-    const { direccion } = this.userService._usuario;
+    const { direccion } = this.userService._usuario.usuario;
     if(direccion === 'undefined' || direccion === null || direccion === '') {
       this.userService.getPosition().then(pos => {
           return pos.lat + ',' + pos.lng;
@@ -87,18 +89,26 @@ export class ProfileComponent implements OnInit, AfterViewInit, OnChanges {
     
 
   get fecha_nacimiento() {
-    return this.userService._usuario.fecha_nacimiento;
+    return this.userService._usuario.usuario.fecha_nacimiento;
   }
 
   get ultima_visita() {
-    return this.userService._usuario.ultima_visita;
+    return this.userService._usuario.usuario.ultima_visita;
   }
 
   get fecha_registro() {
-    return this.userService._usuario.fecha_registro;
+    return this.userService._usuario.usuario.fecha_registro;
+  }
+
+  haveUserAcceptedPostulation(applier: Postulaciones) {
+    return applier.id_estado == 1;
   }
 
   usuario() {
+  }
+
+  get apiUrl() {
+    return environment.apiUrl;
   }
 
   getProfileInfo(rut: string) {
@@ -111,10 +121,12 @@ export class ProfileComponent implements OnInit, AfterViewInit, OnChanges {
     console.log(this.route.snapshot.paramMap.get('id'), this.userRut, this.visitor, rut);
     
     this.userService.getProfileByRut(this.visitor ? (this.route.snapshot.paramMap.get('id') == null ? ''+this.userRut: this.route.snapshot.paramMap.get('id')!) : rut).subscribe( (resp: ApiResponse) => {
+      console.log(resp);
+      
       if(resp.ok) {
-        console.log(resp.content);
+        console.log(resp);
         this.loading = false;
-        this.profileInfo = resp.content;
+        this.profileInfo = resp.content.user;
       }
     })
     console.log(this.visitor);
@@ -124,23 +136,23 @@ export class ProfileComponent implements OnInit, AfterViewInit, OnChanges {
 
   userData = this.fb.group({
     rut: [this.rut],
-    nombres: [this.userService._usuario.nombres],
-    apellidos: [this.userService._usuario.apellidos],
-    mail: [this.userService._usuario.mail],
+    nombres: [this.userService._usuario.usuario.nombres],
+    apellidos: [this.userService._usuario.usuario.apellidos],
+    mail: [this.userService._usuario.usuario.mail],
     direccion: [this.direccion],
-    fecha_nacimiento: [this.userService._usuario.fecha_nacimiento],
+    fecha_nacimiento: [this.userService._usuario.usuario.fecha_nacimiento],
     
   });
 
 
   get profilePicture() {
-    return !!this.profileInfo.user[0].foto ? "http://localhost:3000/" + this.profileInfo.user[0].foto : '../../../assets/img/defaultprofilepic.png';
+    return !!this.profileInfo.usuario.foto ? "http://localhost:3000/" + this.profileInfo.usuario.foto : '../../../assets/img/defaultprofilepic.png';
   }
 
   ngOnInit(): void {
 
     this.userService.getUserDataFromToken().subscribe( (res: Session) => {
-      const { rut, dv, nombres, apellidos, mail, direccion, fecha_nacimiento, ultima_visita, fecha_registro } = res.content.user;
+      const { rut, dv, nombres, apellidos, mail, direccion, fecha_nacimiento, ultima_visita, fecha_registro } = res.content.user.usuario;
       this.userData.setValue({
         rut: rut + '-' + dv,
         nombres: nombres,
@@ -162,11 +174,11 @@ export class ProfileComponent implements OnInit, AfterViewInit, OnChanges {
 
   handleProfile(){
     const formData = new FormData();
-    formData.append('rut', this.userService._usuario.rut.toString());
+    formData.append('rut', this.userService._usuario.usuario.rut.toString());
     if (this.picture.target.files![0] == '') {
       console.log('No se selecciono ningun archivo');
     } else {
-      this.userService.uploadProfilePicture(this.userService._usuario.rut.toString(), this.picture.target.files[0]).subscribe( (resp: any) => {
+      this.userService.uploadProfilePicture(this.userService._usuario.usuario.rut.toString(), this.picture.target.files[0]).subscribe( (resp: any) => {
         this.userService.regenerateSession().subscribe();
       });
     }
@@ -181,31 +193,16 @@ export class ProfileComponent implements OnInit, AfterViewInit, OnChanges {
       direccion: this.direccion,
       fecha_nacimiento: this.fecha_nacimiento
     });
-    this.userService.regenerateSession().subscribe( (resp: any) => {
+    this.userService.regenerateSession().subscribe( (resp: Session) => {
       if(resp.ok) {
-        this.getProfileInfo(resp.content.user.rut.toString());
+        this.getProfileInfo(resp.content.user.usuario.rut.toString());
       }
     });
     
     
   }
 
-  profileInfo: Profile = {
-    user: [{
-      rut: 0,
-      dv: 0,
-      nombres: '',
-      apellidos: '',
-      mail: '',
-      direccion: null,
-      fecha_nacimiento: null,
-      ultima_visita: new Date(),
-      fecha_registro: new Date(),
-      foto: ''
-    }],
-    workInformation: [],
-    serviceInformation: []
-  };
+  profileInfo: UserInformation = this.userService._usuario;
 
   
 

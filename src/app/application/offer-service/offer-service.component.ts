@@ -45,13 +45,13 @@ export class OfferServiceComponent {
       const { user, token } = resp.content // destructuring de la response
       console.log(user);
       
-      localStorage.setItem('token', token) // guardamos el jwt en localstorage
+      localStorage.setItem('token', token!) // guardamos el jwt en localstorage
 
       let service: ServiceInformation = {
         titulo: this.offerForm.value.title!,
         descripcion: this.offerForm.value.description!,
         precio: +this.offerForm.value.price!,
-        rut_usuario: user.rut!,
+        rut_usuario: user.usuario.rut!,
 
       }
 

@@ -1,4 +1,4 @@
-import { User } from "./user"
+import { UserInformation } from "./user-information";
 
 export interface Session {
     ok: boolean,
@@ -6,6 +6,6 @@ export interface Session {
 }
 
 export interface Content {
-    user:  User;
-    token: string;
+    user:  UserInformation;
+    token?: string;
 }

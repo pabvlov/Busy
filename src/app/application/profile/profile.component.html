@@ -4,7 +4,7 @@
         <div class="data">
             <form action="" [formGroup]="userData" id="formulario" (submit)="editUser()">
                 <div class="row">
-                    <div class="perfil">
+                    <div class="perfil col-xl-4 col-lg-6 col-md-6 col-sm-12">
                         <!-- PROFILE INFORMATION -->
                         <form action="" class="photo image-upload">
                             <label for="file-input">
@@ -15,7 +15,7 @@
                             </label>
                             <input id="file-input" type="file" (change)="handlePicture($event)" accept="image/*" #picture />
                         </form>
-                        <h3> {{ profileInfo.user[0].nombres }} {{ profileInfo.user[0].apellidos }}</h3>
+                        <h3> {{ profileInfo.usuario.nombres }} {{ profileInfo.usuario.apellidos }}</h3>
                         <table class="table table-responsive">
                             <thead class="color-busy">
                                 <tr>
@@ -26,19 +26,19 @@
                             <tbody>
                                 <tr>
                                     <th scope="row">RUT</th>
-                                    <td>{{ profileInfo.user[0].rut }}-{{ profileInfo.user[0].dv }}</td>
+                                    <td>{{ profileInfo.usuario.rut }}-{{ profileInfo.usuario.dv }}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Nombres</th>
-                                    <td>{{ profileInfo.user[0].nombres }}</td>
+                                    <td>{{ profileInfo.usuario.nombres }}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Apellidos</th>
-                                    <td>{{ profileInfo.user[0].apellidos }}</td>
+                                    <td>{{ profileInfo.usuario.apellidos }}</td>
                                 </tr>
                                 <tr *ngIf="visitor">
                                     <th scope="row">Correo</th>
-                                    <td>{{ profileInfo.user[0].mail }}</td>
+                                    <td>{{ profileInfo.usuario.mail }}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -62,14 +62,28 @@
                             </mat-form-field>
                         </div>
                     </div>
-                    <div class="servicios">
-                        <app-servicios-profile [servicios]="profileInfo.serviceInformation"></app-servicios-profile>
+                    <div class="servicios col-xl-4 col-lg-6 col-md-6 col-sm-12">
+                        <app-servicios-profile [servicios]="profileInfo.servicios"></app-servicios-profile>
                     </div>
-                    <div class="trabajos">
+                    <div class="trabajos col-xl-4 col-lg-6 col-md-6 col-sm-12">
                         <!-- WORKS -->
-                        <app-ofertas [ofertas]="profileInfo.workInformation"></app-ofertas>
+                        <app-ofertas [ofertas]="profileInfo.trabajos"></app-ofertas>
                     </div>
-                    <div class=""></div>
+                    <div class="postulaciones col-xl-4 col-lg-6 col-md-6 col-sm-12">
+                        <h3>Postulaciones pendientes</h3>
+                        <div class="postulante" *ngFor="let applier of profileInfo.postulaciones" [style]="haveUserAcceptedPostulation(applier) ? 'background: rgba(0, 180, 0, 0.6)': (applier.id_estado == 2 ? 'background: rgba(180, 0, 0, 0.6)': 'background: rgba(255, 255, 0, 0.6)')">
+                            <a class="user" [routerLink]="'/app/profile/trabajo/'+applier.trabajo.id">
+                                <div class="profile-postulation">
+                                    <img [src]="applier.empleador.foto == null ? apiUrl + 'app/defaultprofilepic.png': apiUrl + applier.empleador.foto"
+                                        alt="" class="foto" [matTooltip]="applier.empleador.nombres + ' ' + applier.empleador.apellidos"
+                                        matTooltipPosition="below">
+                                </div>
+                                <div class="nombre">
+                                    {{ applier.trabajo.titulo }}
+                                </div>
+                            </a>
+                        </div>
+                    </div>
                 </div>
                 <button class="btn btn-block color-busy" *ngIf="!visitor">Guardar</button>
             </form>

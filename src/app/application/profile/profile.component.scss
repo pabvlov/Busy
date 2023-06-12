@@ -86,3 +86,40 @@
 .trabajos {
     border: 0
 }
+
+.postulante {
+    display: flex;
+    justify-content: space-between !important;
+    border: 2px solid #3f02e8;
+    margin-bottom: 5px;
+    padding: 5px;
+}
+
+a.user {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nombre {
+    /* align vertically center */
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+    font-family: 'Secular One';
+    font-size: 1rem;
+}
+
+.foto {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    
+    border: 3px solid #3f02e8;
+}
+
+.profile-postulation {
+    width: 40px;
+    height: 40px;
+}

@@ -8,6 +8,7 @@ router.post('/auth/login', async function(req, res, next) {
     try {
       const { rut, password } = req.body;
       const rows = await auth.validateLogin(rut, password)
+      console.log(rows);
       let count = 0;
       for(var row in rows.content) count++;
       if(count === 1) {
@@ -18,9 +19,9 @@ router.post('/auth/login', async function(req, res, next) {
           })
         }
         // destructuring
-        const { rut, dv, nombres, apellidos, foto, mail, direccion, fecha_nacimiento, fecha_registro, ultima_visita, aprobado, esAdmin } = rows.content[0];
+        const userInfo = rows.content[0].result;
         // regenerar jwt con datos nuevos
-        const token = await generarJWT( rut, dv, nombres, apellidos, foto, mail, direccion, fecha_nacimiento, fecha_registro, ultima_visita, aprobado, esAdmin )
+        const token = await generarJWT( userInfo )
         return res.status(202).json({
             ok: true,
             content: {
@@ -78,24 +79,12 @@ router.post('/auth/renew', async function(req, res, next) {
       })
 
       try {
-        const { rut, dv, nombres, apellidos, foto, mail, direccion, fecha_nacimiento, fecha_registro, ultima_visita, aprobado, esAdmin } = validarJWT(token)
+        const userInfo = validarJWT(token)
+        console.log(userInfo);
         return res.status(201).json({
           ok: true,
           content: {
-            user: {
-              rut, 
-              dv, 
-              nombres, 
-              apellidos, 
-              foto, 
-              mail, 
-              direccion, 
-              fecha_nacimiento, 
-              fecha_registro, 
-              ultima_visita, 
-              aprobado, 
-              esAdmin
-            },
+            user: userInfo,
             token
           }
         })
@@ -119,22 +108,23 @@ router.post('/auth/regenerate', async function(req, res, next) {
       message: 'Error en el token'
     })
     try {
-      const { rut } = validarJWT(token)
-      const rows = await user.getUserByRut(rut)
+      const userInfo = validarJWT(token)
+      const rows = await user.getUserByRut(userInfo.usuario.rut)
       if(rows.length > 0) {
-        if (!rows[0]) {
+        if (!rows[0].result) {
           return res.status(401).json({
             ok: false,
             message: 'Hubo un error',
           })
         } else {
-          const { rut, dv, nombres, apellidos, foto, mail, direccion, fecha_nacimiento, fecha_registro, ultima_visita, aprobado, esAdmin } = rows[0];
+          const userInfoNew = rows[0].result;
+          console.log(rows[0].result);
           // regenerar jwt con datos nuevos
-          const token = await generarJWT( rut, dv, nombres, apellidos, foto, mail, direccion, fecha_nacimiento, fecha_registro, ultima_visita, aprobado, esAdmin )
+          const token = await generarJWT( userInfoNew )
           return res.status(202).json({
               ok: true,
               content: {
-                user: rows[0],
+                user: rows[0].result,
                 token
               }
           })
