@@ -5,6 +5,7 @@ import { WorkService } from 'src/app/services/work.service';
 import { FormBuilder } from '@angular/forms';
 import { ServiceService } from 'src/app/services/service.service';
 import { Router } from '@angular/router';
+import { SwalService } from 'src/app/services/swal.service';
 
 @Component({
   selector: 'app-offer-service',
@@ -15,7 +16,8 @@ export class OfferServiceComponent {
   constructor(private serviceService: ServiceService,
     private fb: FormBuilder,
     private userService: UserService,
-    private route: Router) { }
+    private route: Router,
+    private swal: SwalService) { }
 
   part = 1;
 
@@ -62,9 +64,11 @@ export class OfferServiceComponent {
 
       const file: File = this.event.target.files[0];
       if (file) {
+        this.swal.loading('Subiendo servicio...')
         this.serviceService.uploadService(formData).subscribe(resp => {
           console.log(resp);
           this.route.navigate(['/app/profile']);
+          this.swal.stopLoading();
         });
       }
 

@@ -6,6 +6,7 @@ import { UserService } from 'src/app/services/user.service';
 import { map } from 'rxjs';
 import { MapsService } from 'src/app/services/maps.service';
 import { Router } from '@angular/router';
+import { SwalService } from 'src/app/services/swal.service';
 
 
 @Component({
@@ -19,7 +20,8 @@ export class OfferComponent implements OnInit {
               private fb: FormBuilder, 
               private userService: UserService,
               private maps: MapsService,
-              private route: Router) { }
+              private route: Router,
+              private swal: SwalService) { }
 
   part = 1;
 
@@ -85,8 +87,10 @@ export class OfferComponent implements OnInit {
   
       const file: File = this.event.target.files[0];
       if (file) {
+        this.swal.loading('Subiendo trabajo...');
         this.workService.uploadWork(formData).subscribe(resp => {
           this.route.navigate(['/app/profile']);
+          this.swal.stopLoading();
         });
       }
 
