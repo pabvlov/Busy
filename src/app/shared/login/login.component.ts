@@ -64,6 +64,12 @@ export class LoginComponent {
     this.userService.getSession(<string>this.rutService.getRutChile(3, this.personForm.value.rut!)!, this.passwordForm.value.password!)
       .subscribe(resp => {
         if (resp) {
+          console.log(resp);
+          if(this.passwordForm.value.recuerdame) {
+            this.userService.setSession(resp.content.user, this.passwordForm.value.password!);
+          } else {
+            this.userService.setSession(resp.content.user);
+          }
           this.router.navigate(['/app'], { skipLocationChange: false })
           this.swal.close();
         } else {

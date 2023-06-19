@@ -11,7 +11,6 @@
             <span class="material-symbols-outlined">
               home
             </span>
-            <span class="title">Home</span>
           </a>
         </li>
         <li class="nav-item">
@@ -19,11 +18,11 @@
             <span class="material-symbols-outlined mr-2">
               construction
             </span>
-            <span class="title">{{ section ? 'Ofrece!': 'Únete!'}}</span>
+            <span class="title">{{ section ? 'Ofrece!': 'Ofrécete!'}}</span>
           </a>
         </li>
         <li class="nav-item">
-          <button class="btn text-busy" matTooltip="Home" matTooltipPosition="below" (click)="handleSection()">
+          <button class="btn text-white color-busy" matTooltip="Home" matTooltipPosition="below" (click)="handleSection()">
             <span class="material-symbols-outlined mr-2">
               construction
             </span>
@@ -31,7 +30,7 @@
           </button>
         </li>
         <li class="nav-item">
-          <button class="btn text-white color-busy" (click)="logout()" matTooltip="Salir" matTooltipPosition="below">
+          <button class="btn text-busy" (click)="logout()" matTooltip="Salir" matTooltipPosition="below">
             <span class="material-symbols-outlined">
               logout
             </span>

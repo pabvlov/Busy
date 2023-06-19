@@ -23,12 +23,12 @@ export class UserService {
   public _usuario: UserInformation = {
     "usuario":{
        "dv":5,
-       "rut":20482869,
-       "foto":"1684551595444-Screenshot_2.png",
+       "rut": null!,
+       "foto": "",
        "mail":"pablojavierprietocepeda@gmail.com",
-       "nombres":"Pablo",
-       "apellidos":"Prieto",
-       "direccion":"Las Rosas 110, Quilpué",
+       "nombres":"",
+       "apellidos":"Error",
+       "direccion":"",
        "ultima_visita": new Date("2023-05-16"),
        "fecha_registro": new Date("2023-05-16 12:09:23"),
        "fecha_nacimiento": new Date("2000-07-07T04:00:00.000Z")
@@ -44,11 +44,35 @@ export class UserService {
           "postulantes":[
              {
                 "rut_trabajador":20247706,
-                "estado_postulacion":1
+                "estado_postulacion":1,
+                "trabajador":{
+                  "dv":2,
+                  "rut":20247706,
+                  "foto":"1685291171171-naxiti.png",
+                  "mail":"",
+                  "nombres":"Nicolas Andres ",
+                  "apellidos":"Diaz Garces",
+                  "direccion":"blanco encalada 1575 ",
+                  "ultima_visita":new Date("2023-05-28"),
+                  "fecha_registro":new Date("2023-05-28 01:01:17"),
+                  "fecha_nacimiento":new Date("1999-07-20T04:00:00.000Z")
+             }
              },
              {
                 "rut_trabajador":20067953,
-                "estado_postulacion":3
+                "estado_postulacion":3,
+                "trabajador":{
+                  "dv":2,
+                  "rut":20247706,
+                  "foto":"1685291171171-naxiti.png",
+                  "mail":"",
+                  "nombres":"Nicolas Andres ",
+                  "apellidos":"Diaz Garces",
+                  "direccion":"blanco encalada 1575 ",
+                  "ultima_visita":new Date("2023-05-28"),
+                  "fecha_registro":new Date("2023-05-28 01:01:17"),
+                  "fecha_nacimiento":new Date("1999-07-20T04:00:00.000Z")
+             }
              }
           ],
           "rut_empleador":20482869,
@@ -67,11 +91,35 @@ export class UserService {
           "postulantes":[
              {
                 "rut_trabajador":20247706,
-                "estado_postulacion":3
+                "estado_postulacion":3,
+                "trabajador":{
+                  "dv":2,
+                  "rut":20247706,
+                  "foto":"1685291171171-naxiti.png",
+                  "mail":"",
+                  "nombres":"Nicolas Andres ",
+                  "apellidos":"Diaz Garces",
+                  "direccion":"blanco encalada 1575 ",
+                  "ultima_visita":new Date("2023-05-28"),
+                  "fecha_registro":new Date("2023-05-28 01:01:17"),
+                  "fecha_nacimiento":new Date("1999-07-20T04:00:00.000Z")
+             }
              },
              {
                 "rut_trabajador":20703935,
-                "estado_postulacion":2
+                "estado_postulacion":2,
+                "trabajador":{
+                  "dv":2,
+                  "rut":20247706,
+                  "foto":"1685291171171-naxiti.png",
+                  "mail":"",
+                  "nombres":"Nicolas Andres ",
+                  "apellidos":"Diaz Garces",
+                  "direccion":"blanco encalada 1575 ",
+                  "ultima_visita":new Date("2023-05-28"),
+                  "fecha_registro":new Date("2023-05-28 01:01:17"),
+                  "fecha_nacimiento":new Date("1999-07-20T04:00:00.000Z")
+             }
              }
           ],
           "rut_empleador":20482869,
@@ -90,11 +138,35 @@ export class UserService {
           "postulantes":[
              {
                 "rut_trabajador":20247706,
-                "estado_postulacion":3
+                "estado_postulacion":3,
+                "trabajador":{
+                  "dv":2,
+                  "rut":20247706,
+                  "foto":"1685291171171-naxiti.png",
+                  "mail":"",
+                  "nombres":"Nicolas Andres ",
+                  "apellidos":"Diaz Garces",
+                  "direccion":"blanco encalada 1575 ",
+                  "ultima_visita":new Date("2023-05-28"),
+                  "fecha_registro":new Date("2023-05-28 01:01:17"),
+                  "fecha_nacimiento":new Date("1999-07-20T04:00:00.000Z")
+             }
              },
              {
                 "rut_trabajador":20703935,
-                "estado_postulacion":3
+                "estado_postulacion":3,
+                "trabajador":{
+                  "dv":2,
+                  "rut":20247706,
+                  "foto":"1685291171171-naxiti.png",
+                  "mail":"",
+                  "nombres":"Nicolas Andres ",
+                  "apellidos":"Diaz Garces",
+                  "direccion":"blanco encalada 1575 ",
+                  "ultima_visita":new Date("2023-05-28"),
+                  "fecha_registro":new Date("2023-05-28 01:01:17"),
+                  "fecha_nacimiento":new Date("1999-07-20T04:00:00.000Z")
+             }
              }
           ],
           "rut_empleador":20482869,
@@ -113,11 +185,35 @@ export class UserService {
           "postulantes":[
              {
                 "rut_trabajador":7419310,
-                "estado_postulacion":3
+                "estado_postulacion":3,
+                "trabajador":{
+                  "dv":2,
+                  "rut":20247706,
+                  "foto":"1685291171171-naxiti.png",
+                  "mail":"",
+                  "nombres":"Nicolas Andres ",
+                  "apellidos":"Diaz Garces",
+                  "direccion":"blanco encalada 1575 ",
+                  "ultima_visita":new Date("2023-05-28"),
+                  "fecha_registro":new Date("2023-05-28 01:01:17"),
+                  "fecha_nacimiento":new Date("1999-07-20T04:00:00.000Z")
+             }
              },
              {
                 "rut_trabajador":20703935,
-                "estado_postulacion":3
+                "estado_postulacion":3,
+                "trabajador":{
+                  "dv":2,
+                  "rut":20247706,
+                  "foto":"1685291171171-naxiti.png",
+                  "mail":"",
+                  "nombres":"Nicolas Andres ",
+                  "apellidos":"Diaz Garces",
+                  "direccion":"blanco encalada 1575 ",
+                  "ultima_visita":new Date("2023-05-28"),
+                  "fecha_registro":new Date("2023-05-28 01:01:17"),
+                  "fecha_nacimiento":new Date("1999-07-20T04:00:00.000Z")
+             }
              }
           ],
           "rut_empleador":20482869,
@@ -150,7 +246,19 @@ export class UserService {
           "postulantes":[
              {
                 "rut_trabajador":20703935,
-                "estado_postulacion":3
+                "estado_postulacion":3,
+                "trabajador":{
+                  "dv":2,
+                  "rut":20247706,
+                  "foto":"1685291171171-naxiti.png",
+                  "mail":"",
+                  "nombres":"Nicolas Andres ",
+                  "apellidos":"Diaz Garces",
+                  "direccion":"blanco encalada 1575 ",
+                  "ultima_visita":new Date("2023-05-28"),
+                  "fecha_registro":new Date("2023-05-28 01:01:17"),
+                  "fecha_nacimiento":new Date("1999-07-20T04:00:00.000Z")
+             }
              }
           ],
           "rut_empleador":20482869,
@@ -189,11 +297,35 @@ export class UserService {
              "postulantes":[
                 {
                    "rut_trabajador":20482869,
-                   "estado_postulacion":1
+                   "estado_postulacion":1,
+                   "trabajador":{
+                     "dv":2,
+                     "rut":20247706,
+                     "foto":"1685291171171-naxiti.png",
+                     "mail":"",
+                     "nombres":"Nicolas Andres ",
+                     "apellidos":"Diaz Garces",
+                     "direccion":"blanco encalada 1575 ",
+                     "ultima_visita":new Date("2023-05-28"),
+                     "fecha_registro":new Date("2023-05-28 01:01:17"),
+                     "fecha_nacimiento":new Date("1999-07-20T04:00:00.000Z")
+                }
                 },
                 {
                    "rut_trabajador":20703935,
-                   "estado_postulacion":3
+                   "estado_postulacion":3,
+                   "trabajador":{
+                     "dv":2,
+                     "rut":20247706,
+                     "foto":"1685291171171-naxiti.png",
+                     "mail":"",
+                     "nombres":"Nicolas Andres ",
+                     "apellidos":"Diaz Garces",
+                     "direccion":"blanco encalada 1575 ",
+                     "ultima_visita":new Date("2023-05-28"),
+                     "fecha_registro":new Date("2023-05-28 01:01:17"),
+                     "fecha_nacimiento":new Date("1999-07-20T04:00:00.000Z")
+                }
                 }
              ],
              "rut_empleador":20067953,
@@ -229,11 +361,35 @@ export class UserService {
              "postulantes":[
                 {
                    "rut_trabajador":20247706,
-                   "estado_postulacion":1
+                   "estado_postulacion":1,
+                   "trabajador":{
+                     "dv":2,
+                     "rut":20247706,
+                     "foto":"1685291171171-naxiti.png",
+                     "mail":"",
+                     "nombres":"Nicolas Andres ",
+                     "apellidos":"Diaz Garces",
+                     "direccion":"blanco encalada 1575 ",
+                     "ultima_visita":new Date("2023-05-28"),
+                     "fecha_registro":new Date("2023-05-28 01:01:17"),
+                     "fecha_nacimiento":new Date("1999-07-20T04:00:00.000Z")
+                }
                 },
                 {
                    "rut_trabajador":20482869,
-                   "estado_postulacion":1
+                   "estado_postulacion":1,
+                   "trabajador":{
+                     "dv":2,
+                     "rut":20247706,
+                     "foto":"1685291171171-naxiti.png",
+                     "mail":"",
+                     "nombres":"Nicolas Andres ",
+                     "apellidos":"Diaz Garces",
+                     "direccion":"blanco encalada 1575 ",
+                     "ultima_visita":new Date("2023-05-28"),
+                     "fecha_registro":new Date("2023-05-28 01:01:17"),
+                     "fecha_nacimiento":new Date("1999-07-20T04:00:00.000Z")
+                }
                 }
              ],
              "rut_empleador":20247706,
@@ -269,15 +425,52 @@ export class UserService {
              "postulantes":[
                 {
                    "rut_trabajador":20703935,
-                   "estado_postulacion":2
+                   "estado_postulacion":2,
+                   "trabajador":{
+                     "dv":2,
+                     "rut":20247706,
+                     "foto":"1685291171171-naxiti.png",
+                     "mail":"",
+                     "nombres":"Nicolas Andres ",
+                     "apellidos":"Diaz Garces",
+                     "direccion":"blanco encalada 1575 ",
+                     "ultima_visita":new Date("2023-05-28"),
+                     "fecha_registro":new Date("2023-05-28 01:01:17"),
+                     "fecha_nacimiento":new Date("1999-07-20T04:00:00.000Z")
+                }
                 },
                 {
                    "rut_trabajador":20482869,
-                   "estado_postulacion":1
+                   "estado_postulacion":1,
+                   "trabajador":{
+                     "dv":2,
+                     "rut":20247706,
+                     "foto":"1685291171171-naxiti.png",
+                     "mail":"",
+                     "nombres":"Nicolas Andres ",
+                     "apellidos":"Diaz Garces",
+                     "direccion":"blanco encalada 1575 ",
+                     "ultima_visita":new Date("2023-05-28"),
+                     "fecha_registro":new Date("2023-05-28 01:01:17"),
+                     "fecha_nacimiento":new Date("1999-07-20T04:00:00.000Z")
+                  } 
                 },
                 {
                    "rut_trabajador":20247706,
-                   "estado_postulacion":3
+                   "estado_postulacion":3,
+                   "trabajador":{
+                        "dv":2,
+                        "rut":20247706,
+                        "foto":"1685291171171-naxiti.png",
+                        "mail":"",
+                        "nombres":"Nicolas Andres ",
+                        "apellidos":"Diaz Garces",
+                        "direccion":"blanco encalada 1575 ",
+                        "ultima_visita":new Date("2023-05-28"),
+                        "fecha_registro":new Date("2023-05-28 01:01:17"),
+                        "fecha_nacimiento":new Date("1999-07-20T04:00:00.000Z")
+                   }
+                        
                 }
              ],
              "rut_empleador":20703935,
@@ -375,7 +568,7 @@ export class UserService {
         tap( resp => {
           if( resp.ok ) {
             localStorage.setItem('token', resp.content.token!) // guardamos el jwt en localstorage
-            //this._usuario = resp.content // le asignamos al usuario la response
+            this._usuario = resp.content.user // le asignamos al usuario la response
 
             this.loggedIn = true; // seteamos la variable loggedIn a true
           }
@@ -392,8 +585,6 @@ export class UserService {
           if( resp.ok ) {
             localStorage.setItem('token', resp.content.token!) // guardamos el jwt en localstorage
             const { user, token } = resp.content
-            
-
             this._usuario = user
           }
         } ) 
@@ -473,4 +664,11 @@ export class UserService {
     const dv = user.value.rut.split('-')[1];
     return this.httpClient.put(environment.apiUrl + `user/edit`, user.value);
   }
+
+  setSession(user: UserInformation, password: string = null!) {
+   if (password == null) {
+      localStorage.setItem('password', "")
+   } else localStorage.setItem('password', password)
+   this._usuario = user;
+   }
 }

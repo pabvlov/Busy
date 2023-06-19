@@ -16,7 +16,7 @@ import { JobInfoComponent } from './job-info/job-info.component';
 import { AboutComponent } from './about/about.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { OfertasComponent } from './profile/ofertas/ofertas.component';
+import { TrabajosProfileComponent } from './profile/trabajos-perfil/trabajos-perfil.component';
 import { TrabajosComponent } from './trabajos/trabajos.component';
 import { ServiciosComponent } from './servicios/servicios.component';
 import { TrabajoComponent } from './profile/trabajo/trabajo.component';
@@ -34,7 +34,7 @@ import { ServiciosProfileComponent } from './profile/servicios/servicios.compone
     SafePipe,
     JobInfoComponent,
     AboutComponent,
-    OfertasComponent,
+    TrabajosProfileComponent,
     TrabajosComponent,
     ServiciosComponent,
     TrabajoComponent,
