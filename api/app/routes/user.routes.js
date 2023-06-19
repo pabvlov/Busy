@@ -89,8 +89,6 @@ router.get('/user/profile/:rut/:dv', async function(req, res, next) {
 
 router.post('/user/upload', upload.single("file"), (req, res) => {
   try {
-      console.log(req.file);
-      
       if (req.file) {
         user.uploadImage(req.file.filename, req.body.rut)
           res.json(

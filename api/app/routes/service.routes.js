@@ -19,9 +19,7 @@ router.get('/services', async (err, res, next) => {
     try {
         const services = service.getServices().then((data) => {
             res.json({ ok: true, content: data[0].result })
-        })
-        
-        
+        })        
     } catch (err) {
         console.error(`Error while getting all services: `, err.message);
         res.json({ ok: false, message: err.message });
@@ -46,7 +44,6 @@ router.get('/service/:id', async (req, res) => {
 
 router.post('/work/uploadService', upload.single("file"), (req, res) => {
     try {
-        console.log(req.file);
         if (req.file) {
             res.json(
                 {
@@ -76,14 +73,11 @@ router.post('/work/apply', (req, res, next) => {
             });
         }
         if (work.checkHimself(id_trabajo, rut_trabajador)) {
-            console.log();
-            console.log("No puedes postularte a tu propio trabajo");
             res.status(200).json({
                 ok: false,
                 message: "No puedes postularte a tu propio trabajo",
             });
         } else {
-            console.log(work.alreadyApplied(id_trabajo, rut_trabajador));
             if (!work.alreadyApplied(id_trabajo, rut_trabajador)) {
                 work.applyWork(id_trabajo, rut_trabajador)
                 res.status(200).json({
@@ -105,8 +99,6 @@ router.post('/work/apply', (req, res, next) => {
 
 router.post('/service/add', upload.single("file"), (req, res, next) => {
     try {
-        console.log(JSON.parse(req.body.service));
-        console.log(req.file);
         const { titulo, descripcion, precio, rut_usuario } = JSON.parse(req.body.service);
         const object = {
             titulo,

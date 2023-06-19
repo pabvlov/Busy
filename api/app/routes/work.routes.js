@@ -45,7 +45,6 @@ router.put('/work/choose', async (req, res, err) => {
     try {
         const applier = work.chooseApplier(req.body.id_trabajo, req.body.rut_trabajador, req.body.state).then((data) => {
             res.json({ ok: true, content: data })
-        console.log(applier);
         })
     } catch (err) {
         console.error(`Error while getting the job: `, err.message);
@@ -55,7 +54,6 @@ router.put('/work/choose', async (req, res, err) => {
 
 router.post('/work/uploadWork', upload.single("file"), (req, res) => {
     try {
-        console.log(req.file);
         if (req.file) {
             res.json(
                 {
@@ -85,13 +83,11 @@ router.post('/work/apply', (req, res, next) => {
             });
         }
         if(work.checkHimself(id_trabajo, rut_trabajador)) {
-            console.log("No puedes postularte a tu propio trabajo");
             res.status(200).json({
                 ok: false,
                 message: "No puedes postularte a tu propio trabajo",
             });
         } else {
-            console.log(work.alreadyApplied(id_trabajo, rut_trabajador));
             if(!work.alreadyApplied(id_trabajo, rut_trabajador)){
                 work.applyWork(id_trabajo, rut_trabajador)
                 res.status(200).json({
@@ -113,8 +109,6 @@ router.post('/work/apply', (req, res, next) => {
 
 router.post('/work/add', upload.single("file"), (req, res) => {
     try {
-        console.log(JSON.parse(req.body.work));
-        console.log(req.file);
         const { title, description, price, peopleNeeded, endDate, selectionDate, rut_empleador, ubicacion } = JSON.parse(req.body.work);
         const object = {
             title,

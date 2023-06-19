@@ -44,6 +44,7 @@ export interface Trabajo {
 export interface Postulante {
     rut_trabajador:     number;
     estado_postulacion: number;
+    trabajador:        Usuario;
 }
 
 export interface Servicio {

@@ -1,5 +1,4 @@
 import { Component, Host, Input } from '@angular/core';
-import { WorkService } from 'src/app/services/work.service';
 import { ApplicationComponent } from '../application.component';
 import { ServiceService } from 'src/app/services/service.service';
 

@@ -25,7 +25,7 @@ router.post('/auth/login', async function(req, res, next) {
         return res.status(202).json({
             ok: true,
             content: {
-              user: rows.content[0],
+              user: userInfo,
               token
             },
         })
