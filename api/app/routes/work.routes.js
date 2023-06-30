@@ -76,6 +76,12 @@ router.post('/work/uploadWork', upload.single("file"), (req, res) => {
 router.post('/work/apply', (req, res, next) => {
     try {
         const { id_trabajo, rut_trabajador } = req.body;
+        if (rut_trabajador == null) {
+            res.status(200).json({
+                ok: false,
+                message: "Se necesita que inicies sesión para realizar esta acción",
+            });
+        }
         if (id_trabajo == 0 || rut_trabajador == 0) {
             res.status(200).json({
                 ok: false,

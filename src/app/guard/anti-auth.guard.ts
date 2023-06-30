@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { ActivatedRouteSnapshot, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import { UserService } from '../services/user.service';
 
@@ -16,7 +16,7 @@ export class Permissions {
 @Injectable({
   providedIn: 'root'
 })
-export class AntiAuthGuard implements CanActivate {
+export class AntiAuthGuard  {
   constructor(private permissions: Permissions) {}
   
   

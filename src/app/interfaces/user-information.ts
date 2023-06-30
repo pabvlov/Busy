@@ -1,5 +1,5 @@
 export interface UserInformation {
-    usuario:       Usuario;
+    user:       Usuario;
     trabajos:      Trabajo[];
     servicios:     Servicio[];
     postulaciones: Postulaciones[];
@@ -20,10 +20,15 @@ export interface Usuario {
     mail:             string;
     nombres:          string;
     apellidos:        string;
-    direccion:        null | string;
+    direccion:        string | null;
     ultima_visita:    Date;
     fecha_registro:   Date;
     fecha_nacimiento: Date | null;
+}
+
+export interface Postulante extends Usuario {
+    id_postulacion: number;
+    estado_postulacion: number;
 }
 
 export interface Trabajo {
@@ -41,12 +46,6 @@ export interface Trabajo {
     fecha_seleccion_postulante: Date;
 }
 
-export interface Postulante {
-    rut_trabajador:     number;
-    estado_postulacion: number;
-    trabajador:        Usuario;
-}
-
 export interface Servicio {
     id:          number;
     foto:        string;
@@ -54,4 +53,3 @@ export interface Servicio {
     titulo:      string;
     descripcion: string;
 }
-

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { ServiceInformation } from 'src/app/interfaces/service-information';
 import { UserService } from 'src/app/services/user.service';
 import { WorkService } from 'src/app/services/work.service';
@@ -14,9 +14,9 @@ import { SwalService } from 'src/app/services/swal.service';
 })
 export class OfferServiceComponent {
   constructor(private serviceService: ServiceService,
-    private fb: FormBuilder,
+    @Inject(FormBuilder) private fb: FormBuilder,
     private userService: UserService,
-    private route: Router,
+    @Inject(FormBuilder) private route: Router,
     private swal: SwalService) { }
 
   part = 1;
@@ -53,7 +53,7 @@ export class OfferServiceComponent {
         titulo: this.offerForm.value.title!,
         descripcion: this.offerForm.value.description!,
         precio: +this.offerForm.value.price!,
-        rut_usuario: user.usuario.rut!,
+        rut_usuario: user.user.rut!,
 
       }
 

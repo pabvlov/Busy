@@ -1,5 +1,4 @@
-import { Component, Input, OnInit, AfterViewInit, OnChanges } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { Component, Input, OnInit, AfterViewInit, OnChanges, Inject } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 import { ApiResponse } from '../../interfaces/api-response';
 import { Session } from 'src/app/interfaces/session';
@@ -7,9 +6,10 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { SwalService } from 'src/app/services/swal.service';
 import { ActivatedRoute } from '@angular/router';
-import { Postulaciones, UserInformation } from 'src/app/interfaces/user-information';
 import { environment } from 'src/environments/environment';
 import { Location } from '@angular/common';
+import { FormBuilder } from '@angular/forms';
+import { Postulaciones, Postulante, UserInformation } from 'src/app/interfaces/user-information';
 
 
 
@@ -23,7 +23,7 @@ export class ProfileComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() userRut: number = 0;
 
   loading = true;
-  constructor( private userService: UserService, private fb: FormBuilder, private swal: SwalService, private route: ActivatedRoute,
+  constructor( private userService: UserService, @Inject(FormBuilder) private fb: FormBuilder, private swal: SwalService, @Inject(ActivatedRoute) private route: ActivatedRoute,
                 private location: Location) {
     if (!this.userService.isAuthenticated() && this.route.snapshot.paramMap.get('id') == null) {
       window.location.href = '/';
@@ -37,11 +37,11 @@ export class ProfileComponent implements OnInit, AfterViewInit, OnChanges {
   get rut() {
     if (this.route.snapshot.paramMap.get('id') != null) {
       if(!!this.profileInfo) {
-        return this.profileInfo.usuario.rut! + '-' + this.profileInfo.usuario.dv;
+        return this.profileInfo.user.rut! + '-' + this.profileInfo.user.dv;
       }
         return 'Cargando...'
     }
-    return this.userService._usuario.usuario.rut + '-' + this.userService._usuario.usuario.dv;
+    return this.userService._usuario.user.rut + '-' + this.userService._usuario.user.dv;
   }
 
   goBackToPreviousPage() {
@@ -66,25 +66,25 @@ export class ProfileComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   get nombre() {
-    return this.userService._usuario.usuario.nombres + ' ' + this.userService._usuario.usuario.apellidos;
+    return this.userService._usuario.user.nombres + ' ' + this.userService._usuario.user.apellidos;
   }
 
   get nombres() {
-    return this.userService._usuario.usuario.nombres;
+    return this.userService._usuario.user.nombres;
   }
 
   get apellidos() {
-    return this.userService._usuario.usuario.apellidos;
+    return this.userService._usuario.user.apellidos;
   }
 
   get mail() {
     if (this.route.snapshot.paramMap.get('id') != null) {
-      return this.profileInfo.usuario.mail;
-    } else return this.userService._usuario.usuario.mail;
+      return this.profileInfo.user.mail;
+    } else return this.userService._usuario.user.mail;
   }
 
   get direccion() {
-    const { direccion } = this.userService._usuario.usuario;
+    const { direccion } = this.userService._usuario.user;
     if(direccion === 'undefined' || direccion === null || direccion === '') {
       this.userService.getPosition().then(pos => {
           return pos.lat + ',' + pos.lng;
@@ -95,19 +95,20 @@ export class ProfileComponent implements OnInit, AfterViewInit, OnChanges {
     
 
   get fecha_nacimiento() {
-    return this.userService._usuario.usuario.fecha_nacimiento;
+    return this.userService._usuario.user.fecha_nacimiento;
   }
 
   get ultima_visita() {
-    return this.userService._usuario.usuario.ultima_visita;
+    return this.userService._usuario.user.ultima_visita;
   }
 
   get fecha_registro() {
-    return this.userService._usuario.usuario.fecha_registro;
+    return this.userService._usuario.user.fecha_registro;
   }
 
   haveUserAcceptedPostulation(applier: Postulaciones) {
-    return applier.id_estado == 1;
+    // check if the applier has been accepted
+    return applier.id_estado === 1;
   }
 
   usuario() {
@@ -135,17 +136,17 @@ export class ProfileComponent implements OnInit, AfterViewInit, OnChanges {
 
   userData = this.fb.group({
     rut: [this.rut],
-    nombres: [this.userService._usuario.usuario.nombres],
-    apellidos: [this.userService._usuario.usuario.apellidos],
-    mail: [this.userService._usuario.usuario.mail],
+    nombres: [this.userService._usuario.user.nombres],
+    apellidos: [this.userService._usuario.user.apellidos],
+    mail: [this.userService._usuario.user.mail],
     direccion: [this.direccion],
-    fecha_nacimiento: [this.userService._usuario.usuario.fecha_nacimiento],
+    fecha_nacimiento: [this.userService._usuario.user.fecha_nacimiento],
     
   });
 
 
   get profilePicture() {
-    return !!this.profileInfo.usuario.foto ? "http://localhost:3000/" + this.profileInfo.usuario.foto : '../../../assets/img/defaultprofilepic.png';
+    return !!this.profileInfo.user.foto ? "http://localhost:3000/" + this.profileInfo.user.foto : '../../../assets/img/defaultprofilepic.png';
   }
 
   ngOnInit(): void {
@@ -154,7 +155,7 @@ export class ProfileComponent implements OnInit, AfterViewInit, OnChanges {
       this.userService.getUserDataFromToken().subscribe( (res: Session) => {
         console.log(res);
         
-        const { rut, dv, nombres, apellidos, mail, direccion, fecha_nacimiento, ultima_visita, fecha_registro } = res.content.user.usuario;
+        const { rut, dv, nombres, apellidos, mail, direccion, fecha_nacimiento, ultima_visita, fecha_registro } = res.content.user.user;
         this.userData.setValue({
           rut: rut + '-' + dv,
           nombres: nombres,
@@ -184,11 +185,11 @@ export class ProfileComponent implements OnInit, AfterViewInit, OnChanges {
 
   handleProfile(){
     const formData = new FormData();
-    formData.append('rut', this.userService._usuario.usuario.rut.toString());
+    formData.append('rut', this.userService._usuario.user.rut.toString());
     if (this.picture.target.files![0] == '') {
       console.log('No se selecciono ningun archivo');
     } else {
-      this.userService.uploadProfilePicture(this.userService._usuario.usuario.rut.toString(), this.picture.target.files[0]).subscribe( (resp: any) => {
+      this.userService.uploadProfilePicture(this.userService._usuario.user.rut.toString(), this.picture.target.files[0]).subscribe( (resp: any) => {
         this.userService.regenerateSession().subscribe();
       });
     }
@@ -205,7 +206,7 @@ export class ProfileComponent implements OnInit, AfterViewInit, OnChanges {
     });
     this.userService.regenerateSession().subscribe( (resp: Session) => {
       if(resp.ok) {
-        this.getProfileInfo(resp.content.user.usuario.rut.toString());
+        this.getProfileInfo(resp.content.user.user.rut.toString());
       }
     });
     

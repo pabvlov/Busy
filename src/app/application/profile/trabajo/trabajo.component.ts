@@ -116,7 +116,7 @@ export class TrabajoComponent implements OnInit {
   }
 
   isEmployer() {
-    return this.userService._usuario.usuario.rut === this.work.rut_empleador;
+    return this.userService._usuario.user.rut === this.work.rut_empleador;
   }
 
 

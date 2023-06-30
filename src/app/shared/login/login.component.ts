@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
 import { RutService } from 'rut-chileno';
@@ -46,7 +46,7 @@ export class LoginComponent {
         if (data.content.user != null) {
           this.swal.close();
           this.info = 'Usuario encontrado';
-          this.fullname = `${data.content.user.usuario.nombres} ${data.content.user.usuario.apellidos}`;
+          this.fullname = `${data.content.user.user.nombres} ${data.content.user.user.apellidos}`;
           this.step++;
         } else {
 

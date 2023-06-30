@@ -92,6 +92,7 @@ async function getUserByRut(rut, dv = -1) {
                     'postulantes', (
                         SELECT JSON_ARRAYAGG(
                             JSON_OBJECT(
+                                'id_postulacion', p.id,
                                 'dv', up.dv,
                                 'rut', up.rut,
                                 'foto', up.foto,
@@ -101,7 +102,8 @@ async function getUserByRut(rut, dv = -1) {
                                 'direccion', up.direccion,
                                 'ultima_visita', up.ultima_visita,
                                 'fecha_registro', up.fecha_registro,
-                                'fecha_nacimiento', up.fecha_nacimiento
+                                'fecha_nacimiento', up.fecha_nacimiento,
+                                'estado_postulacion', p.id_estado
                             )
                         )
                         FROM postulaciones p
@@ -172,7 +174,8 @@ async function getUserByRut(rut, dv = -1) {
                                     'direccion', up.direccion,
                                     'ultima_visita', up.ultima_visita,
                                     'fecha_registro', up.fecha_registro,
-                                    'fecha_nacimiento', up.fecha_nacimiento
+                                    'fecha_nacimiento', up.fecha_nacimiento,
+                                    'estado_postulacion', p.id_estado
                                 )
                             )
                             FROM postulaciones p
@@ -216,6 +219,7 @@ async function getUserByRut(rut, dv = -1) {
                     'postulantes', (
                         SELECT JSON_ARRAYAGG(
                             JSON_OBJECT(
+                                'id_postulacion', p.id,
                                 'dv', up.dv,
                                 'rut', up.rut,
                                 'foto', up.foto,
