@@ -25,9 +25,13 @@ export class ProfileComponent implements OnInit, AfterViewInit, OnChanges {
   loading = true;
   constructor( private userService: UserService, private fb: FormBuilder, private swal: SwalService, private route: ActivatedRoute,
                 private location: Location) {
-    if (!this.userService.isAuthenticated()) {
+    if (!this.userService.isAuthenticated() && this.route.snapshot.paramMap.get('id') == null) {
       window.location.href = '/';
+    } 
+    else if (this.route.snapshot.paramMap.get('id') != null) {
+      this.visitor = true;
     }
+      
   }
 
   get rut() {
@@ -49,17 +53,16 @@ export class ProfileComponent implements OnInit, AfterViewInit, OnChanges {
     
     if (this.route.snapshot.paramMap.get('id') != null || this.userRut != 0) {
       this.visitor = true;
-      this.userService.getProfileByRut(this.visitor ? (this.route.snapshot.paramMap.get('id') == null ? ''+this.userRut: this.route.snapshot.paramMap.get('id')!) : this.rut).subscribe( (resp: ApiResponse) => {
-        if(resp.ok) {
-          console.log(resp.content);
-          this.loading = false;
-          this.profileInfo = resp.content;
-        }
-      })
     } else {
       this.visitor = false;
     }
-    
+    this.userService.getProfileByRut(this.visitor ? (this.route.snapshot.paramMap.get('id') == null ? ''+this.userRut: this.route.snapshot.paramMap.get('id')!) : this.rut).subscribe( (resp: ApiResponse) => {
+      if(resp.ok) {
+        console.log(resp);
+        this.loading = false;
+        this.profileInfo = resp.content;
+      }
+    })
   }
 
   get nombre() {
@@ -116,13 +119,6 @@ export class ProfileComponent implements OnInit, AfterViewInit, OnChanges {
 
   getProfileInfo(rut: string) {
     this.route.snapshot.paramMap.get('id') != null ? this.visitor = true : this.visitor = false;
-    if (this.route.snapshot.paramMap.get('id') != null || this.userRut != 0) {
-      this.visitor = true;
-    } else {
-      this.visitor = false;
-    }
-    console.log(this.route.snapshot.paramMap.get('id'), this.userRut, this.visitor, rut);
-    
     this.userService.getProfileByRut(this.visitor ? (this.route.snapshot.paramMap.get('id') == null ? ''+this.userRut: this.route.snapshot.paramMap.get('id')!) : rut).subscribe( (resp: ApiResponse) => {
       console.log(resp);
       
@@ -153,19 +149,30 @@ export class ProfileComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   ngOnInit(): void {
-
-    this.userService.getUserDataFromToken().subscribe( (res: Session) => {
-      const { rut, dv, nombres, apellidos, mail, direccion, fecha_nacimiento, ultima_visita, fecha_registro } = res.content.user.usuario;
-      this.userData.setValue({
-        rut: rut + '-' + dv,
-        nombres: nombres,
-        apellidos: apellidos,
-        mail: mail,
-        direccion: direccion,
-        fecha_nacimiento: fecha_nacimiento,
+    this.route.snapshot.paramMap.get('id') != null ? this.visitor = true : this.visitor = false;
+    if (!this.visitor) {
+      this.userService.getUserDataFromToken().subscribe( (res: Session) => {
+        console.log(res);
+        
+        const { rut, dv, nombres, apellidos, mail, direccion, fecha_nacimiento, ultima_visita, fecha_registro } = res.content.user.usuario;
+        this.userData.setValue({
+          rut: rut + '-' + dv,
+          nombres: nombres,
+          apellidos: apellidos,
+          mail: mail,
+          direccion: direccion,
+          fecha_nacimiento: fecha_nacimiento,
+        })
       })
-    })
-      
+    } else {
+      this.userService.getProfileByRut(this.visitor ? (this.route.snapshot.paramMap.get('id') == null ? ''+this.userRut: this.route.snapshot.paramMap.get('id')!) : this.rut).subscribe( (resp: ApiResponse) => {
+        if(resp.ok) {
+          console.log(resp);
+          this.loading = false;
+          this.profileInfo = resp.content.user;
+        }
+      })
+    }
   }
 
   picture: any = new Event('');
