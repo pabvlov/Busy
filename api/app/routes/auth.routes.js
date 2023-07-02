@@ -109,7 +109,7 @@ router.post('/auth/regenerate', async function(req, res, next) {
     })
     try {
       const userInfo = validarJWT(token)
-      const rows = await user.getUserByRut(userInfo.usuario.rut)
+      const rows = await user.getUserByRut(userInfo.user.rut)
       if(rows.length > 0) {
         if (!rows[0].result) {
           return res.status(401).json({

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { User } from '../interfaces/user';
 import { Session } from '../interfaces/session';
@@ -439,7 +439,7 @@ export class UserService {
     this._usuario.user.foto = foto;
   }
 
-  constructor(private httpClient: HttpClient, private router: Router) { }
+  constructor(private httpClient: HttpClient, @Inject( Router ) private router: Router) { }
 
   getUsers(): any {
     let users = this.httpClient.get(environment.apiUrl + 'users');

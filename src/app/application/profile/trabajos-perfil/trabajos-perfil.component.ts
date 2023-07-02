@@ -24,6 +24,9 @@ export class TrabajosProfileComponent {
   }
 
   postulantesAceptados(work: Trabajo): Postulante[] {
+    if (work.postulantes === null) {
+      return [];
+    }
     return work.postulantes!.filter((applier) => applier.estado_postulacion === 1);
   }
 

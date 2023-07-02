@@ -6,7 +6,7 @@ async function getUsers(){
 
 async function getUserByRut(rut, dv = -1) {
     if(dv === -1) return await db.query(`SELECT JSON_OBJECT(
-        'usuario', JSON_OBJECT(
+        'user', JSON_OBJECT(
             'dv', u.dv,
             'rut', u.rut,
             'foto', u.foto,
@@ -132,7 +132,7 @@ async function getUserByRut(rut, dv = -1) {
     FROM usuario u
     WHERE u.rut = ${ rut } LIMIT 1;`)
     return await db.query(`SELECT JSON_OBJECT(
-        'usuario', JSON_OBJECT(
+        'user', JSON_OBJECT(
             'dv', u.dv,
             'rut', u.rut,
             'foto', u.foto,
