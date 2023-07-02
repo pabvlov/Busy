@@ -21,6 +21,7 @@ import { ApplicationModule } from './application/application.module';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { ErrorInterceptor } from './interceptors/error.interceptor';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { ApplicationRoutingModule } from './application/application-routing.module';
 
 @NgModule({
   declarations: [
