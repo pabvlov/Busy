@@ -1,0 +1,16 @@
+.star {
+  font-size: 36px;
+  cursor: pointer;
+  color: gray;
+  transition: color 0.3s, text-shadow 0.3s;
+}
+
+.active, .active-previous, .hovered {
+  color: #FFD700;
+  text-shadow: 0 0 10px #FFD700;
+}
+
+.hovered-previous {
+  color: #FFD700;
+  text-shadow: none;
+}

@@ -23,6 +23,8 @@ import { LoaderComponent } from '../shared/loader/loader.component';
 import { OfferServiceComponent } from './offer-service/offer-service.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { ServiciosProfileComponent } from './profile/servicios/servicios.component';
+import { EvidenceComponent } from './evidence/evidence.component';
+import { StarComponentComponent } from '../shared/star/star.component';
 @NgModule({
   declarations: [
     ApplicationComponent,
@@ -39,6 +41,8 @@ import { ServiciosProfileComponent } from './profile/servicios/servicios.compone
     LoaderComponent,
     OfferServiceComponent,
     ServiciosProfileComponent,
+    EvidenceComponent,
+    StarComponentComponent
   ],
   imports: [
     CommonModule,

@@ -45,7 +45,7 @@ import { ApplicationRoutingModule } from './application/application-routing.modu
     MatButtonModule,
     MatGridListModule,
     MatNativeDateModule,
-    ApplicationModule
+    ApplicationModule,
   ],
   providers: [AuthGuardGuard, AntiAuthGuard,
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }

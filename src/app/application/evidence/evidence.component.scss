@@ -1,0 +1,22 @@
+h3 {
+    margin-top: 1rem;
+    color: #3f02e8;
+}
+
+.evidence {
+    padding: 5.5rem 2rem 0 2rem;
+    max-width: 800px;
+}
+
+.mat-mdc-form-field {
+    display: block;
+}
+
+.imagePreview {
+    width: auto;
+    max-height: 400px;
+    object-fit: contain;
+    border: 2px solid #3f02e8;
+    display: flex;
+    margin: auto;
+}

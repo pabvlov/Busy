@@ -89,7 +89,21 @@ async function uploadWork(work) {
     })
 }
 
-async function getWorkAppliers(rut) {
+async function uploadWorkEvidence(workEvidence) {
+
+  const { evidence, file } = workEvidence;
+  console.log(evidence, file);
+  const create = db.query(`INSERT INTO  trabajos_realizados (id_trabajo, id_trabajador, fecha_termino, comentario_trabajador, calificacion_trabajador, evidencia) VALUES (${evidence.id_trabajo}, ${evidence.rut_trabajador}, '${new Date().toISOString()}', '${evidence.comentario}', ${evidence.calificacion}, '${file}');`)
+    .then((resp) => {
+      return resp;
+    })
+    .catch((err) => {
+      console.error(err)
+      return err;
+    })
+}
+
+async function getWorkAppliers(id) {
   return await db.query(`SELECT JSON_OBJECT(
     'id', t.id,
     'foto', t.foto,
@@ -97,6 +111,23 @@ async function getWorkAppliers(rut) {
     'titulo', t.titulo,
     'ubicacion', t.ubicacion,
     'descripcion', t.descripcion,
+    'trabajos_realizados_totales', (
+        SELECT JSON_ARRAYAGG(
+            JSON_OBJECT(
+                'id', tr_all.id,
+                'id_trabajo', tr_all.id_trabajo,
+                'id_trabajador', tr_all.id_trabajador,
+                'fecha_termino', tr_all.fecha_termino,
+                'comentario_trabajador', tr_all.comentario_trabajador,
+                'comentario_empleador', tr_all.comentario_empleador,
+                'calificacion_empleador', tr_all.calificacion_empleador,
+                'calificacion_trabajador', tr_all.calificacion_trabajador,
+                'evidencia', tr_all.evidencia
+            )
+        )
+        FROM trabajos_realizados tr_all
+        WHERE tr_all.id_trabajo = t.id
+    ),
     'postulaciones', (
         SELECT JSON_ARRAYAGG(
             JSON_OBJECT(
@@ -116,12 +147,28 @@ async function getWorkAppliers(rut) {
                 'id_estado', p.id_estado,
                 'id_trabajo', p.id_trabajo,
                 'rut_trabajador', p.rut_trabajador,
-                'fecha_publicacion', p.fecha_publicacion
+                'fecha_publicacion', p.fecha_publicacion,
+                'trabajo_realizado_propio', (
+                    SELECT JSON_OBJECT(
+                        'id', tr.id,
+                        'id_trabajo', tr.id_trabajo,
+                        'id_trabajador', tr.id_trabajador,
+                        'fecha_termino', tr.fecha_termino,
+                        'comentario_trabajador', tr.comentario_trabajador,
+                        'comentario_empleador', tr.comentario_empleador,
+                        'calificacion_empleador', tr.calificacion_empleador,
+                        'calificacion_trabajador', tr.calificacion_trabajador,
+                        'evidencia', tr.evidencia
+                    )
+                    FROM trabajos_realizados tr
+                    WHERE tr.id_trabajo = t.id AND tr.id_trabajador = p.rut_trabajador
+                    LIMIT 1
+                )
             )
         )
         FROM postulaciones p
         INNER JOIN usuario u ON p.rut_trabajador = u.rut
-        WHERE p.id_trabajo = ${rut}	
+        WHERE p.id_trabajo = t.id	
     ),
     'rut_empleador', t.rut_empleador,
     'cantidad_personas', t.cantidad_personas,
@@ -143,7 +190,7 @@ async function getWorkAppliers(rut) {
 ) AS result
 FROM trabajos t
 LEFT JOIN usuario ue ON t.rut_empleador = ue.rut
-WHERE t.id = ${rut}	
+WHERE t.id = ${id}
 GROUP BY t.id;`);
 }
 
@@ -167,8 +214,26 @@ function applyWork(id_trabajo, rut_trabajador) {
 
 }
 
+function applyWork(id_trabajo, rut_trabajador) {
+  //db.query(`ALTER TABLE postulaciones DROP COLUMN fecha_publicacion;`)
+  //db.query(`ALTER TABLE postulaciones ADD fecha_publicacion date;`)
+  // check if already applied
+  if (!alreadyApplied(id_trabajo, rut_trabajador)) {
+    // check if is himself
+    if (!checkHimself(id_trabajo, rut_trabajador)) {
+      const create = db.query(`INSERT INTO postulaciones (id_trabajo, rut_trabajador, id_estado, fecha_publicacion) VALUES (${id_trabajo}, ${rut_trabajador}, 3 , '${new Date().toISOString()}');`)
+        .then(() => {
+          return true;
+        })
+        .catch((err) => {
+          console.error(err)
+        })
+    } else return false
+  }
+
+}
+
 function chooseApplier(id_trabajo, rut_trabajador, state) {
-  
     return db.query(`UPDATE postulaciones SET id_estado = ${state} WHERE id_trabajo = ${id_trabajo} and rut_trabajador = ${rut_trabajador};`)
 }
 
@@ -182,6 +247,24 @@ function alreadyApplied(id_trabajo, rut_trabajador) {
         return false;
       }
     })
+}
+
+function alreadyEvidenced(id_trabajo, rut_trabajador) {
+  return new Promise((resolve, reject) => {
+    const query = db.query(`SELECT * FROM trabajos_realizados WHERE id_trabajo = ${id_trabajo} and id_trabajador = ${rut_trabajador}`)
+      .then((rows) => {
+        console.log(rows);
+        if (rows.length > 0) {
+          resolve(true);
+        } else {
+          resolve(false);
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        reject(err);
+      });
+  });
 }
 
 function checkHimself(id_trabajo, rut_trabajador) {
@@ -223,5 +306,7 @@ module.exports = {
   alreadyApplied,
   checkHimself,
   deleteWork,
-  chooseApplier
+  chooseApplier,
+  uploadWorkEvidence,
+  alreadyEvidenced
 }
