@@ -11,6 +11,7 @@ import { SwalService } from 'src/app/services/swal.service';
 import { Postulaciones } from 'src/app/interfaces/postulaciones';
 import { Location } from '@angular/common';
 import { environment } from 'src/environments/environment';
+import { Postulante } from 'src/app/interfaces/user-information';
 
 @Component({
   selector: 'app-trabajo',
@@ -74,6 +75,12 @@ export class TrabajoComponent implements OnInit {
 
   goBack() {
     this.router.navigate(['/app/profile']);
+  }
+
+  fechaTermino(applier: Postulaciones) {
+    if(applier.trabajo_realizado_propio == null) {
+      return ''
+    } else return applier.trabajo_realizado_propio.fecha_termino
   }
 
   handleDeleteWork() {
