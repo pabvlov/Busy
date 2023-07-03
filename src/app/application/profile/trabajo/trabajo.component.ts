@@ -41,6 +41,10 @@ export class TrabajoComponent implements OnInit {
     return this.workService.work;
   }
 
+  get userRut() {
+    return this.userService._usuario.user.rut;
+  }
+
   get appliers(): Postulaciones[] {
     return this.workService.work.postulaciones;
   }

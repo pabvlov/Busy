@@ -61,11 +61,14 @@
                                     {{ applier.user.nombres }} {{ applier.user.apellidos }}
                                 </div>
                             </div>
-                            <div>
+                            <div *ngIf="!hasNullTrabajoRealizado(applier)">
                                 <app-star *ngFor="let star of cantidadEstrellas(applier)" [isActive]="true"></app-star>
-                                <span class="material-symbols-outlined" *ngIf="!hasNullTrabajoRealizado(applier)">
+                                <span class="material-symbols-outlined">
                                     done
                                 </span>
+                            </div>
+                            <div *ngIf="applier.id_estado == 1 && hasNullTrabajoRealizado(applier) && applier.rut_trabajador == userRut">
+                                <a routerLink="evidence" class="color-busy p-2">Subir evidencia</a>
                             </div>
                         </a>
                         <div class="choose" *ngIf="isAppliersApprovedLessThanMax() && isEmployer()">
@@ -86,7 +89,7 @@
                             <p class="value">{{ fechaTermino(applier) | date }}</p>
                         </div>
                         <div class="comentario_empleador">
-                            <p class="value">{{ applier.trabajo_realizado_propio.comentario_empleador == "" ? 'El empleador no proporcionó comentario': applier.trabajo_realizado_propio.comentario_empleador }}</p>
+                            <q class="value">{{ applier.trabajo_realizado_propio.comentario_empleador == "" ? 'El empleador no proporcionó comentario': applier.trabajo_realizado_propio.comentario_empleador }}</q>
                         </div>
                     </div>
                 </div>
