@@ -4,23 +4,15 @@ import { LandingComponent } from './landing/landing.component';
 import { LoginComponent } from './shared/login/login.component';
 import { RegisterComponent } from './shared/register/register.component';
 import { ApplicationComponent } from './application/application.component';
-import { OfferComponent } from './application/offer/offer.component';
-import { ProfileComponent } from './application/profile/profile.component';
-import { AboutComponent } from './application/about/about.component';
-import { TrabajoComponent } from './application/profile/trabajo/trabajo.component';
-import { OfferServiceComponent } from './application/offer-service/offer-service.component';
 
 const routes: Routes = [
-  { path: '',  component: LandingComponent },
-  { path: 'login',  component: LoginComponent },
-  { path: 'register',  component: RegisterComponent },
-  { path: 'app', component: ApplicationComponent },
-  { path: 'app/offer', component: OfferComponent },
-  { path: 'app/offer-service', component: OfferServiceComponent },
-  { path: 'app/profile', component: ProfileComponent },
-  { path: 'app/profile/:id', component: ProfileComponent },
-  { path: 'app/about', component: AboutComponent },
-  { path: 'app/profile/trabajo/:id', component: TrabajoComponent },
+  { path: '', component: ApplicationComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
+  {
+    path: 'app',
+    loadChildren: () => import('./application/application.module').then((m) => m.ApplicationModule)
+  },
   { path: '**', redirectTo: 'app' }
 ];
 

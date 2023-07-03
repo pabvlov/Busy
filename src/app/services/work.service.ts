@@ -9,6 +9,7 @@ import { WorkInformation } from '../interfaces/work-information';
 import { ServiceInformation } from '../interfaces/service-information';
 import { SwalService } from './swal.service';
 import { environment } from 'src/environments/environment';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -61,7 +62,7 @@ export class WorkService {
     })
   }
 
-  constructor(private httpClient: HttpClient, private userService: UserService, private swal: SwalService) { }
+  constructor(private httpClient: HttpClient, private userService: UserService, private swal: SwalService, private router: Router) { }
 
   pos = 0;
 
@@ -120,7 +121,8 @@ export class WorkService {
                "id_estado":3,
                "id_trabajo":7,
                "rut_trabajador":20247706,
-               "fecha_publicacion": new Date("2023-05-29 19:34:19.000000")
+               "fecha_publicacion": new Date("2023-05-29 19:34:19.000000"),
+               "trabajo_realizado_propio": null!
             },
             {
                "id":44,
@@ -139,14 +141,16 @@ export class WorkService {
                "id_estado":3,
                "id_trabajo":7,
                "rut_trabajador":20482869,
-               "fecha_publicacion": new Date("2023-06-05 02:40:41.000000")
+               "fecha_publicacion": new Date("2023-06-05 02:40:41.000000"),
+               "trabajo_realizado_propio": null!
             }
          ],
          "rut_empleador":20247706,
          "cantidad_personas":"5",
          "fecha_publicacion":new Date("2023-05-28 01:05:39.000000"),
          "fecha_finalizacion":new Date("2023-07-07 04:00:00.000000"),
-         "fecha_seleccion_postulante": new Date("2023-06-21 04:00:00.000000")
+         "fecha_seleccion_postulante": new Date("2023-06-21 04:00:00.000000"),
+         "trabajos_realizados_totales": null!
       }
    ]
 
@@ -193,7 +197,8 @@ export class WorkService {
           "id_estado":3,
           "id_trabajo":7,
           "rut_trabajador":20247706,
-          "fecha_publicacion": new Date("2023-05-29 19:34:19.000000")
+          "fecha_publicacion": new Date("2023-05-29 19:34:19.000000"),
+          "trabajo_realizado_propio": null!
        },
        {
           "id":44,
@@ -212,19 +217,35 @@ export class WorkService {
           "id_estado":3,
           "id_trabajo":7,
           "rut_trabajador":20482869,
-          "fecha_publicacion": new Date("2023-06-05 02:40:41.000000")
+          "fecha_publicacion": new Date("2023-06-05 02:40:41.000000"),
+          "trabajo_realizado_propio": null!
        }
     ],
     "rut_empleador":20247706,
     "cantidad_personas":"5",
     "fecha_publicacion":new Date("2023-05-28 01:05:39.000000"),
     "fecha_finalizacion":new Date("2023-07-07 04:00:00.000000"),
-    "fecha_seleccion_postulante": new Date("2023-06-21 04:00:00.000000")
+    "fecha_seleccion_postulante": new Date("2023-06-21 04:00:00.000000"),
+    "trabajos_realizados_totales": null!
+    
  }
 
 
   uploadWork(body: FormData) {
     return this.httpClient.post(environment.apiUrl + 'work/add', body);
+  }
+
+  uploadWorkEvidence(body: FormData) {
+    return this.httpClient.post(environment.apiUrl + 'work/evidence', body).subscribe(
+      (res: any) => {
+        if (res.ok) {
+          this.router.navigate(['/app/profile/trabajo/' + res.content.evidence.id_trabajo]);
+        }
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 
   getWorks() {
@@ -247,8 +268,6 @@ export class WorkService {
   chooseApplierWork(id_trabajo: number, rut_trabajador: number, state: number) {
     return this.httpClient.put<ApiResponse>(environment.apiUrl + `work/choose`, { id_trabajo, rut_trabajador, state });
   }
-  
-
   
 
 

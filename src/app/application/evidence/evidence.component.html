@@ -1,0 +1,29 @@
+<div class="container evidence">
+    <h3>{{ work.titulo }}</h3>
+    <form id="evidencia" [formGroup]="evidence" (submit)="handleSubmit()">
+        <div>
+            <app-star
+              *ngFor="let star of stars; let i = index"
+              [isActive]="i < rating"
+              (starClicked)="rate(i + 1)"
+            ></app-star>
+        </div>
+
+        <mat-form-field>
+            <mat-label>Comentario (Opcional)</mat-label>
+            <textarea matInput placeholder="El trabajo se hizo sin novedad, la persona que me llamó fue amable, etc..." formControlName="comment"></textarea>
+        </mat-form-field>
+
+        <div class="input-group mb-3">
+            <input type="file" class="form-control" id="inputGroupFile02" (change)="handleEvent($event)" #fileUpload
+                multiple accept="image/*">
+            <label class="input-group-text" for="inputGroupFile02">Subir Foto</label>
+        </div>
+
+        <div *ngIf="imagePreview">
+            <img [src]="imagePreview" alt="Image Preview" class="imagePreview">
+        </div>
+
+        <button class="btn btn-busy" [disabled]="rating == 0">Aceptar trabajo</button>
+    </form>
+</div>

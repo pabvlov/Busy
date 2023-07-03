@@ -73,9 +73,56 @@ router.post('/work/uploadWork', upload.single("file"), (req, res) => {
     }
 });
 
+router.post('/work/evidence', upload.single("file"), (req, res, next) => {
+    try {
+        if (req.file) {
+            const body = JSON.parse(req.body.workEvidence);
+            const workEvidence = {
+                evidence: body,
+                file: req.file.filename,
+            };
+            if (body.id_trabajo == null) {
+                res.status(401).json({
+                    ok: false,
+                    message: "Se necesita que inicies sesión para realizar esta acción",
+                });
+            }
+            work.alreadyEvidenced(body.id_trabajo, body.rut_trabajador).then((data) => {
+                if (data == true) {
+                    res.status(409).json({
+                        ok: false,
+                        message: "Ya has subido una evidencia para este trabajo",
+                    });
+                } else {
+                    work.uploadWorkEvidence(workEvidence)
+                    res.status(200).json({
+                        ok: true,
+                        message: "Evidencia subida con éxito",
+                        content: workEvidence,
+                    });
+                }
+            });
+        } else {
+            res.status(400).json({
+                ok: false,
+                message: "No file uploaded, please upload a valid one",
+            });
+        }
+    } catch (err) {
+        console.error(`Error while getting all works: `, err.message);
+        next(err);
+    }
+});
+
 router.post('/work/apply', (req, res, next) => {
     try {
         const { id_trabajo, rut_trabajador } = req.body;
+        if (rut_trabajador == null) {
+            res.status(200).json({
+                ok: false,
+                message: "Se necesita que inicies sesión para realizar esta acción",
+            });
+        }
         if (id_trabajo == 0 || rut_trabajador == 0) {
             res.status(200).json({
                 ok: false,

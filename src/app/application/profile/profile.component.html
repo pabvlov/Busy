@@ -22,7 +22,7 @@
                             </label>
                             <input id="file-input" type="file" (change)="handlePicture($event)" accept="image/*" #picture />
                         </form>
-                        <h3> {{ profileInfo.usuario.nombres }} {{ profileInfo.usuario.apellidos }}</h3>
+                        <h3> {{ profileInfo.user.nombres }} {{ profileInfo.user.apellidos }}</h3>
                         <table class="table table-responsive">
                             <thead class="color-busy">
                                 <tr>
@@ -33,19 +33,19 @@
                             <tbody>
                                 <tr>
                                     <th scope="row">RUT</th>
-                                    <td>{{ profileInfo.usuario.rut }}-{{ profileInfo.usuario.dv }}</td>
+                                    <td>{{ profileInfo.user.rut }}-{{ profileInfo.user.dv }}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Nombres</th>
-                                    <td>{{ profileInfo.usuario.nombres }}</td>
+                                    <td>{{ profileInfo.user.nombres }}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Apellidos</th>
-                                    <td>{{ profileInfo.usuario.apellidos }}</td>
+                                    <td>{{ profileInfo.user.apellidos }}</td>
                                 </tr>
                                 <tr *ngIf="visitor">
                                     <th scope="row">Correo</th>
-                                    <td>{{ profileInfo.usuario.mail }}</td>
+                                    <td>{{ profileInfo.user.mail }}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -77,7 +77,7 @@
                         <app-trabajos-profile [ofertas]="profileInfo.trabajos"></app-trabajos-profile>
                     </div>
                     <div class="postulaciones col-xl-4 col-lg-6 col-md-6 col-sm-12">
-                        <h3>Postulaciones pendientes</h3>
+                        <h3>Has postulado</h3>
                         <div class="postulante" *ngFor="let applier of profileInfo.postulaciones" [style]="haveUserAcceptedPostulation(applier) ? 'background: rgba(0, 180, 0, 0.6)': (applier.id_estado == 2 ? 'background: rgba(180, 0, 0, 0.6)': 'background: rgba(255, 255, 0, 0.6)')">
                             <a class="user" [routerLink]="'/app/profile/trabajo/'+applier.trabajo.id">
                                 <div class="profile-postulation">

@@ -51,13 +51,21 @@
                 <div class="postulantes">
                     <div class="postulante" *ngFor="let applier of appliers" [style]="applier.id_estado == 1 ? 'background: rgba(0, 180, 0, 0.6)': (applier.id_estado == 2 ? 'background: rgba(180, 0, 0, 0.6)': 'background: rgba(255, 255, 0, 0.6)')">
                         <a class="user" [routerLink]="'/app/profile/'+applier.user.rut">
-                            <div class="profile">
-                                <img [src]="applier.user.foto == null ? 'http://localhost:3000/' + 'app/defaultprofilepic.png': 'http://localhost:3000/' + applier.user.foto"
-                                    alt="" class="foto" [matTooltip]="applier.user.nombres + ' ' + applier.user.apellidos"
-                                    matTooltipPosition="below">
+                            <div class="izk">
+                                <div class="profile">
+                                    <img [src]="applier.user.foto == null ? 'http://localhost:3000/' + 'app/defaultprofilepic.png': 'http://localhost:3000/' + applier.user.foto"
+                                        alt="" class="foto" [matTooltip]="applier.user.nombres + ' ' + applier.user.apellidos"
+                                        matTooltipPosition="below">
+                                </div>
+                                <div class="nombre">
+                                    {{ applier.user.nombres }} {{ applier.user.apellidos }}
+                                </div>
                             </div>
-                            <div class="nombre">
-                                {{ applier.user.nombres }} {{ applier.user.apellidos }}
+                            <div>
+                                <app-star *ngFor="let star of cantidadEstrellas(applier)" [isActive]="true"></app-star>
+                                <span class="material-symbols-outlined" *ngIf="!hasNullTrabajoRealizado(applier)">
+                                    done
+                                </span>
                             </div>
                         </a>
                         <div class="choose" *ngIf="isAppliersApprovedLessThanMax() && isEmployer()">

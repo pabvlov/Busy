@@ -36,7 +36,7 @@ export class OfferComponent implements OnInit {
   });
 
   get usuario() {
-    return this.userService._usuario.usuario;
+    return this.userService._usuario.user;
   }
 
   get mapskey() {
@@ -76,7 +76,7 @@ export class OfferComponent implements OnInit {
         peopleNeeded: this.offerForm.value.peopleNeeded!,
         endDate: this.offerForm.value.endDate!,
         selectionDate: this.offerForm.value.selectionDate!,
-        rut_empleador: user.usuario.rut!,
+        rut_empleador: user.user.rut!,
         ubicacion: this.ubicacion
       }
   

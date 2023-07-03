@@ -114,8 +114,7 @@ div.postulantes {
 }
 
 .postulante {
-    display: flex;
-    justify-content: space-between !important;
+    display: block;
     border: 2px solid #3f02e8;
     margin-bottom: 5px;
     padding: 5px;
@@ -126,6 +125,7 @@ a.user {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    text-decoration: none;
 }
 
 .cover {
@@ -203,4 +203,9 @@ div.card {
 
 .choose {
     display: flex;
+}
+
+.izk {
+    display: flex;
+    flex-direction: row;
 }

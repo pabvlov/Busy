@@ -6,7 +6,7 @@ async function getUsers(){
 
 async function getUserByRut(rut, dv = -1) {
     if(dv === -1) return await db.query(`SELECT JSON_OBJECT(
-        'usuario', JSON_OBJECT(
+        'user', JSON_OBJECT(
             'dv', u.dv,
             'rut', u.rut,
             'foto', u.foto,
@@ -39,11 +39,20 @@ async function getUserByRut(rut, dv = -1) {
                         'postulantes', (
                             SELECT JSON_ARRAYAGG(
                                 JSON_OBJECT(
-                                    'rut_trabajador', p.rut_trabajador,
-                                    'estado_postulacion', p.id_estado
+                                    'dv', up.dv,
+                                    'rut', up.rut,
+                                    'foto', up.foto,
+                                    'mail', up.mail,
+                                    'nombres', up.nombres,
+                                    'apellidos', up.apellidos,
+                                    'direccion', up.direccion,
+                                    'ultima_visita', up.ultima_visita,
+                                    'fecha_registro', up.fecha_registro,
+                                    'fecha_nacimiento', up.fecha_nacimiento
                                 )
                             )
                             FROM postulaciones p
+                            INNER JOIN usuario up ON p.rut_trabajador = up.rut
                             WHERE p.id_trabajo = t.id
                         )
                     ),
@@ -83,20 +92,18 @@ async function getUserByRut(rut, dv = -1) {
                     'postulantes', (
                         SELECT JSON_ARRAYAGG(
                             JSON_OBJECT(
-                                'rut_trabajador', p.rut_trabajador,
-                                'estado_postulacion', p.id_estado,
-                                'trabajador', JSON_OBJECT(
-                                    'dv', up.dv,
-                                    'rut', up.rut,
-                                    'foto', up.foto,
-                                    'mail', up.mail,
-                                    'nombres', up.nombres,
-                                    'apellidos', up.apellidos,
-                                    'direccion', up.direccion,
-                                    'ultima_visita', up.ultima_visita,
-                                    'fecha_registro', up.fecha_registro,
-                                    'fecha_nacimiento', up.fecha_nacimiento
-                                )
+                                'id_postulacion', p.id,
+                                'dv', up.dv,
+                                'rut', up.rut,
+                                'foto', up.foto,
+                                'mail', up.mail,
+                                'nombres', up.nombres,
+                                'apellidos', up.apellidos,
+                                'direccion', up.direccion,
+                                'ultima_visita', up.ultima_visita,
+                                'fecha_registro', up.fecha_registro,
+                                'fecha_nacimiento', up.fecha_nacimiento,
+                                'estado_postulacion', p.id_estado
                             )
                         )
                         FROM postulaciones p
@@ -125,7 +132,7 @@ async function getUserByRut(rut, dv = -1) {
     FROM usuario u
     WHERE u.rut = ${ rut } LIMIT 1;`)
     return await db.query(`SELECT JSON_OBJECT(
-        'usuario', JSON_OBJECT(
+        'user', JSON_OBJECT(
             'dv', u.dv,
             'rut', u.rut,
             'foto', u.foto,
@@ -158,11 +165,21 @@ async function getUserByRut(rut, dv = -1) {
                         'postulantes', (
                             SELECT JSON_ARRAYAGG(
                                 JSON_OBJECT(
-                                    'rut_trabajador', p.rut_trabajador,
+                                    'dv', up.dv,
+                                    'rut', up.rut,
+                                    'foto', up.foto,
+                                    'mail', up.mail,
+                                    'nombres', up.nombres,
+                                    'apellidos', up.apellidos,
+                                    'direccion', up.direccion,
+                                    'ultima_visita', up.ultima_visita,
+                                    'fecha_registro', up.fecha_registro,
+                                    'fecha_nacimiento', up.fecha_nacimiento,
                                     'estado_postulacion', p.id_estado
                                 )
                             )
-                            FROM postulaciones p join 
+                            FROM postulaciones p
+                            INNER JOIN usuario up ON p.rut_trabajador = up.rut
                             WHERE p.id_trabajo = t.id
                         )
                     ),
@@ -202,20 +219,17 @@ async function getUserByRut(rut, dv = -1) {
                     'postulantes', (
                         SELECT JSON_ARRAYAGG(
                             JSON_OBJECT(
-                                'rut_trabajador', up.rut_trabajador,
-                                'estado_postulacion', up.id_estado,
-                                'trabajador', JSON_OBJECT(
-                                    'dv', up.dv,
-                                    'rut', up.rut,
-                                    'foto', up.foto,
-                                    'mail', up.mail,
-                                    'nombres', up.nombres,
-                                    'apellidos', up.apellidos,
-                                    'direccion', up.direccion,
-                                    'ultima_visita', up.ultima_visita,
-                                    'fecha_registro', up.fecha_registro,
-                                    'fecha_nacimiento', up.fecha_nacimiento
-                                )
+                                'id_postulacion', p.id,
+                                'dv', up.dv,
+                                'rut', up.rut,
+                                'foto', up.foto,
+                                'mail', up.mail,
+                                'nombres', up.nombres,
+                                'apellidos', up.apellidos,
+                                'direccion', up.direccion,
+                                'ultima_visita', up.ultima_visita,
+                                'fecha_registro', up.fecha_registro,
+                                'fecha_nacimiento', up.fecha_nacimiento
                             )
                         )
                         FROM postulaciones p

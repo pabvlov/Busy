@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Postulante, Trabajo } from 'src/app/interfaces/user-information';
+import { Postulaciones, Postulante, Trabajo } from 'src/app/interfaces/user-information';
 
 @Component({
   selector: 'app-trabajos-profile',
@@ -24,12 +24,16 @@ export class TrabajosProfileComponent {
   }
 
   postulantesAceptados(work: Trabajo): Postulante[] {
-    const appliers = work.postulantes!.filter((postulantes) => postulantes.estado_postulacion === 1);
-    // get only nombres and apellidos
-    return appliers
+    if (work.postulantes === null) {
+      return [];
+    }
+    return work.postulantes!.filter((applier) => applier.estado_postulacion === 1);
   }
+  
+
+
 
   tienePostulantesAceptados(work: Trabajo) {
-    return work.postulantes!.filter((postulante) => postulante.estado_postulacion === 1).length <= +work.cantidad_personas!;
+    return this.postulantesAceptados(work).length > 0;
   }
 }

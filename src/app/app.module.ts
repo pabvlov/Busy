@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { AppRoutingModule } from './app-routing.module';
@@ -21,6 +21,7 @@ import { ApplicationModule } from './application/application.module';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { ErrorInterceptor } from './interceptors/error.interceptor';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { ApplicationRoutingModule } from './application/application-routing.module';
 
 @NgModule({
   declarations: [
@@ -44,11 +45,12 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatButtonModule,
     MatGridListModule,
     MatNativeDateModule,
-    ApplicationModule
+    ApplicationModule,
   ],
   providers: [AuthGuardGuard, AntiAuthGuard,
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class AppModule { }

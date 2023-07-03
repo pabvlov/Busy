@@ -116,7 +116,20 @@ export class TrabajoComponent implements OnInit {
   }
 
   isEmployer() {
-    return this.userService._usuario.usuario.rut === this.work.rut_empleador;
+    return this.userService._usuario.user.rut === this.work.rut_empleador;
+  }
+
+  // necesito verificar si el usuario tiene trabajo_realizado en una postulación en específico,
+  // para ello se debe buscar en la una coincidencia en cada "applier" de "get appliers", pero el id del "applier"
+  // lo paso como paramentro de entrada
+
+  hasNullTrabajoRealizado(applier: Postulaciones): boolean {
+    return applier.trabajo_realizado_propio === null;
+  }
+
+  
+  cantidadEstrellas(applier: Postulaciones): number[] {
+    return [...Array(5).keys()].map( i => i + 1).slice(0, applier.trabajo_realizado_propio?.calificacion_trabajador || 0);
   }
 
 

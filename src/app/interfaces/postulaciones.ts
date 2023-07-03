@@ -1,4 +1,5 @@
 import { User } from "./user";
+import { TrabajoRealizado } from "./work-information";
 
 export interface Postulaciones {
     id:                number;
@@ -7,4 +8,5 @@ export interface Postulaciones {
     id_trabajo:        number;
     rut_trabajador:    number;
     fecha_publicacion: Date;
+    trabajo_realizado_propio: TrabajoRealizado;
 }

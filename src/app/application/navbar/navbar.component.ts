@@ -1,4 +1,4 @@
-import { Component, Host, HostListener } from '@angular/core';
+import { Component, Host, HostListener, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import { ApplicationComponent } from '../application.component';
@@ -16,14 +16,14 @@ export class NavbarComponent {
     this.innerWidth = window.innerWidth;
   }
 
-  constructor(private router: Router, private userService: UserService, @Host() private app: ApplicationComponent) { }
+  constructor(@Inject(Router) private router: Router, private userService: UserService, @Host() private app: ApplicationComponent) { }
 
   get isLogged() {
     return this.userService.isAuthenticated();
   }
 
   get _user() {
-    return this.userService._usuario.usuario;
+    return this.userService._usuario.user;
   }
 
   get lilName() {

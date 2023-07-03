@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, Inject } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
 import { WorkService } from '../services/work.service';
@@ -30,7 +30,7 @@ export class ApplicationComponent {
   constructor(private userService: UserService,
     private workService: WorkService,
     private serviceService: ServiceService,
-    private router: Router,
+    @Inject(Router) private router: Router,
     private swal: SwalService) {
   }
 
@@ -58,7 +58,7 @@ export class ApplicationComponent {
   }
 
   get usuario() {
-    return this.userService._usuario.usuario;
+    return this.userService._usuario.user;
   }
 
   get job() {

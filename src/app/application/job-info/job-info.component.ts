@@ -1,10 +1,9 @@
-import { Component, Input, OnInit, OnChanges, HostListener, Host } from '@angular/core';
+import { Component, Input, HostListener, Host } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { WorkService } from 'src/app/services/work.service';
 import { ApplicationComponent } from '../application.component';
 import { UtilsService } from 'src/app/services/utils.service';
 import { SwalService } from 'src/app/services/swal.service';
-import { Jobs } from 'src/app/interfaces/jobs';
 import { MapsService } from 'src/app/services/maps.service';
 import { Location } from '@angular/common';
 
@@ -46,12 +45,12 @@ export class JobInfoComponent {
     if (this.job.postulaciones === null) {
       return false;
     } else {
-      return this.job.postulaciones.some((applier) => applier.rut_trabajador === this.userService._usuario.usuario.rut);
+      return this.job.postulaciones.some((applier) => applier.rut_trabajador === this.userService._usuario.user.rut);
     }
   }
 
   get isJobOwner() {
-    return this.job.rut_empleador === this.userService._usuario.usuario.rut;
+    return this.job.rut_empleador === this.userService._usuario.user.rut;
   }
 
   isViewingMap = false;
@@ -98,17 +97,17 @@ export class JobInfoComponent {
   applyWork() {
     const button = document.getElementById('apply')!;
     // verify if its his own job or if he already applied
-    if (this.work.rut_empleador === this.userService._usuario.usuario.rut) {
+    if (this.work.rut_empleador === this.userService._usuario.user.rut) {
       this.swal.error('Error al postular', 'No puedes postular a tu propio trabajo');
     }
     for (let index = 0; index < this.applierslength; index++) {
       const element = this.job.postulaciones[index];
-      if (element.rut_trabajador === this.userService._usuario.usuario.rut) {
+      if (element.rut_trabajador === this.userService._usuario.user.rut) {
         this.swal.error('Error al postular', 'Ya has postulado a este trabajo');
         return;
       }
     }
-    this.workService.applyWork(this.work.id, this.userService._usuario.usuario.rut).subscribe((data: any) => {
+    this.workService.applyWork(this.work.id, this.userService._usuario.user.rut).subscribe((data: any) => {
       if (data.ok) {
         this.swal.success('Postulación exitosa', data.message);
         console.log(data);

@@ -11,7 +11,6 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ProfileComponent } from './profile/profile.component';
 import { SafePipe } from '../pipes/safe.pipe';
 import { MatChipsModule } from '@angular/material/chips';
-import { BrowserModule } from '@angular/platform-browser';
 import { JobInfoComponent } from './job-info/job-info.component';
 import { AboutComponent } from './about/about.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -20,11 +19,12 @@ import { TrabajosProfileComponent } from './profile/trabajos-perfil/trabajos-per
 import { TrabajosComponent } from './trabajos/trabajos.component';
 import { ServiciosComponent } from './servicios/servicios.component';
 import { TrabajoComponent } from './profile/trabajo/trabajo.component';
-import { SharedModule } from '../shared/shared.module';
 import { LoaderComponent } from '../shared/loader/loader.component';
 import { OfferServiceComponent } from './offer-service/offer-service.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { ServiciosProfileComponent } from './profile/servicios/servicios.component';
+import { EvidenceComponent } from './evidence/evidence.component';
+import { StarComponentComponent } from '../shared/star/star.component';
 @NgModule({
   declarations: [
     ApplicationComponent,
@@ -41,6 +41,8 @@ import { ServiciosProfileComponent } from './profile/servicios/servicios.compone
     LoaderComponent,
     OfferServiceComponent,
     ServiciosProfileComponent,
+    EvidenceComponent,
+    StarComponentComponent
   ],
   imports: [
     CommonModule,
@@ -52,8 +54,6 @@ import { ServiciosProfileComponent } from './profile/servicios/servicios.compone
     MatTooltipModule,
     MatGridListModule,
     ReactiveFormsModule,
-    
-    BrowserModule,
     MatInputModule,
     FormsModule,
   ]

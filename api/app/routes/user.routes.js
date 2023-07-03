@@ -32,7 +32,7 @@ router.get('/user/:rut/:dv', async function(req, res, next) {
     if (usuario.length > 0) {
       // Get the first user
       const firstUser = usuario[0].result;
-
+      console.log(firstUser);
       return res.status(201).json({
         ok: true,
         content: {

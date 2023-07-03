@@ -75,7 +75,7 @@ router.post('/auth/renew', async function(req, res, next) {
       const { token } = req.body
       if(!token) return res.status(200).json({
         ok: false,
-        message: 'Error en el token'
+        message: 'Error en el token: ' + res
       })
 
       try {
@@ -103,13 +103,13 @@ router.post('/auth/renew', async function(req, res, next) {
 router.post('/auth/regenerate', async function(req, res, next) {
   try {
     const { token } = req.body
-    if(!token) return res.status(200).json({
+    if(!token) res.status(200).json({
       ok: false,
-      message: 'Error en el token'
+      message: 'No existe token'
     })
     try {
       const userInfo = validarJWT(token)
-      const rows = await user.getUserByRut(userInfo.usuario.rut)
+      const rows = await user.getUserByRut(userInfo.user.rut)
       if(rows.length > 0) {
         if (!rows[0].result) {
           return res.status(401).json({

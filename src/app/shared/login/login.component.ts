@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
-import { RutService } from 'rut-chileno';
+import { RutService } from 'rut-chileno'
 import { SwalService } from 'src/app/services/swal.service';
 import { Session } from 'src/app/interfaces/session';
+import { Inject } from '@angular/core';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,7 @@ export class LoginComponent {
   fullname: string = '';
 
   /* constructor and init methods */
-  constructor(private fb: FormBuilder, private userService: UserService, private router: Router, private rutService: RutService, private swal: SwalService) {
+  constructor( @Inject(FormBuilder) private fb: FormBuilder, private userService: UserService, @Inject(Router) private router: Router, @Inject(RutService) private rutService: RutService, private swal: SwalService) {
     if (this.userService.isAuthenticated()) {
       window.location.href = '/';
     }
@@ -46,7 +47,7 @@ export class LoginComponent {
         if (data.content.user != null) {
           this.swal.close();
           this.info = 'Usuario encontrado';
-          this.fullname = `${data.content.user.usuario.nombres} ${data.content.user.usuario.apellidos}`;
+          this.fullname = `${data.content.user.user.nombres} ${data.content.user.user.apellidos}`;
           this.step++;
         } else {
 
