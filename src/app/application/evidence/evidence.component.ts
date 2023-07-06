@@ -59,7 +59,7 @@ export class EvidenceComponent {
     } else {
       const workEvidence = {
         id_trabajo: this.work.id,
-        rut_trabajador: this.userService._usuario.user.rut,
+        rut_trabajador: this.userService._usuario.user!.rut,
         comentario: this.evidence.value.comentario,
         calificacion: this.rating,
       }

@@ -87,14 +87,6 @@
     border: 0
 }
 
-.postulante {
-    display: flex;
-    justify-content: space-between !important;
-    border: 2px solid #3f02e8;
-    margin-bottom: 5px;
-    padding: 5px;
-}
-
 a.user {
     display: flex;
     flex-direction: row;
@@ -122,4 +114,31 @@ a.user {
 .profile-postulation {
     width: 40px;
     height: 40px;
+}
+
+.postulante {
+    display: flex;
+    border: 2px solid #3f02e8;
+    margin-bottom: 5px;
+    padding: 5px;
+    max-height: 70px;
+    justify-content: space-between !important;
+}
+
+a.user {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    text-decoration: none;
+}
+
+.izk {
+    display: flex;
+    flex-direction: row;
+}
+
+.cover {
+    background-position: center;
+    background-size: cover;
 }

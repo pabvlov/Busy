@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Postulaciones, Postulante, Trabajo } from 'src/app/interfaces/user-information';
+import { Postulante, Trabajo } from 'src/app/interfaces/user-information';
 
 @Component({
   selector: 'app-trabajos-profile',

@@ -47,7 +47,7 @@ export class LoginComponent {
         if (data.content.user != null) {
           this.swal.close();
           this.info = 'Usuario encontrado';
-          this.fullname = `${data.content.user.user.nombres} ${data.content.user.user.apellidos}`;
+          this.fullname = `${data.content.user.user!.nombres} ${data.content.user.user!.apellidos}`;
           this.step++;
         } else {
 

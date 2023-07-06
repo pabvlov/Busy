@@ -22,7 +22,7 @@
                             </label>
                             <input id="file-input" type="file" (change)="handlePicture($event)" accept="image/*" #picture />
                         </form>
-                        <h3> {{ profileInfo.user.nombres }} {{ profileInfo.user.apellidos }}</h3>
+                        <h3> {{ profileInfo.user!.nombres }} {{ profileInfo.user!.apellidos }}</h3>
                         <table class="table table-responsive">
                             <thead class="color-busy">
                                 <tr>
@@ -33,19 +33,19 @@
                             <tbody>
                                 <tr>
                                     <th scope="row">RUT</th>
-                                    <td>{{ profileInfo.user.rut }}-{{ profileInfo.user.dv }}</td>
+                                    <td>{{ profileUserRut }}-{{ profileUserDv }}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Nombres</th>
-                                    <td>{{ profileInfo.user.nombres }}</td>
+                                    <td>{{ profileUserNombres }}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Apellidos</th>
-                                    <td>{{ profileInfo.user.apellidos }}</td>
+                                    <td>{{ profileUserApellidos }}</td>
                                 </tr>
                                 <tr *ngIf="visitor">
                                     <th scope="row">Correo</th>
-                                    <td>{{ profileInfo.user.mail }}</td>
+                                    <td>{{ profileUserMail }}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -70,26 +70,44 @@
                         </div>
                     </div>
                     <div class="servicios col-xl-4 col-lg-6 col-md-6 col-sm-12">
-                        <app-servicios-profile [servicios]="profileInfo.servicios"></app-servicios-profile>
+                        <app-servicios-profile [servicios]="profileInfo.servicios!"></app-servicios-profile>
                     </div>
                     <div class="trabajos col-xl-4 col-lg-6 col-md-6 col-sm-12">
                         <!-- WORKS -->
-                        <app-trabajos-profile [ofertas]="profileInfo.trabajos"></app-trabajos-profile>
+                        <app-trabajos-profile [ofertas]="profileInfo.trabajos!"></app-trabajos-profile>
                     </div>
                     <div class="postulaciones col-xl-4 col-lg-6 col-md-6 col-sm-12">
                         <h3>Has postulado</h3>
-                        <div class="postulante" *ngFor="let applier of profileInfo.postulaciones" [style]="haveUserAcceptedPostulation(applier) ? 'background: rgba(0, 180, 0, 0.6)': (applier.id_estado == 2 ? 'background: rgba(180, 0, 0, 0.6)': 'background: rgba(255, 255, 0, 0.6)')">
-                            <a class="user" [routerLink]="'/app/profile/trabajo/'+applier.trabajo.id">
-                                <div class="profile-postulation">
-                                    <img [src]="applier.empleador.foto == null ? apiUrl + 'app/defaultprofilepic.png': apiUrl + applier.empleador.foto"
-                                        alt="" class="foto" [matTooltip]="applier.empleador.nombres + ' ' + applier.empleador.apellidos"
-                                        matTooltipPosition="below">
+                        <div class="postulantes">
+                            <div class="postulante" *ngFor="let applier of profileInfoPostulaciones">
+                                <div class="box">
+                                    <a class="user" [routerLink]="'/app/profile/'+applier.empleador.rut">
+                                        <div class="izk">
+                                            <div class="profile">
+                                                <img [src]="applier.empleador.foto == null ? 'http://localhost:3000/' + 'app/defaultprofilepic.png': 'http://localhost:3000/' + applier.empleador.foto"
+                                                    alt="" class="foto" [matTooltip]="applier.empleador.nombres + ' ' + applier.empleador.apellidos"
+                                                    matTooltipPosition="below">
+                                            </div>
+                                            <div class="nombre">
+                                                {{ applier.trabajo.titulo }}
+                                            </div>
+                                        </div><!-- 
+                                        <div *ngIf="applier.id_estado == 1 && hasNullTrabajoRealizado(applier) && applier.rut_trabajador == userRut">
+                                            <a routerLink="evidence" class="color-busy p-2">Subir evidencia</a>
+                                        </div> -->
+                                    </a>
                                 </div>
-                                <div class="nombre">
-                                    {{ applier.trabajo.titulo }}
+                                <div *ngIf="!hasNullTrabajoRealizado(applier)">
+                                    <app-star *ngFor="let star of cantidadEstrellas(applier)" [isActive]="true"></app-star>
+                                    <span class="material-symbols-outlined">
+                                        done
+                                    </span>
                                 </div>
-                            </a>
+                                
+                            </div>
                         </div>
+                        <br>
+                        
                     </div>
                 </div>
                 <button class="btn btn-block color-busy" *ngIf="!visitor">Guardar</button>
