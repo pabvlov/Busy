@@ -1,7 +1,4 @@
-.izk {
-    display: flex;
-    flex-direction: row;
-}
+
 
 .applierInfo {
     display: flex;
@@ -138,6 +135,11 @@ a.user {
     justify-content: space-between;
     align-items: center;
     text-decoration: none;
+}
+
+.izk {
+    display: flex;
+    flex-direction: row;
 }
 
 .cover {

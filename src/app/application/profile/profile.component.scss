@@ -57,9 +57,10 @@
 }
 
 .picture {
-    max-width: 100%;
-    max-height: 100px;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
+    object-fit: cover;
 }
 
 .mat-mdc-form-field {
@@ -142,3 +143,91 @@ a.user {
     background-position: center;
     background-size: cover;
 }
+
+.perfil {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-top: 30px;
+  }
+  
+  .star-container {
+    position: relative;
+    display: inline-block;
+  }
+  
+  @keyframes starShine {
+    0% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  
+  .star {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    color: yellow;
+    font-size: 1.5rem;
+  }
+
+  .fas {
+    animation: starShine 1s ease-in-out infinite;
+  }
+  
+  .star:nth-child(1) {
+    top: 50px;
+    left: -70px;
+  }
+  
+  .star:nth-child(2) {
+    top: -10px;
+    left: -40px;
+  }
+  
+  .star:nth-child(3) {
+    top: -44px;
+    left: 40px;
+  }
+  
+  .star:nth-child(4) {
+    top: -10px;
+    left: 125px;
+  }
+  
+  .star:nth-child(5) {
+    top: 50px;
+    left: 150px;
+  }
+  
+  .photo {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .picture {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+  }
+  
+  .edit {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    transform: translate(50%, 50%);
+    background-color: #fff;
+    padding: 4px;
+    border-radius: 50%;
+  }
+  
+  .edit i {
+    color: #333;
+  }

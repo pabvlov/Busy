@@ -11,44 +11,37 @@
         <div class="data">
             <form action="" [formGroup]="userData" id="formulario" (submit)="editUser()">
                 <div class="row">
-                    <div class="perfil col-xl-4 col-lg-6 col-md-6 col-sm-12">
+                    <div class="perfil">
                         <!-- PROFILE INFORMATION -->
-                        <form action="" class="photo image-upload">
-                            <label for="file-input">
-                                <img [src]="profilePicture" alt="" class="img-fluid picture">
-                            </label>
-                            <label for="file-input" class="edit" *ngIf="!visitor">
-                                <i class="fa-solid fa-pencil"></i>
-                            </label>
-                            <input id="file-input" type="file" (change)="handlePicture($event)" accept="image/*" #picture />
-                        </form>
+                        <div class="star-container">
+                            <div class="star">
+                                <i class="fas fa-star"></i>
+                              </div>
+                              <div class="star">
+                                <i class="fas fa-star"></i>
+                              </div>
+                              <div class="star">
+                                <i class="fas fa-star"></i>
+                              </div>
+                              <div class="star">
+                                <i class="fas fa-star"></i>
+                              </div>
+                              <div class="star">
+                                <i class="fas fa-star"></i>
+                              </div>
+
+                            <form action="" class="photo image-upload">
+                                <label for="file-input">
+                                    <img [src]="profilePicture" alt="" class="img-fluid picture">
+                                </label>
+                                <label for="file-input" class="edit" *ngIf="!visitor">
+                                    <i class="fa-solid fa-pencil"></i>
+                                </label>
+                                <input id="file-input" type="file" (change)="handlePicture($event)" accept="image/*"
+                                    #picture />
+                            </form>
+                        </div>
                         <h3> {{ profileInfo.user!.nombres }} {{ profileInfo.user!.apellidos }}</h3>
-                        <table class="table table-responsive">
-                            <thead class="color-busy">
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Datos</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th scope="row">RUT</th>
-                                    <td>{{ profileUserRut }}-{{ profileUserDv }}</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Nombres</th>
-                                    <td>{{ profileUserNombres }}</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Apellidos</th>
-                                    <td>{{ profileUserApellidos }}</td>
-                                </tr>
-                                <tr *ngIf="visitor">
-                                    <th scope="row">Correo</th>
-                                    <td>{{ profileUserMail }}</td>
-                                </tr>
-                            </tbody>
-                        </table>
                         <!-- PROFILE EDITABLE -->
                         <div *ngIf="!visitor">
                             <mat-form-field>
@@ -69,46 +62,40 @@
                             </mat-form-field>
                         </div>
                     </div>
-                    <div class="servicios col-xl-4 col-lg-6 col-md-6 col-sm-12">
+                    <!-- <div class="servicios col-xl-4 col-lg-6 col-md-6 col-sm-12">
                         <app-servicios-profile [servicios]="profileInfo.servicios!"></app-servicios-profile>
                     </div>
                     <div class="trabajos col-xl-4 col-lg-6 col-md-6 col-sm-12">
-                        <!-- WORKS -->
                         <app-trabajos-profile [ofertas]="profileInfo.trabajos!"></app-trabajos-profile>
-                    </div>
-                    <div class="postulaciones col-xl-4 col-lg-6 col-md-6 col-sm-12">
+                    </div> -->
+                    <!-- <div class="postulaciones col-xl-4 col-lg-6 col-md-6 col-sm-12">
                         <h3>Has postulado</h3>
                         <div class="postulantes">
-                            <div class="postulante" *ngFor="let applier of profileInfoPostulaciones">
-                                <div class="box">
-                                    <a class="user" [routerLink]="'/app/profile/'+applier.empleador.rut">
-                                        <div class="izk">
-                                            <div class="profile">
-                                                <img [src]="applier.empleador.foto == null ? 'http://localhost:3000/' + 'app/defaultprofilepic.png': 'http://localhost:3000/' + applier.empleador.foto"
-                                                    alt="" class="foto" [matTooltip]="applier.empleador.nombres + ' ' + applier.empleador.apellidos"
-                                                    matTooltipPosition="below">
-                                            </div>
-                                            <div class="nombre">
-                                                {{ applier.trabajo.titulo }}
-                                            </div>
-                                        </div><!-- 
-                                        <div *ngIf="applier.id_estado == 1 && hasNullTrabajoRealizado(applier) && applier.rut_trabajador == userRut">
-                                            <a routerLink="evidence" class="color-busy p-2">Subir evidencia</a>
-                                        </div> -->
-                                    </a>
+                            <div class="accordion" id="accordionExample">
+                                <div class="accordion-item" *ngFor="let applier of profileInfoPostulaciones">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#collapse1" aria-expanded="true"
+                                            aria-controls="collapseOne">
+                                            {{ applier.trabajo.titulo }}
+                                        </button>
+                                    </h2>
+                                    <div [id]="'collapse'+applier.trabajo.id" class="accordion-collapse collapse show">
+                                        <div class="accordion-body">
+                                            <a class="user"
+                                                [routerLink]="'/app/profile/trabajo/'+applier.trabajo.id"></a>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div *ngIf="!hasNullTrabajoRealizado(applier)">
-                                    <app-star *ngFor="let star of cantidadEstrellas(applier)" [isActive]="true"></app-star>
-                                    <span class="material-symbols-outlined">
-                                        done
-                                    </span>
-                                </div>
-                                
                             </div>
+
+
+
+
                         </div>
                         <br>
-                        
-                    </div>
+
+                    </div> -->
                 </div>
                 <button class="btn btn-block color-busy" *ngIf="!visitor">Guardar</button>
             </form>
@@ -133,6 +120,5 @@
               </mat-form-field> -->
         </form>
     </div>
-
 </section>
 <app-loader *ngIf="loading"></app-loader>
