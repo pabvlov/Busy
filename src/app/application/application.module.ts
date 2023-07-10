@@ -26,6 +26,7 @@ import { ServiciosProfileComponent } from './profile/servicios/servicios.compone
 import { EvidenceComponent } from './evidence/evidence.component';
 import { StarComponentComponent } from '../shared/star/star.component';
 import { PostulacionComponent } from './profile/postulacion/postulacion.component';
+import { HistorialTrabajosComponent } from './profile/historial-trabajos/historial-trabajos.component';
 @NgModule({
   declarations: [
     ApplicationComponent,
@@ -44,7 +45,8 @@ import { PostulacionComponent } from './profile/postulacion/postulacion.componen
     ServiciosProfileComponent,
     EvidenceComponent,
     StarComponentComponent,
-    PostulacionComponent
+    PostulacionComponent,
+    HistorialTrabajosComponent
   ],
   imports: [
     CommonModule,

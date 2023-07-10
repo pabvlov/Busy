@@ -1,0 +1,132 @@
+.foto img {
+    height: 40px;
+    width: 40px;
+    object-fit: cover;
+    border-radius: 10px !important;
+}
+
+.foto {
+    padding: 20px 20px 20px 30px;
+}
+
+.card-historial-trabajo-body {
+    display: flex;
+    flex-direction: row;
+    background-color: white;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.card-left {
+    display: flex;
+    flex-direction: row;
+}
+
+.card-titulo {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    justify-content: center;
+}
+
+h5 {
+    width: 270px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+h5, h3, h4, p {
+    margin: 0;
+}
+
+.status-icon {
+    border-radius: 50%;
+    margin-right: 5px;
+    width: 10px;
+    height: 10px;
+    // shadow
+    box-shadow: -5px 5px 23px 0px rgba(0, 0, 0, 0.5);
+    // shine
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.2) 100%);
+  }
+  
+  .available {
+    background-color: green;
+  }
+
+  @keyframes shine {
+    0% {
+      background-position: -200%;
+    }
+    100% {
+      background-position: 200%;
+    }
+  }
+  
+  .in-progress {
+    text-shadow: 0 0 2px #000;
+    background: linear-gradient(135deg, rgba(255, 255, 0, 0.8) 0%, rgba(255, 255, 0, 0.2) 50%, rgba(255, 255, 0, 0.8) 100%);
+    background-size: 200% 200%;
+    animation: starShine 2s linear infinite;
+    border: 1px solid black;
+  }
+
+  @keyframes starShine {
+    0% {
+      opacity: 1;
+      text-shadow: 0 0 2px #000;
+    }
+    50% {
+        opacity: 0.7;
+        -webkit-box-shadow: 0px 0px 105px -36px rgba(0,0,0,0.75);
+        -moz-box-shadow: 0px 0px 105px -36px rgba(0,0,0,0.75);
+        box-shadow: 0px 0px 105px -36px rgba(0,0,0,0.75);
+    }
+    100% {
+      opacity: 1;
+      text-shadow: 0 0 2px #000;
+    }
+  }
+
+  .card-right {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-right: 20px;
+  }
+
+  a {
+    text-decoration: none;
+    color: black;
+    background-color: #d8d8d8;
+    padding: 3px 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    transition: .3s ease-in-out;
+  }
+
+  a:hover {
+    background-color: #3f02e8;
+    color: white;
+    transition: .3s ease-in-out;
+  }
+  
+  .fa-star {
+    color: #f1c40f;
+    // shine
+    text-shadow: 0 0 10px #FFD700;
+  }
+
+  .material-symbols-outlined {
+    color: green;
+  }
+
+
+  .stars {
+    margin-top: 5px;
+  }

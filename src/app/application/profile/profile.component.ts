@@ -273,6 +273,35 @@ export class ProfileComponent implements OnInit, AfterViewInit, OnChanges {
     }
   }
 
+  get profileInfoPostulacionesCalificaciones(): number {
+    let stars = 0;
+    let trabajos = 0;
+    if (this.userService._usuario == null || this.profileInfo.user == null) {
+      return 0
+    } else {
+      if(this.profileInfo.postulaciones == null) return 0;
+      else if(this.profileInfo.postulaciones.length == 0) return 0;
+      else {
+        for (let i = 0; i < this.profileInfo.postulaciones!.length; i++) {
+          if (this.profileInfo.postulaciones![i].trabajo!.trabajo_realizado_propio == null) {
+          } else if(this.profileInfo.postulaciones![i].trabajo.trabajo_realizado_propio?.calificacion_empleador == null) {
+            stars += 5;
+            trabajos++;
+          }
+          else {
+            stars += this.profileInfo.postulaciones![i].trabajo!.trabajo_realizado_propio!.calificacion_empleador!;
+            trabajos++;
+          }
+        }
+      }
+      if (trabajos == 0) {
+        trabajos = 1;
+      }  
+      return stars / trabajos;
+      
+    }
+  }
+
   ngAfterViewInit(): void {
     this.userData.setValue({
       rut: this.rut,
@@ -350,4 +379,6 @@ export class ProfileComponent implements OnInit, AfterViewInit, OnChanges {
   cantidadEstrellas(applier: Postulacion): number[] {
     return [...Array(5).keys()].map( i => i + 1).slice(0, applier.trabajo.trabajo_realizado_propio?.calificacion_trabajador || 0);
   }
+
+
 }
