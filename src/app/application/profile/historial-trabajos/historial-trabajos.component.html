@@ -1,0 +1,20 @@
+<h6>Tu historial de trabajos realizados</h6>
+<div class="card-historial-trabajo" *ngFor="let applier of postulaciones">
+    <div class="card-historial-trabajo-body">
+        <div class="card-left">
+            <div class="foto">
+                <img [src]="'http://localhost:3000/' + applier.trabajo.foto" class="img-fluid rounded-start" [alt]="applier.trabajo.titulo">
+            </div>
+            <div class="card-titulo">
+                <h5>{{ applier.trabajo.titulo }}</h5>
+                <div class="stars">
+                    <i class="fas fa-star" *ngFor="let star of getStars(applier.trabajo)"></i>
+                </div>
+            </div>
+        </div>
+        <div class="card-right">
+            <div class="status-icon in-progress" *ngIf="!isDone(applier.trabajo)"></div>
+            <a [routerLink]="'/app/profile/trabajo/' + applier.trabajo.id">Ver más</a>
+        </div>
+    </div>
+</div>

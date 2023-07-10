@@ -1,27 +1,29 @@
-<h3 class="text-center">Tus trabajos publicados</h3>
+<h6 class="text-center">Tus trabajos publicados</h6>
 <p *ngIf="works == null">No tienes trabajos publicados</p>
 
-<div class="card mb-3" *ngFor="let work of works">
-  <div class="row g-0">
-    <div class="col-md-4 bg-caca">
-      <img [src]="'http://localhost:3000/' + work.foto" class="img-fluid rounded-start" alt="...">
-    </div>
-    <div class="col-md-8 bg-caca">
-      <div class="card-body">
-        <div class="mini-info text-left">
-            <div *ngIf="!isDone(work)">
-                <div class="status-icon with-applicants">
-                  <i class="fas fa-users text-busy"></i>
-                  <span>{{ getPostulantes(work.postulantes!) }}</span>
-                </div>
-                
-              </div>
+<div class="card" *ngFor="let work of works">
+
+    <div class="card-flex">
+        <div class="card-left">
+            <div class="foto-trabajo">
+                <img [src]="'http://localhost:3000/' + work.foto" class="img-fluid rounded-start" [alt]="work.titulo">
+            </div>
+    
+            <div class="card-titulo">
+                <h5>{{ work.titulo }}</h5>
+                <h6>{{ work.precio | currency:'CLP$ ':'symbol':'1.0-0' }}</h6>
+            </div>
         </div>
-        <div *ngIf="isDone(work)" class="status-icon unavailable"></div>
-        <h5 class="card-title">{{ work.titulo }}</h5>
-        
-        <a [routerLink]="'/app/profile/trabajo/' + work.id">Ver más</a>
-      </div>
+        <div class="button">
+            <div class="card-info">
+                <div *ngIf="!isDone(work)">
+                    <div class="status-icon with-applicants"></div>
+                </div>
+                <div *ngIf="!isDone(work)" class="status-icon available"></div>
+                <i class="fas fa-users text-busy"></i>
+                <span>{{ getPostulantes(work.postulantes!) }}</span>
+            </div>
+            <a [routerLink]="'/app/profile/trabajo/' + work.id">Ver más</a>
+        </div>
     </div>
-  </div>
 </div>

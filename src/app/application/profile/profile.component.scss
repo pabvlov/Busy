@@ -293,3 +293,56 @@ a.user {
     background-color: #3f02e8;
     color: white;
   }
+
+  .meanings {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+  }
+
+  .meaning {
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+  }
+
+  .status-icon {
+    border-radius: 50%;
+    margin-right: 5px;
+    width: 10px;
+    height: 10px;
+    // shadow
+    box-shadow: -5px 5px 23px 0px rgba(0, 0, 0, 0.5);
+    // shine
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.2) 100%);
+  }
+  
+  .available {
+    background-color: green;
+  }
+
+  @keyframes shine {
+    0% {
+      background-position: -200%;
+    }
+    100% {
+      background-position: 200%;
+    }
+  }
+  
+  .in-progress {
+    text-shadow: 0 0 2px #000;
+    background: linear-gradient(135deg, rgba(255, 255, 0, 0.8) 0%, rgba(255, 255, 0, 0.2) 50%, rgba(255, 255, 0, 0.8) 100%);
+    background-size: 200% 200%;
+    animation: starShine 2s linear infinite;
+    border: 1px solid black;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  .fa-star {
+    color: #FFD700;
+    text-shadow: 0 0 2px #000;
+  }

@@ -41,6 +41,7 @@
                             </form>
                         </div>
                         <h3> {{ profileInfo.user!.nombres }} {{ profileInfo.user!.apellidos }}</h3>
+                        <h4>{{ profileInfoPostulacionesCalificaciones }}<i class="fas fa-star"></i></h4>
                         <hr>
                         <div class="profile-container">
                             <div class="navigation">
@@ -90,6 +91,17 @@
                                     </div>
                                 </div>
                                 <div class="trabajos-servicios" *ngSwitchCase="1">
+                                    <div class="meanings">
+                                        <div class="meaning">
+                                            <div class="status-icon available"></div>
+                                            <p>Activo, aun no se elige un postulante</p>
+                                        </div>
+                                        <div class="meaning">
+                                            <div class="status-icon in-progress"></div>
+                                            <span>En progreso, aun no se sube una evidencia</span>
+                                        </div>
+                                    </div>
+                                    <app-historial-trabajos [postulaciones]="profileInfoPostulaciones"></app-historial-trabajos>
                                     <app-trabajos-profile [ofertas]="profileInfo.trabajos!" class="animate__animated animate__fadeInRightBig"></app-trabajos-profile>
                                     <app-servicios-profile [servicios]="profileInfo.servicios!" class="animate__animated animate__fadeInRight"></app-servicios-profile>
                                 </div>
