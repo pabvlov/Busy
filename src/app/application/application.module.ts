@@ -25,6 +25,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { ServiciosProfileComponent } from './profile/servicios/servicios.component';
 import { EvidenceComponent } from './evidence/evidence.component';
 import { StarComponentComponent } from '../shared/star/star.component';
+import { PostulacionComponent } from './profile/postulacion/postulacion.component';
 @NgModule({
   declarations: [
     ApplicationComponent,
@@ -42,7 +43,8 @@ import { StarComponentComponent } from '../shared/star/star.component';
     OfferServiceComponent,
     ServiciosProfileComponent,
     EvidenceComponent,
-    StarComponentComponent
+    StarComponentComponent,
+    PostulacionComponent
   ],
   imports: [
     CommonModule,

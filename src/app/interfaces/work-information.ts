@@ -1,5 +1,3 @@
-import { Applier } from "./applier";
-import { Jobs } from "./jobs";
 import { Postulaciones } from "./postulaciones";
 import { User } from "./user";
 

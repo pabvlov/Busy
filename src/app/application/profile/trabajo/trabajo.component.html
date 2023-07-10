@@ -49,46 +49,7 @@
             <section class="postulantes">
                 <h3 class="title text-busy">Postulantes</h3>
                 <div class="postulantes" *ngFor="let applier of appliers">
-                    <div class="postulante" [style]="applier.id_estado == 1 ? 'background: rgba(0, 180, 0, 0.6)': (applier.id_estado == 2 ? 'background: rgba(180, 0, 0, 0.6)': 'background: rgba(255, 255, 0, 0.6)')">
-                        <a class="user" [routerLink]="'/app/profile/'+applier.user.rut">
-                            <div class="izk">
-                                <div class="profile">
-                                    <img [src]="applier.user.foto == null ? 'http://localhost:3000/' + 'app/defaultprofilepic.png': 'http://localhost:3000/' + applier.user.foto"
-                                        alt="" class="foto" [matTooltip]="applier.user.nombres + ' ' + applier.user.apellidos"
-                                        matTooltipPosition="below">
-                                </div>
-                                <div class="nombre">
-                                    {{ applier.user.nombres }} {{ applier.user.apellidos }}
-                                </div>
-                            </div>
-                            <div>
-                                <app-star *ngFor="let star of cantidadEstrellas(applier)" [isActive]="true"></app-star>
-                                <span class="material-symbols-outlined" *ngIf="!hasNullTrabajoRealizado(applier)">
-                                    done
-                                </span>
-                            </div>
-                        </a>
-                        <div class="choose" *ngIf="isAppliersApprovedLessThanMax() && isEmployer()">
-                            <button class="btn btn-busy" (click)="handleChooseApplier(applier.user.rut, 1)" *ngIf="!workHasChosenApplierByRut(applier.user.rut)">
-                                <span class="material-symbols-outlined">
-                                check_circle
-                                </span>
-                            </button>
-                            <button class="btn btn-busy" (click)="handleChooseApplier(applier.user.rut, 2)" *ngIf="!workHasChosenApplierByRut(applier.user.rut)">
-                                <span class="material-symbols-outlined">
-                                cancel
-                                </span>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="applierInfo" *ngIf="!hasNullTrabajoRealizado(applier)">
-                        <div class="fecha">
-                            <p class="value">{{ fechaTermino(applier) | date }}</p>
-                        </div>
-                        <div class="comentario_empleador">
-                            <p class="value">{{ applier.trabajo_realizado_propio.comentario_empleador == "" ? 'El empleador no proporcionó comentario': applier.trabajo_realizado_propio.comentario_empleador }}</p>
-                        </div>
-                    </div>
+                    <app-postulacion [applier]="applier"></app-postulacion>
                 </div>
                 <br>
             </section>

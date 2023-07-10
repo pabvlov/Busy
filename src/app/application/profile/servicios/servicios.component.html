@@ -1,4 +1,5 @@
-<h3>Servicios</h3>
+<h3 class="text-center">Servicios</h3>
+<p *ngIf="services == null">No tienes trabajos publicados</p>
 <!-- <a *ngFor="let work of works" class="works" [routerLink]="'trabajo/'+work.id">
     <div class="card text-center" [style]="'background-image: url(http://localhost:3000/' + work.foto + ');'">
         <div class="card-body" >

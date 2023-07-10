@@ -23,6 +23,12 @@ export class NavbarComponent {
   }
 
   get _user() {
+    if (!this.userService._usuario.user) {
+      return {
+        nombres: '',
+        apellidos: ''
+      }
+    }
     return this.userService._usuario.user;
   }
 

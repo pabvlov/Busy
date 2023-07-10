@@ -1,35 +1,27 @@
-<h3>Trabajos</h3>
-<!-- <a *ngFor="let work of works" class="works" [routerLink]="'trabajo/'+work.id">
-    <div class="card text-center" [style]="'background-image: url(http://localhost:3000/' + work.foto + ');'">
-        <div class="card-body" >
-            <div class="filter">
-                <h5 class="card-title">{{ work.titulo }}</h5>
-                <p class="card-text"> {{ work.precio | currency:'CLP$ ':'symbol':'1.0-0' }}</p>
-            </div>
-        </div>
-    </div>
-</a> -->
+<h3 class="text-center">Tus trabajos publicados</h3>
+<p *ngIf="works == null">No tienes trabajos publicados</p>
 
-<mat-grid-list cols="2">
-    <mat-grid-tile *ngFor="let work of works" class="works" [routerLink]="'trabajo/'+work.id">
-        <a class="card text-center" [style]="'background-image: url(http://localhost:3000/' + work.foto + ');'" [routerLink]="'/app/profile/trabajo/'+work.id">
-            <div class="card-body" >
-                <div class="filter">
-                    <span class="text-left" [class]="disponible(work.fecha_seleccion_postulante) == 1 ? 'animate__animated animate__pulse animate__infinite animate__slower': ''"> 
-                        <span class="material-symbols-outlined green" *ngIf="disponible(work.fecha_seleccion_postulante)">
-                            check_circle
-                        </span>
-                        <span class="material-symbols-outlined error-red" *ngIf="!disponible(work.fecha_seleccion_postulante)">
-                            cancel
-                        </span>
-                        <span class="estado">
-                            {{ disponible(work.fecha_seleccion_postulante) == 1 ? ' Disponible' : (tienePostulantesAceptados(work) ? postulantesAceptados(work).length + '/' + (work.cantidad_personas) + ' postulantes aceptados': 'No disponible') }}
-                        </span>
-                        
-                    </span>
-                    <h3 class="card-title">{{ work.titulo }}</h3>
+<div class="card mb-3" *ngFor="let work of works">
+  <div class="row g-0">
+    <div class="col-md-4 bg-caca">
+      <img [src]="'http://localhost:3000/' + work.foto" class="img-fluid rounded-start" alt="...">
+    </div>
+    <div class="col-md-8 bg-caca">
+      <div class="card-body">
+        <div class="mini-info text-left">
+            <div *ngIf="!isDone(work)">
+                <div class="status-icon with-applicants">
+                  <i class="fas fa-users text-busy"></i>
+                  <span>{{ getPostulantes(work.postulantes!) }}</span>
                 </div>
-            </div>
-        </a>
-    </mat-grid-tile>
-</mat-grid-list>
+                
+              </div>
+        </div>
+        <div *ngIf="isDone(work)" class="status-icon unavailable"></div>
+        <h5 class="card-title">{{ work.titulo }}</h5>
+        
+        <a [routerLink]="'/app/profile/trabajo/' + work.id">Ver más</a>
+      </div>
+    </div>
+  </div>
+</div>

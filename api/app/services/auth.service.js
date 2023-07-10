@@ -43,6 +43,21 @@ async function validateLogin(rut, password){
                       'fecha_publicacion', t.fecha_publicacion,
                       'fecha_finalizacion', t.fecha_finalizacion,
                       'fecha_seleccion_postulante', t.fecha_seleccion_postulante,
+                      'trabajo_realizado_propio', (
+                          SELECT JSON_OBJECT(
+                              'id', trp.id,
+                              'evidencia', trp.evidencia,
+                              'id_trabajo', trp.id_trabajo,
+                              'fecha_termino', trp.fecha_termino,
+                              'id_trabajador', trp.id_trabajador,
+                              'comentario_empleador', trp.comentario_empleador,
+                              'comentario_trabajador', trp.comentario_trabajador,
+                              'calificacion_empleador', trp.calificacion_empleador,
+                              'calificacion_trabajador', trp.calificacion_trabajador
+                          )
+                          FROM trabajos_realizados trp
+                          WHERE trp.id_trabajo = t.id AND trp.id_trabajador = u.rut
+                      ),
                       'postulantes', (
                           SELECT JSON_ARRAYAGG(
                               JSON_OBJECT(
@@ -55,8 +70,7 @@ async function validateLogin(rut, password){
                                   'direccion', up.direccion,
                                   'ultima_visita', up.ultima_visita,
                                   'fecha_registro', up.fecha_registro,
-                                  'fecha_nacimiento', up.fecha_nacimiento,
-                                  'estado_postulacion', p.id_estado
+                                  'fecha_nacimiento', up.fecha_nacimiento
                               )
                           )
                           FROM postulaciones p
@@ -97,6 +111,21 @@ async function validateLogin(rut, password){
                   'fecha_publicacion', t.fecha_publicacion,
                   'fecha_finalizacion', t.fecha_finalizacion,
                   'fecha_seleccion_postulante', t.fecha_seleccion_postulante,
+                  'trabajo_realizado_propio', (
+                      SELECT JSON_OBJECT(
+                          'id', trp.id,
+                          'evidencia', trp.evidencia,
+                          'id_trabajo', trp.id_trabajo,
+                          'fecha_termino', trp.fecha_termino,
+                          'id_trabajador', trp.id_trabajador,
+                          'comentario_empleador', trp.comentario_empleador,
+                          'comentario_trabajador', trp.comentario_trabajador,
+                          'calificacion_empleador', trp.calificacion_empleador,
+                          'calificacion_trabajador', trp.calificacion_trabajador
+                      )
+                      FROM trabajos_realizados trp
+                      WHERE trp.id_trabajo = t.id AND trp.id_trabajador = u.rut
+                  ),
                   'postulantes', (
                       SELECT JSON_ARRAYAGG(
                           JSON_OBJECT(
@@ -110,7 +139,8 @@ async function validateLogin(rut, password){
                               'direccion', up.direccion,
                               'ultima_visita', up.ultima_visita,
                               'fecha_registro', up.fecha_registro,
-                              'fecha_nacimiento', up.fecha_nacimiento
+                              'fecha_nacimiento', up.fecha_nacimiento,
+                              'estado_postulacion', p.id_estado
                           )
                       )
                       FROM postulaciones p
@@ -134,6 +164,23 @@ async function validateLogin(rut, password){
           )
           FROM servicios s
           WHERE s.rut_usuario = u.rut
+      ),
+      'trabajos_realizados_totales', (
+          SELECT JSON_ARRAYAGG(
+              JSON_OBJECT(
+                  'id', trp.id,
+                  'evidencia', trp.evidencia,
+                  'id_trabajo', trp.id_trabajo,
+                  'fecha_termino', trp.fecha_termino,
+                  'id_trabajador', trp.id_trabajador,
+                  'comentario_empleador', trp.comentario_empleador,
+                  'comentario_trabajador', trp.comentario_trabajador,
+                  'calificacion_empleador', trp.calificacion_empleador,
+                  'calificacion_trabajador', trp.calificacion_trabajador
+              )
+          )
+          FROM trabajos_realizados trp
+          WHERE trp.id_trabajador = u.rut
       )
   ) AS result
   FROM usuario u

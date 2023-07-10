@@ -9,91 +9,131 @@
             </span>
         </button>
         <div class="data">
-            <form action="" [formGroup]="userData" id="formulario" (submit)="editUser()">
                 <div class="row">
-                    <div class="perfil col-xl-4 col-lg-6 col-md-6 col-sm-12">
+                    <div class="perfil">
                         <!-- PROFILE INFORMATION -->
-                        <form action="" class="photo image-upload">
-                            <label for="file-input">
-                                <img [src]="profilePicture" alt="" class="img-fluid picture">
-                            </label>
-                            <label for="file-input" class="edit" *ngIf="!visitor">
-                                <i class="fa-solid fa-pencil"></i>
-                            </label>
-                            <input id="file-input" type="file" (change)="handlePicture($event)" accept="image/*" #picture />
-                        </form>
-                        <h3> {{ profileInfo.user.nombres }} {{ profileInfo.user.apellidos }}</h3>
-                        <table class="table table-responsive">
-                            <thead class="color-busy">
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Datos</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th scope="row">RUT</th>
-                                    <td>{{ profileInfo.user.rut }}-{{ profileInfo.user.dv }}</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Nombres</th>
-                                    <td>{{ profileInfo.user.nombres }}</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Apellidos</th>
-                                    <td>{{ profileInfo.user.apellidos }}</td>
-                                </tr>
-                                <tr *ngIf="visitor">
-                                    <th scope="row">Correo</th>
-                                    <td>{{ profileInfo.user.mail }}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <!-- PROFILE EDITABLE -->
-                        <div *ngIf="!visitor">
-                            <mat-form-field>
-                                <mat-label>Correo electrónico</mat-label>
-                                <input matInput formControlName="mail" [value]="mail" readonly>
-                            </mat-form-field>
+                        <div class="star-container">
+                            <div class="star">
+                                <i class="fas fa-star"></i>
+                              </div>
+                              <div class="star">
+                                <i class="fas fa-star"></i>
+                              </div>
+                              <div class="star">
+                                <i class="fas fa-star"></i>
+                              </div>
+                              <div class="star">
+                                <i class="fas fa-star"></i>
+                              </div>
+                              <div class="star">
+                                <i class="fas fa-star"></i>
+                              </div>
 
-                            <mat-form-field>
-                                <mat-label>Dirección</mat-label>
-                                <input matInput formControlName="direccion">
-                            </mat-form-field>
-                            <mat-form-field appearance="fill">
-                                <mat-label>Fecha de Nacimiento</mat-label>
-                                <input matInput [matDatepicker]="picker" formControlName="fecha_nacimiento">
-                                <mat-hint>MM/DD/YYYY</mat-hint>
-                                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                                <mat-datepicker #picker></mat-datepicker>
-                            </mat-form-field>
+                            <form action="" class="photo image-upload">
+                                <label for="file-input">
+                                    <img [src]="profilePicture" alt="" class="img-fluid picture">
+                                </label>
+                                <label for="file-input" class="edit" *ngIf="!visitor">
+                                    <i class="fa-solid fa-pencil"></i>
+                                </label>
+                                <input id="file-input" type="file" (change)="handlePicture($event)" accept="image/*"
+                                    #picture />
+                            </form>
                         </div>
+                        <h3> {{ profileInfo.user!.nombres }} {{ profileInfo.user!.apellidos }}</h3>
+                        <hr>
+                        <div class="profile-container">
+                            <div class="navigation">
+                                <button class="hvr-grow-rotate profile-button" (click)="navigate(0)" [ngClass]="navigation == 0 ? 'selected':''">
+                                    <span class="material-symbols-outlined">
+                                        badge
+                                    </span>
+                                </button>
+                                <button class="hvr-grow-rotate profile-button" (click)="navigate(1)" [ngClass]="navigation == 1 ? 'selected':''">
+                                    <span class="material-symbols-outlined">
+                                        work
+                                    </span>
+                                </button>
+                                <button class="hvr-grow-rotate profile-button" (click)="navigate(2)" [ngClass]="navigation == 2 ? 'selected':''">
+                                    <span class="material-symbols-outlined">
+                                        school
+                                    </span>
+                                </button>
+                                <button class="hvr-grow-rotate profile-button" (click)="navigate(3)" [ngClass]="navigation == 3 ? 'selected':''">
+                                    <span class="material-symbols-outlined">
+                                        award_star
+                                    </span>
+                                </button>
+                            </div>
+                            <div class="content" [ngSwitch]="navigation">
+                                <div id="info" *ngSwitchCase="0">
+                                    <!-- PROFILE EDITABLE -->
+                                    <div *ngIf="!visitor" class="animate__animated animate__fadeInRightBig">
+                                        <form action="" [formGroup]="userData" id="formulario" (submit)="editUser()">
+                                            <mat-form-field>
+                                                <mat-label>Correo electrónico</mat-label>
+                                                <input matInput formControlName="mail" [value]="mail" readonly>
+                                            </mat-form-field>
+                                            <mat-form-field>
+                                                <mat-label>Dirección</mat-label>
+                                                <input matInput formControlName="direccion">
+                                            </mat-form-field>
+                                            <mat-form-field appearance="fill">
+                                                <mat-label>Fecha de Nacimiento</mat-label>
+                                                <input matInput [matDatepicker]="picker" formControlName="fecha_nacimiento">
+                                                <mat-hint>MM/DD/YYYY</mat-hint>
+                                                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                                                <mat-datepicker #picker></mat-datepicker>
+                                            </mat-form-field>
+                                            <button class="btn btn-block color-busy" *ngIf="!visitor">Guardar</button>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="trabajos-servicios" *ngSwitchCase="1">
+                                    <app-trabajos-profile [ofertas]="profileInfo.trabajos!" class="animate__animated animate__fadeInRightBig"></app-trabajos-profile>
+                                    <app-servicios-profile [servicios]="profileInfo.servicios!" class="animate__animated animate__fadeInRight"></app-servicios-profile>
+                                </div>
+                            </div>
+                        </div>
+                        
                     </div>
-                    <div class="servicios col-xl-4 col-lg-6 col-md-6 col-sm-12">
-                        <app-servicios-profile [servicios]="profileInfo.servicios"></app-servicios-profile>
+                    <!-- <div class="servicios col-xl-4 col-lg-6 col-md-6 col-sm-12">
+                        <app-servicios-profile [servicios]="profileInfo.servicios!"></app-servicios-profile>
                     </div>
                     <div class="trabajos col-xl-4 col-lg-6 col-md-6 col-sm-12">
-                        <!-- WORKS -->
-                        <app-trabajos-profile [ofertas]="profileInfo.trabajos"></app-trabajos-profile>
-                    </div>
-                    <div class="postulaciones col-xl-4 col-lg-6 col-md-6 col-sm-12">
+                        <app-trabajos-profile [ofertas]="profileInfo.trabajos!"></app-trabajos-profile>
+                    </div> -->
+                    <!-- <div class="postulaciones col-xl-4 col-lg-6 col-md-6 col-sm-12">
                         <h3>Has postulado</h3>
-                        <div class="postulante" *ngFor="let applier of profileInfo.postulaciones" [style]="haveUserAcceptedPostulation(applier) ? 'background: rgba(0, 180, 0, 0.6)': (applier.id_estado == 2 ? 'background: rgba(180, 0, 0, 0.6)': 'background: rgba(255, 255, 0, 0.6)')">
-                            <a class="user" [routerLink]="'/app/profile/trabajo/'+applier.trabajo.id">
-                                <div class="profile-postulation">
-                                    <img [src]="applier.empleador.foto == null ? apiUrl + 'app/defaultprofilepic.png': apiUrl + applier.empleador.foto"
-                                        alt="" class="foto" [matTooltip]="applier.empleador.nombres + ' ' + applier.empleador.apellidos"
-                                        matTooltipPosition="below">
+                        <div class="postulantes">
+                            <div class="accordion" id="accordionExample">
+                                <div class="accordion-item" *ngFor="let applier of profileInfoPostulaciones">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#collapse1" aria-expanded="true"
+                                            aria-controls="collapseOne">
+                                            {{ applier.trabajo.titulo }}
+                                        </button>
+                                    </h2>
+                                    <div [id]="'collapse'+applier.trabajo.id" class="accordion-collapse collapse show">
+                                        <div class="accordion-body">
+                                            <a class="user"
+                                                [routerLink]="'/app/profile/trabajo/'+applier.trabajo.id"></a>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="nombre">
-                                    {{ applier.trabajo.titulo }}
-                                </div>
-                            </a>
+                            </div>
+
+
+
+
                         </div>
-                    </div>
+                        <br>
+
+                    </div> -->
                 </div>
-                <button class="btn btn-block color-busy" *ngIf="!visitor">Guardar</button>
-            </form>
+                
+
         </div>
     </div>
 
@@ -115,6 +155,5 @@
               </mat-form-field> -->
         </form>
     </div>
-
 </section>
 <app-loader *ngIf="loading"></app-loader>

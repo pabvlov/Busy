@@ -45,12 +45,19 @@ export class JobInfoComponent {
     if (this.job.postulaciones === null) {
       return false;
     } else {
-      return this.job.postulaciones.some((applier) => applier.rut_trabajador === this.userService._usuario.user.rut);
+      if (this.job.postulaciones.length === 0) {
+        return false;
+      } else if (this.userService._usuario.user === null) {
+        return false;
+      } else return this.job.postulaciones.some((applier) => applier.rut_trabajador === this.userService._usuario.user!.rut);
     }
   }
 
   get isJobOwner() {
-    return this.job.rut_empleador === this.userService._usuario.user.rut;
+    if (this.userService._usuario.user === null) {
+      return false;
+    }
+    return this.job.rut_empleador === this.userService._usuario.user!.rut;
   }
 
   isViewingMap = false;
@@ -97,17 +104,17 @@ export class JobInfoComponent {
   applyWork() {
     const button = document.getElementById('apply')!;
     // verify if its his own job or if he already applied
-    if (this.work.rut_empleador === this.userService._usuario.user.rut) {
+    if (this.work.rut_empleador === this.userService._usuario.user!.rut) {
       this.swal.error('Error al postular', 'No puedes postular a tu propio trabajo');
     }
     for (let index = 0; index < this.applierslength; index++) {
       const element = this.job.postulaciones[index];
-      if (element.rut_trabajador === this.userService._usuario.user.rut) {
+      if (element.rut_trabajador === this.userService._usuario.user!.rut) {
         this.swal.error('Error al postular', 'Ya has postulado a este trabajo');
         return;
       }
     }
-    this.workService.applyWork(this.work.id, this.userService._usuario.user.rut).subscribe((data: any) => {
+    this.workService.applyWork(this.work.id, this.userService._usuario.user!.rut).subscribe((data: any) => {
       if (data.ok) {
         this.swal.success('Postulación exitosa', data.message);
         console.log(data);

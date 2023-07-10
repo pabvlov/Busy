@@ -53,7 +53,7 @@ export class OfferServiceComponent {
         titulo: this.offerForm.value.title!,
         descripcion: this.offerForm.value.description!,
         precio: +this.offerForm.value.price!,
-        rut_usuario: user.user.rut!,
+        rut_usuario: user.user!.rut!,
 
       }
 

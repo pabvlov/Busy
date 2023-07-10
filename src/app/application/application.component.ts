@@ -124,7 +124,7 @@ export class ApplicationComponent {
   }
   
   get foto() {
-    return !!this.usuario.foto ? this.usuario.foto : 'app/defaultprofilepic.png';
+    return this.usuario! != null ? this.usuario!.foto : 'app/defaultprofilepic.png';
   }
 
   
