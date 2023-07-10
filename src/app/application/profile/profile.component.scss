@@ -67,6 +67,8 @@
     width: 100%;
 }
 
+
+
 .maps_container {
     position: relative;
     padding-bottom: 56.25%;
@@ -75,7 +77,9 @@
     overflow: hidden;
 }
 
-
+::ng-deep .mat-mdc-form-field-focus-overlay, ::ng-deep mat-form-field, ::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled), .correo {
+    background-color: transparent !important;
+}
 
 .btn {
     max-width: 300px;
@@ -115,6 +119,16 @@ a.user {
 .profile-postulation {
     width: 40px;
     height: 40px;
+}
+
+.profile-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#info {
+    display: block;
 }
 
 .postulante {
@@ -163,7 +177,10 @@ a.user {
       opacity: 1;
     }
     50% {
-      opacity: 0.5;
+        opacity: 0.7;
+        -webkit-box-shadow: 0px 0px 105px -36px rgba(0,0,0,0.75);
+        -moz-box-shadow: 0px 0px 105px -36px rgba(0,0,0,0.75);
+        box-shadow: 0px 0px 105px -36px rgba(0,0,0,0.75);
     }
     100% {
       opacity: 1;
@@ -176,6 +193,10 @@ a.user {
     height: 20px;
     color: yellow;
     font-size: 1.5rem;
+    // shadow
+    text-shadow: 0 0 2px #000;
+    // animation
+    animation: starShine 1s ease-in-out infinite;
   }
 
   .fas {
@@ -189,12 +210,12 @@ a.user {
   
   .star:nth-child(2) {
     top: -10px;
-    left: -40px;
+    left: -50px;
   }
   
   .star:nth-child(3) {
-    top: -44px;
-    left: 40px;
+    top: -50px;
+    left: 36px;
   }
   
   .star:nth-child(4) {
@@ -204,7 +225,7 @@ a.user {
   
   .star:nth-child(5) {
     top: 50px;
-    left: 150px;
+    left: 145px;
   }
   
   .photo {
@@ -230,4 +251,45 @@ a.user {
   
   .edit i {
     color: #333;
+  }
+
+  .navigation {
+    display: flex;
+    flex-direction: column;
+    margin-right: 10px;
+  }
+
+  .profile-button {
+    display: flex;
+    flex-direction: column;
+    border: 5px solid #d8d8d8;
+    padding: 5px 5px;
+    background-color: transparent;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    justify-content: center;
+    align-items: center;
+    transition: ease-in-out .3s !important;
+    margin-bottom: 10px;
+  }
+
+  .profile-button:hover {
+    transition: .3s ease-in-out;
+    background-color: #3f02e8;
+    color: #fff; 
+    
+  }
+
+  .material-symbols-outlined {
+    margin: auto;
+  }
+
+  .content {
+    width: 70vh
+  }
+
+  .selected {
+    background-color: #3f02e8;
+    color: white;
   }

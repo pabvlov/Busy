@@ -9,7 +9,6 @@
             </span>
         </button>
         <div class="data">
-            <form action="" [formGroup]="userData" id="formulario" (submit)="editUser()">
                 <div class="row">
                     <div class="perfil">
                         <!-- PROFILE INFORMATION -->
@@ -42,25 +41,61 @@
                             </form>
                         </div>
                         <h3> {{ profileInfo.user!.nombres }} {{ profileInfo.user!.apellidos }}</h3>
-                        <!-- PROFILE EDITABLE -->
-                        <div *ngIf="!visitor">
-                            <mat-form-field>
-                                <mat-label>Correo electrónico</mat-label>
-                                <input matInput formControlName="mail" [value]="mail" readonly>
-                            </mat-form-field>
-
-                            <mat-form-field>
-                                <mat-label>Dirección</mat-label>
-                                <input matInput formControlName="direccion">
-                            </mat-form-field>
-                            <mat-form-field appearance="fill">
-                                <mat-label>Fecha de Nacimiento</mat-label>
-                                <input matInput [matDatepicker]="picker" formControlName="fecha_nacimiento">
-                                <mat-hint>MM/DD/YYYY</mat-hint>
-                                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                                <mat-datepicker #picker></mat-datepicker>
-                            </mat-form-field>
+                        <hr>
+                        <div class="profile-container">
+                            <div class="navigation">
+                                <button class="hvr-grow-rotate profile-button" (click)="navigate(0)" [ngClass]="navigation == 0 ? 'selected':''">
+                                    <span class="material-symbols-outlined">
+                                        badge
+                                    </span>
+                                </button>
+                                <button class="hvr-grow-rotate profile-button" (click)="navigate(1)" [ngClass]="navigation == 1 ? 'selected':''">
+                                    <span class="material-symbols-outlined">
+                                        work
+                                    </span>
+                                </button>
+                                <button class="hvr-grow-rotate profile-button" (click)="navigate(2)" [ngClass]="navigation == 2 ? 'selected':''">
+                                    <span class="material-symbols-outlined">
+                                        school
+                                    </span>
+                                </button>
+                                <button class="hvr-grow-rotate profile-button" (click)="navigate(3)" [ngClass]="navigation == 3 ? 'selected':''">
+                                    <span class="material-symbols-outlined">
+                                        award_star
+                                    </span>
+                                </button>
+                            </div>
+                            <div class="content" [ngSwitch]="navigation">
+                                <div id="info" *ngSwitchCase="0">
+                                    <!-- PROFILE EDITABLE -->
+                                    <div *ngIf="!visitor" class="animate__animated animate__fadeInRightBig">
+                                        <form action="" [formGroup]="userData" id="formulario" (submit)="editUser()">
+                                            <mat-form-field>
+                                                <mat-label>Correo electrónico</mat-label>
+                                                <input matInput formControlName="mail" [value]="mail" readonly>
+                                            </mat-form-field>
+                                            <mat-form-field>
+                                                <mat-label>Dirección</mat-label>
+                                                <input matInput formControlName="direccion">
+                                            </mat-form-field>
+                                            <mat-form-field appearance="fill">
+                                                <mat-label>Fecha de Nacimiento</mat-label>
+                                                <input matInput [matDatepicker]="picker" formControlName="fecha_nacimiento">
+                                                <mat-hint>MM/DD/YYYY</mat-hint>
+                                                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                                                <mat-datepicker #picker></mat-datepicker>
+                                            </mat-form-field>
+                                            <button class="btn btn-block color-busy" *ngIf="!visitor">Guardar</button>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="trabajos-servicios" *ngSwitchCase="1">
+                                    <app-trabajos-profile [ofertas]="profileInfo.trabajos!" class="animate__animated animate__fadeInRightBig"></app-trabajos-profile>
+                                    <app-servicios-profile [servicios]="profileInfo.servicios!" class="animate__animated animate__fadeInRight"></app-servicios-profile>
+                                </div>
+                            </div>
                         </div>
+                        
                     </div>
                     <!-- <div class="servicios col-xl-4 col-lg-6 col-md-6 col-sm-12">
                         <app-servicios-profile [servicios]="profileInfo.servicios!"></app-servicios-profile>
@@ -97,8 +132,8 @@
 
                     </div> -->
                 </div>
-                <button class="btn btn-block color-busy" *ngIf="!visitor">Guardar</button>
-            </form>
+                
+
         </div>
     </div>
 

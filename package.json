@@ -25,6 +25,7 @@
     "@material/tooltip": "^14.0.0",
     "@sweetalert2/theme-material-ui": "^5.0.15",
     "animate.css": "^4.1.1",
+    "hover.css": "^2.3.2",
     "material-components-web": "^14.0.0",
     "rut-chileno": "^1.2.1",
     "rxjs": "~7.8.0",

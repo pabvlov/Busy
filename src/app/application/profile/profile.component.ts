@@ -24,6 +24,8 @@ import { WorkService } from 'src/app/services/work.service';
 export class ProfileComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() visitor = false;
   @Input() userRut: number = 0;
+  
+  navigation: number = 0;
 
   loading = true;
   constructor(private userService: UserService, 
@@ -39,6 +41,12 @@ export class ProfileComponent implements OnInit, AfterViewInit, OnChanges {
       this.visitor = true;
     }
 
+  }
+
+  navigate(to: number) {
+    console.log(to);
+    
+    this.navigation = to;
   }
 
   get rut() {

@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Applier } from 'src/app/interfaces/applier';
 import { Postulante, Trabajo } from 'src/app/interfaces/user-information';
 
 @Component({
@@ -18,9 +19,11 @@ export class TrabajosProfileComponent {
     // check if it doesn't have accepted postulants
     if (this.works.some((work) => work.postulantes!.some((applier) => applier.estado_postulacion === 1))) {
       return 2
-    }
-    // check if is not yet finished than today
-    return new Date(date).getTime() > new Date().getTime() ? 1: 3;
+    }else return new Date(date).getTime() > new Date().getTime() ? 1: 3;
+  }
+
+  isDone(work: Trabajo) {
+    return work.trabajo_realizado_propio != null;
   }
 
   postulantesAceptados(work: Trabajo): Postulante[] {
@@ -30,7 +33,9 @@ export class TrabajosProfileComponent {
     return work.postulantes!.filter((applier) => applier.estado_postulacion === 1);
   }
   
-
+  getPostulantes(appliers: Postulante[]) {
+    return appliers.length
+  }
 
 
   tienePostulantesAceptados(work: Trabajo) {

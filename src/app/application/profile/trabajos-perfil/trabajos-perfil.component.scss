@@ -1,36 +1,39 @@
-h3 {
-    font-family: 'Secular One';
+h3, h6 {
+    font-family: sans-serif;
     text-align: left;
 }
 
 .card {
    margin: 0;
-   background-color: transparent;
    width: 100%;
    border-radius: 10px;
    border: 0;
     padding: 0;
     margin: 0 0 20px 0;
-    /* background-color: transparent; */
+    background-color: transparent;
     background-position: center;
     background-size: cover;
     border-radius: 0 10px 10px 10px;
-    height: -webkit-fill-available;
+    height: 150px;
     margin: 10px 10px;
 }
 
 .card-body {
-    margin: 0;
-    padding: 0;
-    background-color: transparent;
     width: 100%;
     height: 100px;
-    color: white;
-    border-radius: 10px;
+    color: black;
+    border-radius: 5px;
 }
 
 .card-title {
     text-align: left;
+    font-weight: 600;
+    font-weight: bolder;
+}
+
+.bg-caca {
+    background-color: #cacaca;
+    border-radius: 5px;
 }
 
 .works {
@@ -126,3 +129,67 @@ a:hover {
 .estado {
     text-align: left;
 }
+
+div.postulantes { 
+    display: flex;
+    flex-direction: row;
+}
+
+.trabajador {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin: 0 2px;
+    box-shadow: -5px 5px 23px 0px rgba(0, 0, 0, 0.5);
+}
+
+.foto {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 3px solid #3f02e8;
+}
+
+img {
+    height: 150px;
+    width: 100%;
+    object-fit: cover;
+}
+
+.status-icon {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 5px;
+  }
+  
+  .available {
+    background-color: green;
+  }
+  
+  .with-applicants {
+    color: blue;
+  }
+  
+  .with-applicants span {
+    margin-left: 5px;
+  }
+  
+  .unavailable {
+    background-color: red;
+    display: flex;
+    margin-bottom: 5px;
+  }
+  
+  .fa-users {
+    margin-right: 5px;
+  }
+
+  .mini-info, .with-applicants {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 5px;
+  }
+
+  

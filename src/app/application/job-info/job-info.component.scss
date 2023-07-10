@@ -153,6 +153,11 @@ thead {
     border-style: hidden !important;
 }
 
+div.postulantes { 
+    display: flex;
+    flex-direction: row;
+}
+
 .trabajador {
     width: 40px;
     height: 40px;
@@ -169,10 +174,7 @@ thead {
     object-fit: cover;
 }
 
-div.postulantes { 
-    display: flex;
-    flex-direction: row;
-}
+
 
 pre {
     white-space: pre-wrap;       /* Since CSS 2.1 */
