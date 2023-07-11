@@ -4,7 +4,7 @@ import { UserService } from 'src/app/services/user.service';
 import { WorkService } from 'src/app/services/work.service';
 import { FormBuilder } from '@angular/forms';
 import { ServiceService } from 'src/app/services/service.service';
-import { Router } from '@angular/router';
+import { Route, Router } from '@angular/router';
 import { SwalService } from 'src/app/services/swal.service';
 
 @Component({
@@ -16,7 +16,7 @@ export class OfferServiceComponent {
   constructor(private serviceService: ServiceService,
     @Inject(FormBuilder) private fb: FormBuilder,
     private userService: UserService,
-    @Inject(FormBuilder) private route: Router,
+    @Inject(Router) private route: Router,
     private swal: SwalService) { }
 
   part = 1;

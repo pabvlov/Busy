@@ -78,8 +78,21 @@ async function getWorkById(id) {
 }
 
 async function uploadWork(work) {
+  const currentDate = new Date();
+  const year = currentDate.getFullYear();
+  let month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
+  let day = currentDate.getDate().toString().padStart(2, '0');
+  const formattedDate = `${year}-${month}-${day}`;
 
-  const create = db.query(`INSERT INTO  trabajos (titulo, descripcion, fecha_publicacion, rut_empleador, foto, cantidad_personas, fecha_seleccion_postulante, fecha_finalizacion, precio, ubicacion) VALUES ('${work.title}', '${work.description}', '${new Date().toISOString()}', ${work.rut_empleador}, '${work.image}', '${work.peopleNeeded}', '${work.selectionDate}', '${work.endDate}', '${work.price}', '${work.ubicacion}');`)
+  let selectedDate = new Date(work.selectionDate);
+  let formattedSelectedDate = selectedDate.toISOString().slice(0, 19).replace('T', ' ');
+
+  let endDate = new Date(work.endDate);
+  let formattedEndDate = endDate.toISOString().slice(0, 19).replace('T', ' ');
+
+ 
+
+  const create = db.query(`INSERT INTO  trabajos (titulo, descripcion, fecha_publicacion, rut_empleador, foto, cantidad_personas, fecha_seleccion_postulante, fecha_finalizacion, precio, ubicacion) VALUES ('${work.title}', '${work.description}', '${ formattedDate }', ${work.rut_empleador}, '${work.image}', '${work.peopleNeeded}', '${ formattedSelectedDate }', '${ formattedEndDate }', '${work.price}', '${work.ubicacion}');`)
     .then(() => {
       return true;
     })
@@ -92,8 +105,11 @@ async function uploadWork(work) {
 async function uploadWorkEvidence(workEvidence) {
 
   const { evidence, file } = workEvidence;
+
+  let currentDate = new Date().toISOString().slice(0, 19).replace('T', ' ');
+
   console.log(evidence, file);
-  const create = db.query(`INSERT INTO  trabajos_realizados (id_trabajo, id_trabajador, fecha_termino, comentario_trabajador, calificacion_trabajador, evidencia) VALUES (${evidence.id_trabajo}, ${evidence.rut_trabajador}, '${new Date().toISOString()}', '${evidence.comentario}', ${evidence.calificacion}, '${file}');`)
+  const create = db.query(`INSERT INTO  trabajos_realizados (id_trabajo, id_trabajador, fecha_termino, comentario_trabajador, calificacion_trabajador, evidencia) VALUES (${evidence.id_trabajo}, ${evidence.rut_trabajador}, '${ currentDate }', '${evidence.comentario}', ${evidence.calificacion}, '${file}');`)
     .then((resp) => {
       return resp;
     })
@@ -202,7 +218,13 @@ function applyWork(id_trabajo, rut_trabajador) {
 
     // check if is himself
     if (!checkHimself(id_trabajo, rut_trabajador)) {
-      const create = db.query(`INSERT INTO postulaciones (id_trabajo, rut_trabajador, id_estado, fecha_publicacion) VALUES (${id_trabajo}, ${rut_trabajador}, 3 , '${new Date().toISOString()}');`)
+      const currentDate = new Date();
+      const year = currentDate.getFullYear();
+      let month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
+      let day = currentDate.getDate().toString().padStart(2, '0');
+      const formattedDate = `${year}-${month}-${day}`;
+
+      const create = db.query(`INSERT INTO postulaciones (id_trabajo, rut_trabajador, id_estado, fecha_publicacion) VALUES (${id_trabajo}, ${rut_trabajador}, 3 , '${ formattedDate }');`)
         .then(() => {
           return true;
         })
@@ -221,7 +243,12 @@ function applyWork(id_trabajo, rut_trabajador) {
   if (!alreadyApplied(id_trabajo, rut_trabajador)) {
     // check if is himself
     if (!checkHimself(id_trabajo, rut_trabajador)) {
-      const create = db.query(`INSERT INTO postulaciones (id_trabajo, rut_trabajador, id_estado, fecha_publicacion) VALUES (${id_trabajo}, ${rut_trabajador}, 3 , '${new Date().toISOString()}');`)
+      const currentDate = new Date();
+      const year = currentDate.getFullYear();
+      let month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
+      let day = currentDate.getDate().toString().padStart(2, '0');
+      const formattedDate = `${year}-${month}-${day}`;
+      const create = db.query(`INSERT INTO postulaciones (id_trabajo, rut_trabajador, id_estado, fecha_publicacion) VALUES (${id_trabajo}, ${rut_trabajador}, 3 , '${ formattedDate }');`)
         .then(() => {
           return true;
         })
