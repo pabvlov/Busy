@@ -8,7 +8,6 @@ router.post('/auth/login', async function(req, res, next) {
     try {
       const { rut, password } = req.body;
       const rows = await auth.validateLogin(rut, password)
-      console.log(rows);
       let count = 0;
       for(var row in rows.content) count++;
       if(count === 1) {
@@ -80,7 +79,6 @@ router.post('/auth/renew', async function(req, res, next) {
 
       try {
         const userInfo = validarJWT(token)
-        console.log(userInfo);
         return res.status(201).json({
           ok: true,
           content: {
@@ -118,7 +116,6 @@ router.post('/auth/regenerate', async function(req, res, next) {
           })
         } else {
           const userInfoNew = rows[0].result;
-          console.log(rows[0].result);
           // regenerar jwt con datos nuevos
           const token = await generarJWT( userInfoNew )
           return res.status(202).json({

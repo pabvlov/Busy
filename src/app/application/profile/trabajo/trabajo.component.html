@@ -49,7 +49,7 @@
             <section class="postulantes">
                 <h3 class="title text-busy">Postulantes</h3>
                 <div class="postulantes" *ngFor="let applier of appliers">
-                    <app-postulacion [applier]="applier"></app-postulacion>
+                    <app-postulacion [applier]="applier" [id]="id" [userRut]="+userRut" [work]="work"></app-postulacion>
                 </div>
                 <br>
             </section>

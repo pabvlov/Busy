@@ -34,6 +34,9 @@ export class TrabajosProfileComponent {
   }
   
   getPostulantes(appliers: Postulante[]) {
+    if (appliers === null) {
+      return 0;
+    }
     return appliers.length
   }
 
